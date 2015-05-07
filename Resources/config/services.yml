@@ -1,0 +1,116 @@
+services:
+
+    #
+    # NOTE: These services make only sense in the scope of this bundle.
+    # To retrieve countries, currencies, etc., use the entity repositories.
+    #
+
+    # adapter services
+
+    agit.localedata.adapter.abstract:
+        abstract: true
+        calls:
+            - [setLocaleService, [@agit.intl.locale]]
+            - [setCldrDir, ["Resources/cldr"]]
+
+    agit.localedata.adapter.countrycurrency:
+        parent: agit.localedata.adapter.abstract
+        class: Agit\LocaleDataBundle\Adapter\CountryCurrencyAdapter
+
+    agit.localedata.adapter.currency:
+        parent: agit.localedata.adapter.abstract
+        class: Agit\LocaleDataBundle\Adapter\CurrencyAdapter
+        arguments: [@agit.localedata.adapter.countrycurrency]
+
+    agit.localedata.adapter.country:
+        parent: agit.localedata.adapter.abstract
+        class: Agit\LocaleDataBundle\Adapter\CountryAdapter
+        arguments: [@agit.localedata.adapter.currency, @agit.localedata.adapter.countrycurrency]
+
+    agit.localedata.adapter.locale:
+        parent: agit.localedata.adapter.abstract
+        class: Agit\LocaleDataBundle\Adapter\LocaleAdapter
+        arguments: [@agit.localedata.adapter.country]
+
+    agit.localedata.adapter.time:
+        parent: agit.localedata.adapter.abstract
+        class: Agit\LocaleDataBundle\Adapter\TimeAdapter
+
+    agit.localedata.adapter.timezone:
+        parent: agit.localedata.adapter.abstract
+        class: Agit\LocaleDataBundle\Adapter\TimezoneAdapter
+        arguments: [@agit.localedata.adapter.country]
+
+
+    #
+    # fixture registration listeners
+    #
+
+    # listening for currencies to be registered
+    agit.localedata.register.currency:
+        private: true
+        class: FixtureListener
+        factory_service:  agit.pluggable.fixture.listener.factory
+        factory_method:   create
+        arguments: [AgitLocaleDataBundle:Currency, 1]
+        tags: [{ name: kernel.event_listener, event: agit.pluggable, method: onRegistration }]
+
+    # listening for countries to be registered
+    agit.localedata.register.country:
+        private: true
+        class: FixtureListener
+        factory_service:  agit.pluggable.fixture.listener.factory
+        factory_method:   create
+        arguments: [AgitLocaleDataBundle:Country, 2]
+        tags: [{ name: kernel.event_listener, event: agit.pluggable, method: onRegistration }]
+
+    # listening for locales to be registered
+    agit.localedata.register.locale:
+        private: true
+        class: FixtureListener
+        factory_service:  agit.pluggable.fixture.listener.factory
+        factory_method:   create
+        arguments: [AgitLocaleDataBundle:Locale, 3]
+        tags: [{ name: kernel.event_listener, event: agit.pluggable, method: onRegistration }]
+
+    # listening for timezones to be registered
+    agit.localedata.register.timezone:
+        private: true
+        class: FixtureListener
+        factory_service:  agit.pluggable.fixture.listener.factory
+        factory_method:   create
+        arguments: [AgitLocaleDataBundle:Timezone, 3]
+        tags: [{ name: kernel.event_listener, event: agit.pluggable, method: onRegistration }]
+
+
+    #
+    # actual fixtures
+    #
+
+    # registering our own currencies
+    _agit.localedata.fixture.currency.listener:
+        private: true
+        class: Agit\LocaleDataBundle\EventListener\CurrencyFixtureData
+        arguments: [@agit.intl.locale, @agit.localedata.adapter.currency]
+        tags: [{ name: kernel.event_listener, event: AgitLocaleDataBundle:Currency, method: onRegistration }]
+
+    # registering our own countries
+    _agit.localedata.fixture.country.listener:
+        private: true
+        class: Agit\LocaleDataBundle\EventListener\CountryFixtureData
+        arguments: [@agit.intl.locale, @agit.localedata.adapter.country]
+        tags: [{ name: kernel.event_listener, event: AgitLocaleDataBundle:Country, method: onRegistration }]
+
+    # registering our own locales
+    _agit.localedata.fixture.locale.listener:
+        private: true
+        class: Agit\LocaleDataBundle\EventListener\LocaleFixtureData
+        arguments: [@agit.intl.locale, @agit.localedata.adapter.locale]
+        tags: [{ name: kernel.event_listener, event: AgitLocaleDataBundle:Locale, method: onRegistration }]
+
+    # registering our own timezones
+    _agit.localedata.fixture.timezone.listener:
+        private: true
+        class: Agit\LocaleDataBundle\EventListener\TimezoneFixtureData
+        arguments: [@agit.intl.locale, @agit.localedata.adapter.timezone]
+        tags: [{ name: kernel.event_listener, event: AgitLocaleDataBundle:Timezone, method: onRegistration }]

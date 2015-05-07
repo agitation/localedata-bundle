@@ -1,0 +1,33 @@
+{
+    "name": "agitation/localedata",
+    "type": "symfony-bundle",
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.9",
+        "symfony/symfony": "2.3.*",
+        "agitation/intl": "dev-master",
+        "agitation/core": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Agit\\LocaleDataBundle\\": ""
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "AGITsol GmbH",
+            "homepage": "http://www.agitsol.com/"
+        }
+    ],
+    "description": "Provides i18n data entities (countries, currencies, etc.) based on the CLDR for the Agitation framework.",
+    "keywords": [
+        "agit",
+        "agitation",
+        "tixys",
+        "i18n",
+        "icu",
+        "cldr",
+        "pluggable"
+    ]
+}
