@@ -10,11 +10,11 @@
 namespace Agit\LocaleDataBundle\EventListener;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Agit\CoreBundle\Pluggable\Strategy\Fixture\FixtureRegistrationEvent;
+use Agit\CoreBundle\Pluggable\Strategy\Seed\SeedRegistrationEvent;
 use Agit\IntlBundle\Service\LocaleService;
 use Agit\LocaleDataBundle\Adapter\CountryAdapter;
 
-class CountryFixtureData
+class CountrySeedData
 {
     private $LocaleService;
 
@@ -26,7 +26,7 @@ class CountryFixtureData
         $this->CountryAdapter = $CountryAdapter;
     }
 
-    public function onRegistration(FixtureRegistrationEvent $RegistrationEvent)
+    public function onRegistration(SeedRegistrationEvent $RegistrationEvent)
     {
         $defaultLocale = $this->LocaleService->getDefaultLocale();
         $CountryList = $this->CountryAdapter->getCountryList();

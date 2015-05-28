@@ -10,34 +10,36 @@
 namespace Agit\LocaleDataBundle\EventListener;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Agit\CoreBundle\Pluggable\Strategy\Fixture\FixtureRegistrationEvent;
+use Agit\CoreBundle\Pluggable\Strategy\Seed\SeedRegistrationEvent;
 use Agit\IntlBundle\Service\LocaleService;
-use Agit\LocaleDataBundle\Adapter\CurrencyAdapter;
+use Agit\LocaleDataBundle\Adapter\LocaleAdapter;
 
-class CurrencyFixtureData
+class LocaleSeedData
 {
     private $LocaleService;
 
-    private $CurrencyAdapter;
+    private $LocaleAdapter;
 
-    public function __construct(LocaleService $LocaleService, CurrencyAdapter $CurrencyAdapter)
+    public function __construct(LocaleService $LocaleService, LocaleAdapter $LocaleAdapter)
     {
         $this->LocaleService = $LocaleService;
-        $this->CurrencyAdapter = $CurrencyAdapter;
+        $this->LocaleAdapter = $LocaleAdapter;
     }
 
-    public function onRegistration(FixtureRegistrationEvent $RegistrationEvent)
+    public function onRegistration(SeedRegistrationEvent $RegistrationEvent)
     {
         $defaultLocale = $this->LocaleService->getDefaultLocale();
-        $CurrencyList = $this->CurrencyAdapter->getCurrencyList();
+        $LocaleList = $this->LocaleAdapter->getLocaleList();
 
-        foreach ($CurrencyList as $Currency)
+        foreach ($LocaleList as $Locale)
         {
             $RegistrationData = $RegistrationEvent->createContainer();
 
             $RegistrationData->setData([
-                'id' => $Currency->getCode(),
-                'name' => $Currency->getName($defaultLocale)
+                'id' => $Locale->getCode(),
+                'name' => mb_convert_case($Locale->getName($defaultLocale),  MB_CASE_TITLE, 'UTF-8'),
+                'localName' => mb_convert_case($Locale->getLocalName(),  MB_CASE_TITLE, 'UTF-8'),
+                'Country' => $Locale->getCountry()->getCode()
             ]);
 
             $RegistrationEvent->register($RegistrationData);

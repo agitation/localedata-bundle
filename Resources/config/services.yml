@@ -43,14 +43,14 @@ services:
 
 
     #
-    # fixture registration listeners
+    # seed registration listeners
     #
 
     # listening for currencies to be registered
     agit.localedata.register.currency:
         private: true
-        class: FixtureListener
-        factory_service:  agit.pluggable.fixture.listener.factory
+        class: SeedListener
+        factory_service:  agit.pluggable.seed.listener.factory
         factory_method:   create
         arguments: [AgitLocaleDataBundle:Currency, 1]
         tags: [{ name: kernel.event_listener, event: agit.pluggable, method: onRegistration }]
@@ -58,8 +58,8 @@ services:
     # listening for countries to be registered
     agit.localedata.register.country:
         private: true
-        class: FixtureListener
-        factory_service:  agit.pluggable.fixture.listener.factory
+        class: SeedListener
+        factory_service:  agit.pluggable.seed.listener.factory
         factory_method:   create
         arguments: [AgitLocaleDataBundle:Country, 2]
         tags: [{ name: kernel.event_listener, event: agit.pluggable, method: onRegistration }]
@@ -67,8 +67,8 @@ services:
     # listening for locales to be registered
     agit.localedata.register.locale:
         private: true
-        class: FixtureListener
-        factory_service:  agit.pluggable.fixture.listener.factory
+        class: SeedListener
+        factory_service:  agit.pluggable.seed.listener.factory
         factory_method:   create
         arguments: [AgitLocaleDataBundle:Locale, 3]
         tags: [{ name: kernel.event_listener, event: agit.pluggable, method: onRegistration }]
@@ -76,41 +76,41 @@ services:
     # listening for timezones to be registered
     agit.localedata.register.timezone:
         private: true
-        class: FixtureListener
-        factory_service:  agit.pluggable.fixture.listener.factory
+        class: SeedListener
+        factory_service:  agit.pluggable.seed.listener.factory
         factory_method:   create
         arguments: [AgitLocaleDataBundle:Timezone, 3]
         tags: [{ name: kernel.event_listener, event: agit.pluggable, method: onRegistration }]
 
 
     #
-    # actual fixtures
+    # actual seeds
     #
 
     # registering our own currencies
-    _agit.localedata.fixture.currency.listener:
+    agit.localedata.seed.currency.listener:
         private: true
-        class: Agit\LocaleDataBundle\EventListener\CurrencyFixtureData
+        class: Agit\LocaleDataBundle\EventListener\CurrencySeedData
         arguments: [@agit.intl.locale, @agit.localedata.adapter.currency]
         tags: [{ name: kernel.event_listener, event: AgitLocaleDataBundle:Currency, method: onRegistration }]
 
     # registering our own countries
-    _agit.localedata.fixture.country.listener:
+    agit.localedata.seed.country.listener:
         private: true
-        class: Agit\LocaleDataBundle\EventListener\CountryFixtureData
+        class: Agit\LocaleDataBundle\EventListener\CountrySeedData
         arguments: [@agit.intl.locale, @agit.localedata.adapter.country]
         tags: [{ name: kernel.event_listener, event: AgitLocaleDataBundle:Country, method: onRegistration }]
 
     # registering our own locales
-    _agit.localedata.fixture.locale.listener:
+    agit.localedata.seed.locale.listener:
         private: true
-        class: Agit\LocaleDataBundle\EventListener\LocaleFixtureData
+        class: Agit\LocaleDataBundle\EventListener\LocaleSeedData
         arguments: [@agit.intl.locale, @agit.localedata.adapter.locale]
         tags: [{ name: kernel.event_listener, event: AgitLocaleDataBundle:Locale, method: onRegistration }]
 
     # registering our own timezones
-    _agit.localedata.fixture.timezone.listener:
+    agit.localedata.seed.timezone.listener:
         private: true
-        class: Agit\LocaleDataBundle\EventListener\TimezoneFixtureData
+        class: Agit\LocaleDataBundle\EventListener\TimezoneSeedData
         arguments: [@agit.intl.locale, @agit.localedata.adapter.timezone]
         tags: [{ name: kernel.event_listener, event: AgitLocaleDataBundle:Timezone, method: onRegistration }]
