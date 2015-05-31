@@ -14,7 +14,7 @@ use Agit\IntlBundle\Service\Translate;
 use Agit\CoreBundle\Entity\AbstractEntity;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Agit\LocaleDataBundle\Entity\CountryRepository")
  */
 class Country extends AbstractEntity
 {

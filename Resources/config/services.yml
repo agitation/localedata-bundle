@@ -1,8 +1,31 @@
 services:
+    agit.localedata.currency:
+        class: Doctrine\Common\Persistence\ObjectRepository
+        factory_service: doctrine
+        factory_method: getRepository
+        arguments: [ AgitLocaleDataBundle:Currency ]
+
+    agit.localedata.country:
+        class: Doctrine\Common\Persistence\ObjectRepository
+        factory_service: doctrine
+        factory_method: getRepository
+        arguments: [ AgitLocaleDataBundle:Country ]
+
+    agit.localedata.locale:
+        class: Doctrine\Common\Persistence\ObjectRepository
+        factory_service: doctrine
+        factory_method: getRepository
+        arguments: [ AgitLocaleDataBundle:Locale ]
+
+    agit.localedata.timezone:
+        class: Doctrine\Common\Persistence\ObjectRepository
+        factory_service: doctrine
+        factory_method: getRepository
+        arguments: [ AgitLocaleDataBundle:Timezone ]
 
     #
-    # NOTE: These services make only sense in the scope of this bundle.
-    # To retrieve countries, currencies, etc., use the entity repositories.
+    # NOTE: The following services make only sense in the scope of this bundle.
+    # To retrieve countries, currencies, etc., use the above repo services.
     #
 
     # adapter services
