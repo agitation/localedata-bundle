@@ -46,6 +46,6 @@ class Currency extends AbstractEntity
      */
     public function getName()
     {
-        return Translate::x($this->name, 'loc currency');
+        return Translate::getInstance()->x($this->name, 'loc currency');
     }
 }

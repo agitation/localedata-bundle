@@ -51,7 +51,7 @@ class Country extends AbstractEntity
      */
     public function getName()
     {
-        return Translate::x($this->name, 'loc country');
+        return Translate::getInstance()->x($this->name, 'loc country');
     }
 
     /**
