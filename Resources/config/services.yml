@@ -1,4 +1,22 @@
 services:
+
+    # facade service and wrapper for the repository services
+    agit.localedata.provider:
+        class: Agit\LocaleDataBundle\Service\ProviderService
+        arguments: [@agit.localedata.currency, @agit.localedata.country, @agit.localedata.locale, @agit.localedata.timezone]
+
+    # (optional!) Twig extension for key-value-lists of localedata
+    agit.localedata.twig:
+        class: Agit\LocaleDataBundle\Twig\LocaleDataExtension
+        tags:
+            - { name: twig.extension }
+        arguments:  [ @agit.localedata.provider, @agit.intl.locale ]
+
+    #
+    # repository services, to access single localedata repositories, if using
+    # agit.localedata.provider is not desired
+    #
+
     agit.localedata.currency:
         class: Doctrine\Common\Persistence\ObjectRepository
         factory_service: doctrine
