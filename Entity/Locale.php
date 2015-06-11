@@ -59,7 +59,7 @@ class Locale extends AbstractEntity
      */
     public function getName()
     {
-        return Translate::getInstance()->x($this->name, 'loc language');
+        return Translate::getInstance()->x($this->name, 'language');
     }
 
     /**

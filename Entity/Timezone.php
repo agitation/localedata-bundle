@@ -62,6 +62,6 @@ class Timezone extends AbstractEntity
      */
     public function getName()
     {
-        return Translate::getInstance()->x($this->name, 'loc timezone');
+        return Translate::getInstance()->x($this->name, 'timezone');
     }
 }

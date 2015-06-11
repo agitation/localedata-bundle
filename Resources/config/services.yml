@@ -83,6 +83,12 @@ services:
         arguments: [@agit.localedata.adapter.country]
 
 
+    # registration listener for translation catalogs
+    agit.localedata.catalog.register:
+        class: Agit\LocaleDataBundle\EventListener\CldrCatalogListener
+        arguments: [ @filesystem, @agit.intl.locale, @agit.localedata.adapter.currency, @agit.localedata.adapter.country, @agit.localedata.adapter.locale, @agit.localedata.adapter.time, @agit.localedata.adapter.timezone ]
+        tags: [{ name: kernel.event_listener, event: agit.intl.catalog.register, method: onRegistration }]
+
     #
     # seed registration listeners
     #
