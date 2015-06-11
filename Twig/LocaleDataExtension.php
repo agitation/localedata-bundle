@@ -69,7 +69,7 @@ class LocaleDataExtension extends \Twig_Extension
         if (class_exists('Collator'))
         {
             $Collator = new \Collator($this->LocaleService->getLocale());
-            uksort($results, [$Collator, 'compare']);
+            uasort($results, [$Collator, 'compare']);
         }
 
         return $results;
