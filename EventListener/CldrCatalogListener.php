@@ -15,7 +15,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Agit\IntlBundle\Service\LocaleService;
 use Agit\LocaleDataBundle\Adapter\CountryAdapter;
 use Agit\LocaleDataBundle\Adapter\CurrencyAdapter;
-use Agit\LocaleDataBundle\Adapter\LocaleAdapter;
+use Agit\LocaleDataBundle\Adapter\LanguageAdapter;
 use Agit\LocaleDataBundle\Adapter\TimeAdapter;
 use Agit\LocaleDataBundle\Adapter\TimezoneAdapter;
 
@@ -29,7 +29,7 @@ class CldrCatalogListener extends AbstractTemporaryFilesListener
 
     private $CurrencyAdapter;
 
-    private $LocaleAdapter;
+    private $LanguageAdapter;
 
     private $TimezoneAdapter;
 
@@ -41,7 +41,7 @@ class CldrCatalogListener extends AbstractTemporaryFilesListener
         LocaleService $LocaleService,
         CurrencyAdapter $CurrencyAdapter,
         CountryAdapter $CountryAdapter,
-        LocaleAdapter $LocaleAdapter,
+        LanguageAdapter $LanguageAdapter,
         TimeAdapter $TimeAdapter,
         TimezoneAdapter $TimezoneAdapter
     ) {
@@ -49,7 +49,7 @@ class CldrCatalogListener extends AbstractTemporaryFilesListener
         $this->LocaleService = $LocaleService;
         $this->CurrencyAdapter = $CurrencyAdapter;
         $this->CountryAdapter = $CountryAdapter;
-        $this->LocaleAdapter = $LocaleAdapter;
+        $this->LanguageAdapter = $LanguageAdapter;
         $this->TimeAdapter = $TimeAdapter;
         $this->TimezoneAdapter = $TimezoneAdapter;
     }
@@ -66,7 +66,7 @@ class CldrCatalogListener extends AbstractTemporaryFilesListener
         $lists['timezone'] = $this->TimezoneAdapter->getTimezoneList();
         $lists['month'] = $this->TimeAdapter->getMonthList();
         $lists['weekday'] = $this->TimeAdapter->getWeekdayList();
-        $lists['language'] = $this->LocaleAdapter->getLocaleList();
+        $lists['language'] = $this->LanguageAdapter->getLanguageList();
 
         foreach ($localeList as $locale)
         {

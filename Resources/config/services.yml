@@ -3,7 +3,7 @@ services:
     # facade service and wrapper for the repository services
     agit.localedata.provider:
         class: Agit\LocaleDataBundle\Service\ProviderService
-        arguments: [@agit.localedata.currency, @agit.localedata.country, @agit.localedata.locale, @agit.localedata.timezone]
+        arguments: [@agit.localedata.currency, @agit.localedata.country, @agit.localedata.language, @agit.localedata.timezone]
 
     # (optional!) Twig extension for key-value-lists of localedata
     agit.localedata.twig:
@@ -29,11 +29,11 @@ services:
         factory_method: getRepository
         arguments: [ AgitLocaleDataBundle:Country ]
 
-    agit.localedata.locale:
+    agit.localedata.language:
         class: Doctrine\Common\Persistence\ObjectRepository
         factory_service: doctrine
         factory_method: getRepository
-        arguments: [ AgitLocaleDataBundle:Locale ]
+        arguments: [ AgitLocaleDataBundle:Language ]
 
     agit.localedata.timezone:
         class: Doctrine\Common\Persistence\ObjectRepository
@@ -68,9 +68,9 @@ services:
         class: Agit\LocaleDataBundle\Adapter\CountryAdapter
         arguments: [@agit.localedata.adapter.currency, @agit.localedata.adapter.countrycurrency]
 
-    agit.localedata.adapter.locale:
+    agit.localedata.adapter.language:
         parent: agit.localedata.adapter.abstract
-        class: Agit\LocaleDataBundle\Adapter\LocaleAdapter
+        class: Agit\LocaleDataBundle\Adapter\LanguageAdapter
         arguments: [@agit.localedata.adapter.country]
 
     agit.localedata.adapter.time:
@@ -86,7 +86,7 @@ services:
     # registration listener for translation catalogs
     agit.localedata.catalog.register:
         class: Agit\LocaleDataBundle\EventListener\CldrCatalogListener
-        arguments: [ @filesystem, @agit.intl.locale, @agit.localedata.adapter.currency, @agit.localedata.adapter.country, @agit.localedata.adapter.locale, @agit.localedata.adapter.time, @agit.localedata.adapter.timezone ]
+        arguments: [ @filesystem, @agit.intl.locale, @agit.localedata.adapter.currency, @agit.localedata.adapter.country, @agit.localedata.adapter.language, @agit.localedata.adapter.time, @agit.localedata.adapter.timezone ]
         tags: [{ name: kernel.event_listener, event: agit.intl.catalog.register, method: onRegistration }]
 
     #
@@ -111,13 +111,13 @@ services:
         arguments: [AgitLocaleDataBundle:Country, 2]
         tags: [{ name: kernel.event_listener, event: agit.pluggable, method: onRegistration }]
 
-    # listening for locales to be registered
-    agit.localedata.register.locale:
+    # listening for languages to be registered
+    agit.localedata.register.language:
         private: true
         class: SeedListener
         factory_service:  agit.pluggable.seed.listener.factory
         factory_method:   create
-        arguments: [AgitLocaleDataBundle:Locale, 3]
+        arguments: [AgitLocaleDataBundle:Language, 3]
         tags: [{ name: kernel.event_listener, event: agit.pluggable, method: onRegistration }]
 
     # listening for timezones to be registered
@@ -148,12 +148,12 @@ services:
         arguments: [@agit.intl.locale, @agit.localedata.adapter.country]
         tags: [{ name: kernel.event_listener, event: AgitLocaleDataBundle:Country, method: onRegistration }]
 
-    # registering our own locales
-    agit.localedata.seed.locale.listener:
+    # registering our own languages
+    agit.localedata.seed.language.listener:
         private: true
-        class: Agit\LocaleDataBundle\EventListener\LocaleSeedData
-        arguments: [@agit.intl.locale, @agit.localedata.adapter.locale]
-        tags: [{ name: kernel.event_listener, event: AgitLocaleDataBundle:Locale, method: onRegistration }]
+        class: Agit\LocaleDataBundle\EventListener\LanguageSeedData
+        arguments: [@agit.intl.locale, @agit.localedata.adapter.language]
+        tags: [{ name: kernel.event_listener, event: AgitLocaleDataBundle:Language, method: onRegistration }]
 
     # registering our own timezones
     agit.localedata.seed.timezone.listener:

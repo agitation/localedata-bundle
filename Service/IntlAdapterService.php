@@ -13,7 +13,7 @@ use Agit\CoreBundle\Exception\InternalErrorException;
 use Agit\LocaleDataBundle\Adapter\CountryAdapter;
 use Agit\LocaleDataBundle\Adapter\CountryCurrencyAdapter;
 use Agit\LocaleDataBundle\Adapter\CurrencyAdapter;
-use Agit\LocaleDataBundle\Adapter\LocaleAdapter;
+use Agit\LocaleDataBundle\Adapter\LanguageAdapter;
 use Agit\LocaleDataBundle\Adapter\TimeAdapter;
 use Agit\LocaleDataBundle\Adapter\TimezoneAdapter;
 
@@ -23,25 +23,25 @@ use Agit\LocaleDataBundle\Adapter\TimezoneAdapter;
 class IntlAdapterService
 {
     public function __construct(CountryCurrencyAdapter $CountryCurrencyAdapter, CurrencyAdapter $CurrencyAdapter,
-        CountryAdapter $CountryAdapter, LocaleAdapter $LocaleAdapter, TimeAdapter $TimeAdapter,
+        CountryAdapter $CountryAdapter, LanguageAdapter $LanguageAdapter, TimeAdapter $TimeAdapter,
         TimezoneAdapter $TimezoneAdapter)
     {
         $this->CountryCurrencyAdapter = $CountryCurrencyAdapter;
         $this->CurrencyAdapter = $CurrencyAdapter;
         $this->CountryAdapter = $CountryAdapter;
-        $this->LocaleAdapter = $LocaleAdapter;
+        $this->LanguageAdapter = $LanguageAdapter;
         $this->TimeAdapter = $TimeAdapter;
         $this->TimezoneAdapter = $TimezoneAdapter;
     }
 
-    public function getLocaleList()
+    public function getLanguageList()
     {
-        return $this->LocaleAdapter->getLocaleList();
+        return $this->LanguageAdapter->getLanguageList();
     }
 
-    public function getLocale($code)
+    public function getLanguage($code)
     {
-        return $this->LocaleAdapter->getLocale($code);
+        return $this->LanguageAdapter->getLanguage($code);
     }
 
     public function getCurrencyList()

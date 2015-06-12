@@ -12,34 +12,37 @@ namespace Agit\LocaleDataBundle\EventListener;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Agit\CoreBundle\Pluggable\Strategy\Seed\SeedRegistrationEvent;
 use Agit\IntlBundle\Service\LocaleService;
-use Agit\LocaleDataBundle\Adapter\LocaleAdapter;
+use Agit\LocaleDataBundle\Adapter\LanguageAdapter;
 
-class LocaleSeedData
+class LanguageSeedData
 {
     private $LocaleService;
 
-    private $LocaleAdapter;
+    private $LanguageAdapter;
 
-    public function __construct(LocaleService $LocaleService, LocaleAdapter $LocaleAdapter)
+    public function __construct(LocaleService $LocaleService, LanguageAdapter $LanguageAdapter)
     {
         $this->LocaleService = $LocaleService;
-        $this->LocaleAdapter = $LocaleAdapter;
+        $this->LanguageAdapter = $LanguageAdapter;
     }
 
     public function onRegistration(SeedRegistrationEvent $RegistrationEvent)
     {
         $defaultLocale = $this->LocaleService->getDefaultLocale();
-        $LocaleList = $this->LocaleAdapter->getLocaleList();
+        $LanguageList = $this->LanguageAdapter->getLanguageList();
 
-        foreach ($LocaleList as $Locale)
+        foreach ($LanguageList as $Language)
         {
             $RegistrationData = $RegistrationEvent->createContainer();
 
+            $countryList = array_map(
+                function($Country){ return $Country->getCode(); },
+                $Language->getCountryList());
+
             $RegistrationData->setData([
-                'id' => $Locale->getCode(),
-                'name' => mb_convert_case($Locale->getName($defaultLocale),  MB_CASE_TITLE, 'UTF-8'),
-                'localName' => mb_convert_case($Locale->getLocalName(),  MB_CASE_TITLE, 'UTF-8'),
-                'Country' => $Locale->getCountry()->getCode()
+                'id' => $Language->getCode(),
+                'name' => $Language->getName($defaultLocale),
+                'localName' => mb_convert_case($Language->getLocalName(),  MB_CASE_TITLE, 'UTF-8')
             ]);
 
             $RegistrationEvent->register($RegistrationData);

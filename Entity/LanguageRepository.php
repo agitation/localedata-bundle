@@ -12,6 +12,6 @@ namespace Agit\LocaleDataBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 
 // just a stub to allow type-casting
-class LocaleRepository extends EntityRepository
+class LanguageRepository extends EntityRepository
 {
 }

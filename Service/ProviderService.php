@@ -11,7 +11,7 @@ namespace Agit\LocaleDataBundle\Service;
 
 use Agit\LocaleDataBundle\Entity\CountryRepository;
 use Agit\LocaleDataBundle\Entity\CurrencyRepository;
-use Agit\LocaleDataBundle\Entity\LocaleRepository;
+use Agit\LocaleDataBundle\Entity\LanguageRepository;
 use Agit\LocaleDataBundle\Entity\TimezoneRepository;
 
 /**
@@ -24,12 +24,12 @@ class ProviderService
     public function __construct(
         CurrencyRepository $CurrencyRepository,
         CountryRepository $CountryRepository,
-        LocaleRepository $LocaleRepository,
+        LanguageRepository $LanguageRepository,
         TimezoneRepository $TimezoneRepository)
     {
         $this->RepositoryList['Currency'] = $CurrencyRepository;
         $this->RepositoryList['Country'] = $CountryRepository;
-        $this->RepositoryList['Locale'] = $LocaleRepository;
+        $this->RepositoryList['Language'] = $LanguageRepository;
         $this->RepositoryList['Timezone'] = $TimezoneRepository;
     }
 
@@ -53,14 +53,14 @@ class ProviderService
         return $this->getOne('Currency', $id);
     }
 
-    public function getLocales(array $list = null)
+    public function getLanguages(array $list = null)
     {
-        return $this->getList('Locale', $list);
+        return $this->getList('Language', $list);
     }
 
-    public function getLocale($id)
+    public function getLanguage($id)
     {
-        return $this->getOne('Locale', $id);
+        return $this->getOne('Language', $id);
     }
 
     public function getTimezones(array $list = null)

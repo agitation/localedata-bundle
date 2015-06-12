@@ -29,7 +29,7 @@ class LocaleDataExtension extends \Twig_Extension
         return [
             'getCountries' => new \Twig_Function_Method($this, 'getCountries'),
             'getCurrencies' => new \Twig_Function_Method($this, 'getCurrencies'),
-            'getLocales' => new \Twig_Function_Method($this, 'getLocales'),
+            'getLanguages' => new \Twig_Function_Method($this, 'getLanguages'),
             'getTimezones' => new \Twig_Function_Method($this, 'getTimezones')
         ];
     }
@@ -49,7 +49,7 @@ class LocaleDataExtension extends \Twig_Extension
         return $this->getList(__FUNCTION__, $list);
     }
 
-    public function getLocales(array $list = null)
+    public function getLanguages(array $list = null)
     {
         return $this->getList(__FUNCTION__, $list);
     }

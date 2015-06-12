@@ -14,9 +14,9 @@ use Agit\IntlBundle\Service\Translate;
 use Agit\CoreBundle\Entity\AbstractEntity;
 
 /**
- * @ORM\Entity(repositoryClass="Agit\LocaleDataBundle\Entity\LocaleRepository")
+ * @ORM\Entity(repositoryClass="Agit\LocaleDataBundle\Entity\LanguageRepository")
  */
-class Locale extends AbstractEntity
+class Language extends AbstractEntity
 {
     /**
      * @ORM\Id
@@ -32,15 +32,9 @@ class Locale extends AbstractEntity
     /**
      * @ORM\Column(type="string",length=30)
      *
-     * The name of the locale in its local language
+     * The name of the language in its local language
      */
     protected $localName;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Country")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    protected $Country;
 
     /**
      * Get id
@@ -70,15 +64,5 @@ class Locale extends AbstractEntity
     public function getLocalName()
     {
         return $this->localName;
-    }
-
-    /**
-     * Get Country
-     *
-     * @return \Agit\LocaleDataBundle\Entity\Country
-     */
-    public function getCountry()
-    {
-        return $this->Country;
     }
 }
