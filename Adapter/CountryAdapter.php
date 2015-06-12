@@ -51,15 +51,28 @@ class CountryAdapter extends AbstractAdapter
             $availableLocales = $this->LocaleService->getAvailableLocales();
 
             $countries = $this->getMainData($this->baseLocDir, 'territories.json');
+            $phoneCodes = $this->getSupplementalData('telephoneCodeData.json');
             $CurrencyList = $this->CurrencyAdapter->getCurrencyList();
             $currencyMappings = $this->CountryCurrencyAdapter->getCountryCurrencyMap();
 
             // collect main data ...
             foreach ($countries['main'][$this->baseLocDir]['localeDisplayNames']['territories'] as $code => $name)
             {
-                if (strlen($code) === 2 && !is_numeric($code) && $code !== 'ZZ' && isset($currencyMappings[$code]) && isset($CurrencyList[$currencyMappings[$code]]))
-                {
-                    $this->CountryList[$code] = new Country($code, $CurrencyList[$currencyMappings[$code]]);
+                if (
+                    strlen($code) === 2 &&
+                    !is_numeric($code) &&
+                    $code !== 'ZZ' &&
+                    isset($currencyMappings[$code]) &&
+                    isset($CurrencyList[$currencyMappings[$code]]) &&
+                    isset($phoneCodes['supplemental']['telephoneCodeData'][$code]) &&
+                    isset($phoneCodes['supplemental']['telephoneCodeData'][$code][0]) &&
+                    isset($phoneCodes['supplemental']['telephoneCodeData'][$code][0]['telephoneCountryCode'])
+                ) {
+                    $this->CountryList[$code] = new Country(
+                        $code,
+                        $CurrencyList[$currencyMappings[$code]],
+                        $phoneCodes['supplemental']['telephoneCodeData'][$code][0]['telephoneCountryCode']);
+
                     $this->CountryList[$code]->addName($defaultLocale, $name);
                 }
             }

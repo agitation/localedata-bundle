@@ -28,6 +28,10 @@ class Country extends AbstractEntity
      * @ORM\Column(type="string",length=60)
      */
     protected $name;
+    /**
+     * @ORM\Column(type="integer",length=4)
+     */
+    protected $phone;
 
     /**
      * @ORM\ManyToOne(targetEntity="Currency")
@@ -47,11 +51,21 @@ class Country extends AbstractEntity
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
         return Translate::getInstance()->x($this->name, 'country');
+    }
+
+    /**
+     * Get phone
+     *
+     * @return integer
+     */
+    public function getPhone()
+    {
+        return $this->phone;
     }
 
     /**

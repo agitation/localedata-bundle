@@ -37,6 +37,7 @@ class CountrySeedData
 
             $RegistrationData->setData([
                 'id' => $Country->getCode(),
+                'phone' => $Country->getPhone(),
                 'name' => $Country->getName($defaultLocale),
                 'Currency' => $Country->getCurrency()->getCode()
             ]);

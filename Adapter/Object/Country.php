@@ -13,14 +13,22 @@ class Country extends AbstractObject
 {
     private $Currency;
 
-    public function __construct($code, Currency $Currency)
+    private $phone;
+
+    public function __construct($code, Currency $Currency, $phone)
     {
         $this->code = (string)$code;
         $this->Currency = $Currency;
+        $this->phone = $phone;
     }
 
     public function getCurrency()
     {
         return $this->Currency;
+    }
+
+    public function getPhone()
+    {
+        return $this->phone;
     }
 }
