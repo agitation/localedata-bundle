@@ -59,17 +59,18 @@ class TimeAdapter extends AbstractAdapter
             $defaultLocale = $this->LocaleService->getDefaultLocale();
             $availableLocales = $this->LocaleService->getAvailableLocales();
             $data = $this->getMainData($this->baseLocDir, 'ca-gregorian.json');
+            $dataNode = $data['main'][$this->baseLocDir]['dates']['calendars']['gregorian'];
 
-            foreach ($data['main'][$this->baseLocDir]['dates']['calendars']['gregorian']['months']['format']['wide'] as $id => $name)
+            foreach ($dataNode['months']['stand-alone']['wide'] as $id => $name)
             {
                 $this->MonthList[$id] = new Month($id);
-                $this->MonthList[$id]->addName($defaultLocale, $name);
+                $this->MonthList[$id]->addName($defaultLocale, $name, $dataNode['months']['stand-alone']['abbreviated'][$id]);
             }
 
-            foreach ($data['main'][$this->baseLocDir]['dates']['calendars']['gregorian']['days']['format']['wide'] as $id => $name)
+            foreach ($dataNode['days']['stand-alone']['wide'] as $id => $name)
             {
                 $this->WeekdayList[$id] = new Weekday($id);
-                $this->WeekdayList[$id]->addName($defaultLocale, $name);
+                $this->WeekdayList[$id]->addName($defaultLocale, $name, $dataNode['days']['stand-alone']['abbreviated'][$id]);
             }
 
             // ... and fill up with translations
@@ -81,12 +82,13 @@ class TimeAdapter extends AbstractAdapter
                 if (!$locDir) continue;
 
                 $locData = $this->getMainData($locDir, 'ca-gregorian.json');
+                $locDataNode = $locData['main'][$locDir]['dates']['calendars']['gregorian'];
 
-                foreach ($locData['main'][$locDir]['dates']['calendars']['gregorian']['months']['format']['wide'] as $id => $name)
-                    $this->MonthList[$id]->addName($loc, $name);
+                foreach ($locDataNode['months']['stand-alone']['wide'] as $id => $name)
+                    $this->MonthList[$id]->addName($loc, $name, $locDataNode['months']['stand-alone']['abbreviated'][$id]);
 
-                foreach ($locData['main'][$locDir]['dates']['calendars']['gregorian']['days']['format']['wide'] as $id => $name)
-                    $this->WeekdayList[$id]->addName($loc, $name);
+                foreach ($locDataNode['days']['stand-alone']['wide'] as $id => $name)
+                    $this->WeekdayList[$id]->addName($loc, $name, $locDataNode['days']['stand-alone']['abbreviated'][$id]);
             }
         }
     }

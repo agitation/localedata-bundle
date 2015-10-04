@@ -13,18 +13,26 @@ use Agit\CoreBundle\Exception\InternalErrorException;
 
 abstract class AbstractObject
 {
+    protected static $hasAbbr = false;
+
     protected $code;
 
     protected $nameList = [];
+
+    protected $abbrList = [];
 
     public function __construct($code)
     {
         $this->code = (string)$code;
     }
 
-    public function addName($locale, $name)
+    public function addName($locale, $name, $abbr = null)
     {
+        if (static::$hasAbbr && !is_string($abbr))
+            throw new InternalErrorException(sprintf("Object type %s needs an abbreviation.", get_class()));
+
         $this->nameList[$locale] = (string)$name;
+        $this->abbrList[$locale] = (string)$abbr;
     }
 
     public function getCode()
@@ -43,5 +51,16 @@ abstract class AbstractObject
             throw new InternalErrorException("No name was found for locale '$locale'.");
 
         return $this->nameList[$locale];
+    }
+
+    public function getAbbr($locale)
+    {
+        if (!static::$hasAbbr)
+            throw new InternalErrorException(sprintf("Object type %s doesn't support abbreviations.", get_class()));
+
+        if (!isset($this->abbrList[$locale]))
+            throw new InternalErrorException("No abbreviation was found for locale '$locale'.");
+
+        return $this->abbrList[$locale];
     }
 }

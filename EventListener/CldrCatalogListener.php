@@ -84,6 +84,14 @@ class CldrCatalogListener extends AbstractTemporaryFilesListener
 
                     $catalog .= sprintf("msgid \"%s\"\n", addcslashes($elem->getName($defaultLocale), '"'));
                     $catalog .= sprintf("msgstr \"%s\"\n", addcslashes($elem->getName($locale), '"'));
+
+                    if (in_array($type, ['weekday', 'month']))
+                    {
+                        $catalog .= "\n";
+                        $catalog .= "#: localedata:$type:$id\n";
+                        $catalog .= sprintf("msgid \"%s\"\n", addcslashes($elem->getAbbr($defaultLocale), '"'));
+                        $catalog .= sprintf("msgstr \"%s\"\n", addcslashes($elem->getAbbr($locale), '"'));
+                    }
                 }
             }
 

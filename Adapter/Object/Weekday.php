@@ -9,4 +9,7 @@
 
 namespace Agit\LocaleDataBundle\Adapter\Object;
 
-class Weekday extends AbstractObject {}
+class Weekday extends AbstractObject
+{
+    protected static $hasAbbr = true;
+}

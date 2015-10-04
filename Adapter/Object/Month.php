@@ -9,4 +9,7 @@
 
 namespace Agit\LocaleDataBundle\Adapter\Object;
 
-class Month extends AbstractObject {}
+class Month extends AbstractObject
+{
+    protected static $hasAbbr = true;
+}
