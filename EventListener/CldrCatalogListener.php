@@ -82,20 +82,28 @@ class CldrCatalogListener extends AbstractTemporaryFilesListener
                     if (in_array($type, ['currency', 'country', 'timezone', 'language']))
                         $catalog .= "msgctxt \"$type\"\n";
 
-                    $catalog .= sprintf("msgid \"%s\"\n", addcslashes($elem->getName($defaultLocale), '"'));
+                    $msgId = addcslashes($elem->getName($defaultLocale), '"');
+
+                    $catalog .= sprintf("msgid \"%s\"\n", $msgId);
                     $catalog .= sprintf("msgstr \"%s\"\n", addcslashes($elem->getName($locale), '"'));
 
                     if (in_array($type, ['weekday', 'month']))
                     {
-                        $catalog .= "\n";
-                        $catalog .= "#: localedata:$type:$id\n";
-                        $catalog .= sprintf("msgid \"%s\"\n", addcslashes($elem->getAbbr($defaultLocale), '"'));
-                        $catalog .= sprintf("msgstr \"%s\"\n", addcslashes($elem->getAbbr($locale), '"'));
+                        $abbrMsgId = addcslashes($elem->getAbbr($defaultLocale), '"');
+
+                        // avoid duplicate messages where long and short form are identical (May/May)
+                        if ($msgId !== $abbrMsgId)
+                        {
+                            $catalog .= "\n";
+                            $catalog .= "#: localedata:$type:$id\n";
+                            $catalog .= sprintf("msgid \"%s\"\n", $abbrMsgId);
+                            $catalog .= sprintf("msgstr \"%s\"\n", addcslashes($elem->getAbbr($locale), '"'));
+                        }
                     }
                 }
             }
 
-            $catalogs[$locale] = $catalog;
+            $catalogs[$locale] = $RegistrationEvent->createCatalogHeader($locale) . $catalog;
         }
 
         // now, after fully successful generation, create and register files
