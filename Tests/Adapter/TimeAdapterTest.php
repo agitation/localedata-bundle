@@ -18,14 +18,14 @@ class TimeAdapterTest extends AbstractAdapterTest
      */
     public function testGetMonthList($code, $nameEn, $nameDe)
     {
-        $TimeAdapter = $this->createInstance();
-        $MonthList = $TimeAdapter->getMonthList();
+        $timeAdapter = $this->createInstance();
+        $monthList = $timeAdapter->getMonthList();
 
-        $this->assertTrue(is_array($MonthList));
-        $this->assertArrayHasKey($code, $MonthList);
-        $this->assertEquals($code, $MonthList[$code]->getCode());
-        $this->assertEquals($nameEn, $MonthList[$code]->getName('en_GB'));
-        $this->assertEquals($nameDe, $MonthList[$code]->getName('de_DE'));
+        $this->assertTrue(is_array($monthList));
+        $this->assertArrayHasKey($code, $monthList);
+        $this->assertEquals($code, $monthList[$code]->getCode());
+        $this->assertEquals($nameEn, $monthList[$code]->getName('en_GB'));
+        $this->assertEquals($nameDe, $monthList[$code]->getName('de_DE'));
     }
 
     /**
@@ -33,12 +33,12 @@ class TimeAdapterTest extends AbstractAdapterTest
      */
     public function testGetMonth($code, $nameEn, $nameDe)
     {
-        $TimeAdapter = $this->createInstance();
-        $Month = $TimeAdapter->getMonth($code);
-        $this->assertTrue(is_object($Month));
-        $this->assertEquals('Agit\LocaleDataBundle\Adapter\Object\Month', get_class($Month));
-        $this->assertEquals($nameEn, $Month->getName('en_GB'));
-        $this->assertEquals($nameDe, $Month->getName('de_DE'));
+        $timeAdapter = $this->createInstance();
+        $month = $timeAdapter->getMonth($code);
+        $this->assertTrue(is_object($month));
+        $this->assertEquals('Agit\LocaleDataBundle\Adapter\Object\Month', get_class($month));
+        $this->assertEquals($nameEn, $month->getName('en_GB'));
+        $this->assertEquals($nameDe, $month->getName('de_DE'));
     }
 
     /**
@@ -46,14 +46,14 @@ class TimeAdapterTest extends AbstractAdapterTest
      */
     public function testGetWeekdayList($code, $nameEn, $nameDe)
     {
-        $TimeAdapter = $this->createInstance();
-        $WeekdayList = $TimeAdapter->getWeekdayList();
+        $timeAdapter = $this->createInstance();
+        $weekdayList = $timeAdapter->getWeekdayList();
 
-        $this->assertTrue(is_array($WeekdayList));
-        $this->assertArrayHasKey($code, $WeekdayList);
-        $this->assertEquals($code, $WeekdayList[$code]->getCode());
-        $this->assertEquals($nameEn, $WeekdayList[$code]->getName('en_GB'));
-        $this->assertEquals($nameDe, $WeekdayList[$code]->getName('de_DE'));
+        $this->assertTrue(is_array($weekdayList));
+        $this->assertArrayHasKey($code, $weekdayList);
+        $this->assertEquals($code, $weekdayList[$code]->getCode());
+        $this->assertEquals($nameEn, $weekdayList[$code]->getName('en_GB'));
+        $this->assertEquals($nameDe, $weekdayList[$code]->getName('de_DE'));
     }
 
     /**
@@ -61,20 +61,20 @@ class TimeAdapterTest extends AbstractAdapterTest
      */
     public function testGetWeekday($code, $nameEn, $nameDe)
     {
-        $TimeAdapter = $this->createInstance();
-        $Weekday = $TimeAdapter->getWeekday($code);
-        $this->assertTrue(is_object($Weekday));
-        $this->assertEquals('Agit\LocaleDataBundle\Adapter\Object\Weekday', get_class($Weekday));
-        $this->assertEquals($nameEn, $Weekday->getName('en_GB'));
-        $this->assertEquals($nameDe, $Weekday->getName('de_DE'));
+        $timeAdapter = $this->createInstance();
+        $weekday = $timeAdapter->getWeekday($code);
+        $this->assertTrue(is_object($weekday));
+        $this->assertEquals('Agit\LocaleDataBundle\Adapter\Object\Weekday', get_class($weekday));
+        $this->assertEquals($nameEn, $weekday->getName('en_GB'));
+        $this->assertEquals($nameDe, $weekday->getName('de_DE'));
     }
 
     public function createInstance()
     {
-        $TimeAdapter = new TimeAdapter();
-        $TimeAdapter->setCldrDir($this->mockCldrDir());
-        $TimeAdapter->setLocaleService($this->mockLocaleService());
-        return $TimeAdapter;
+        $timeAdapter = new TimeAdapter();
+        $timeAdapter->setCldrDir($this->mockCldrDir());
+        $timeAdapter->setLocaleService($this->mockLocaleService());
+        return $timeAdapter;
     }
 
 

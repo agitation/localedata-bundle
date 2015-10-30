@@ -14,40 +14,40 @@ use Agit\LocaleDataBundle\Adapter\Object\Language;
 
 class LanguageAdapter extends AbstractAdapter
 {
-    protected $CountryAdapter;
+    protected $countryAdapter;
 
-    protected $LanguageList = null;
+    protected $languageList = null;
 
     protected $languageCountryMap = [];
 
-    public function __construct(CountryAdapter $CountryAdapter)
+    public function __construct(CountryAdapter $countryAdapter)
     {
-        $this->CountryAdapter = $CountryAdapter;
+        $this->countryAdapter = $countryAdapter;
     }
 
     public function getLanguageList()
     {
-        return $this->getList('LanguageList');
+        return $this->getList('languageList');
     }
 
     public function hasLanguage($code)
     {
-        return $this->hasListElement('LanguageList', $code);
+        return $this->hasListElement('languageList', $code);
     }
 
     public function getLanguage($code)
     {
-        return $this->getListElement('LanguageList', $code);
+        return $this->getListElement('languageList', $code);
     }
 
     protected function load()
     {
-        if (is_null($this->LanguageList))
+        if (is_null($this->languageList))
         {
-            $this->LanguageList = [];
+            $this->languageList = [];
 
-            $defaultLocale = $this->LocaleService->getDefaultLocale();
-            $availableLocales = $this->LocaleService->getAvailableLocales();
+            $defaultLocale = $this->localeService->getDefaultLocale();
+            $availableLocales = $this->localeService->getAvailableLocales();
 
             $territories = $this->getSupplementalData('territoryInfo.json');
 
@@ -65,7 +65,7 @@ class LanguageAdapter extends AbstractAdapter
                         !isset($langData['_populationPercent']) ||
                         $langData['_officialStatus'] !== 'official' ||
                         $langData['_populationPercent'] < 3 ||
-                        !$this->CountryAdapter->hasCountry($countryCode)
+                        !$this->countryAdapter->hasCountry($countryCode)
                     )
                         continue;
 
@@ -79,7 +79,7 @@ class LanguageAdapter extends AbstractAdapter
 
                     $localName = $languages['main'][$localeDir]['localeDisplayNames']['languages'][$langCode];
 
-                    $this->LanguageList[$langCode] = new Language($langCode, $localName);
+                    $this->languageList[$langCode] = new Language($langCode, $localName);
 
                     if (!isset($this->languageCountryMap[$langCode]))
                         $this->languageCountryMap[$langCode] = [];
@@ -96,24 +96,24 @@ class LanguageAdapter extends AbstractAdapter
 
                 $languages = $this->getMainData($localeDir, 'languages.json');
 
-                foreach ($this->LanguageList as $langCode => &$Language)
+                foreach ($this->languageList as $langCode => &$language)
                 {
-                    $Language->addName($locale, $languages['main'][$localeDir]['localeDisplayNames']['languages'][$langCode]);
+                    $language->addName($locale, $languages['main'][$localeDir]['localeDisplayNames']['languages'][$langCode]);
                 }
             }
 
             // add countries for languages
-            foreach ($this->LanguageList as $langCode => &$Language)
+            foreach ($this->languageList as $langCode => &$language)
             {
                 // dead language?
                 if (!isset($this->languageCountryMap[$langCode]))
                 {
-                    unset($this->LanguageList[$langCode]);
+                    unset($this->languageList[$langCode]);
                     continue;
                 }
 
                 foreach ($this->languageCountryMap[$langCode] as $countryCode)
-                    $Language->addCountry($this->CountryAdapter->getCountry($countryCode));
+                    $language->addCountry($this->countryAdapter->getCountry($countryCode));
             }
         }
     }

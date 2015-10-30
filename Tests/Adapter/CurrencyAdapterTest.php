@@ -18,14 +18,14 @@ class CurrencyAdapterTest extends AbstractAdapterTest
      */
     public function testGetCurrencyList($code, $nameEn, $nameDe)
     {
-        $CurrencyAdapter = $this->createInstance();
-        $CurrencyList = $CurrencyAdapter->getCurrencyList();
+        $currencyAdapter = $this->createInstance();
+        $currencyList = $currencyAdapter->getCurrencyList();
 
-        $this->assertTrue(is_array($CurrencyList));
-        $this->assertArrayHasKey($code, $CurrencyList);
-        $this->assertEquals($code, $CurrencyList[$code]->getCode());
-        $this->assertEquals($nameEn, $CurrencyList[$code]->getName('en_GB'));
-        $this->assertEquals($nameDe, $CurrencyList[$code]->getName('de_DE'));
+        $this->assertTrue(is_array($currencyList));
+        $this->assertArrayHasKey($code, $currencyList);
+        $this->assertEquals($code, $currencyList[$code]->getCode());
+        $this->assertEquals($nameEn, $currencyList[$code]->getName('en_GB'));
+        $this->assertEquals($nameDe, $currencyList[$code]->getName('de_DE'));
     }
 
     /**
@@ -33,20 +33,20 @@ class CurrencyAdapterTest extends AbstractAdapterTest
      */
     public function testGetCurrency($code, $nameEn, $nameDe)
     {
-        $CurrencyAdapter = $this->createInstance();
-        $Currency = $CurrencyAdapter->getCurrency($code);
-        $this->assertTrue(is_object($Currency));
-        $this->assertEquals('Agit\LocaleDataBundle\Adapter\Object\Currency', get_class($Currency));
-        $this->assertEquals($nameEn, $Currency->getName('en_GB'));
-        $this->assertEquals($nameDe, $Currency->getName('de_DE'));
+        $currencyAdapter = $this->createInstance();
+        $currency = $currencyAdapter->getCurrency($code);
+        $this->assertTrue(is_object($currency));
+        $this->assertEquals('Agit\LocaleDataBundle\Adapter\Object\Currency', get_class($currency));
+        $this->assertEquals($nameEn, $currency->getName('en_GB'));
+        $this->assertEquals($nameDe, $currency->getName('de_DE'));
     }
 
     public function createInstance()
     {
-        $CurrencyAdapter = new CurrencyAdapter($this->mockCountryCurrencyAdapter());
-        $CurrencyAdapter->setCldrDir($this->mockCldrDir());
-        $CurrencyAdapter->setLocaleService($this->mockLocaleService());
-        return $CurrencyAdapter;
+        $currencyAdapter = new CurrencyAdapter($this->mockCountryCurrencyAdapter());
+        $currencyAdapter->setCldrDir($this->mockCldrDir());
+        $currencyAdapter->setLocaleService($this->mockLocaleService());
+        return $currencyAdapter;
     }
 
     public function providerCurrencies()

@@ -16,30 +16,30 @@ use Agit\LocaleDataBundle\Adapter\TimezoneAdapter;
 
 class TimezoneSeedData
 {
-    private $LocaleService;
+    private $localeService;
 
-    private $TimezoneAdapter;
+    private $timezoneAdapter;
 
-    public function __construct(LocaleService $LocaleService, TimezoneAdapter $TimezoneAdapter)
+    public function __construct(LocaleService $localeService, TimezoneAdapter $timezoneAdapter)
     {
-        $this->LocaleService = $LocaleService;
-        $this->TimezoneAdapter = $TimezoneAdapter;
+        $this->localeService = $localeService;
+        $this->timezoneAdapter = $timezoneAdapter;
     }
 
-    public function onRegistration(SeedRegistrationEvent $RegistrationEvent)
+    public function onRegistration(SeedRegistrationEvent $registrationEvent)
     {
-        $defaultLocale = $this->LocaleService->getDefaultLocale();
-        $TimezoneList = $this->TimezoneAdapter->getTimezoneList();
+        $defaultLocale = $this->localeService->getDefaultLocale();
+        $timezoneList = $this->timezoneAdapter->getTimezoneList();
 
-        foreach ($TimezoneList as $Timezone)
+        foreach ($timezoneList as $timezone)
         {
-            $RegistrationData = $RegistrationEvent->createContainer();
-            $RegistrationData->setData([
-                'id' => $Timezone->getCode(),
-                'name' => $Timezone->getName($defaultLocale),
-                'Country' => $Timezone->getCountry()->getCode()
+            $registrationData = $registrationEvent->createContainer();
+            $registrationData->setData([
+                'id' => $timezone->getCode(),
+                'name' => $timezone->getName($defaultLocale),
+                'country' => $timezone->getCountry()->getCode()
             ]);
-            $RegistrationEvent->register($RegistrationData);
+            $registrationEvent->register($registrationData);
         }
     }
 }

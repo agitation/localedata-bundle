@@ -19,18 +19,18 @@ use Agit\LocaleDataBundle\Entity\TimezoneRepository;
  */
 class ProviderService
 {
-    private $RepositoryList = [];
+    private $repositoryList = [];
 
     public function __construct(
-        CurrencyRepository $CurrencyRepository,
-        CountryRepository $CountryRepository,
-        LanguageRepository $LanguageRepository,
-        TimezoneRepository $TimezoneRepository)
+        CurrencyRepository $currencyRepository,
+        CountryRepository $countryRepository,
+        LanguageRepository $languageRepository,
+        TimezoneRepository $timezoneRepository)
     {
-        $this->RepositoryList['Currency'] = $CurrencyRepository;
-        $this->RepositoryList['Country'] = $CountryRepository;
-        $this->RepositoryList['Language'] = $LanguageRepository;
-        $this->RepositoryList['Timezone'] = $TimezoneRepository;
+        $this->repositoryList['Currency'] = $currencyRepository;
+        $this->repositoryList['Country'] = $countryRepository;
+        $this->repositoryList['Language'] = $languageRepository;
+        $this->repositoryList['Timezone'] = $timezoneRepository;
     }
 
     public function getCountries(array $list = null)
@@ -76,12 +76,12 @@ class ProviderService
     private function getList($entityName, array $list = null)
     {
         return ($list === null)
-            ? $this->RepositoryList[$entityName]->findAll()
-            : $this->RepositoryList[$entityName]->findBy(['id' => $list]);
+            ? $this->repositoryList[$entityName]->findAll()
+            : $this->repositoryList[$entityName]->findBy(['id' => $list]);
     }
 
     private function getOne($entityName, $id)
     {
-        return $this->RepositoryList[$entityName]->find($id);
+        return $this->repositoryList[$entityName]->find($id);
     }
 }

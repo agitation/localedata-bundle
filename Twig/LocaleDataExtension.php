@@ -14,14 +14,14 @@ use Agit\LocaleDataBundle\Service\ProviderService;
 
 class LocaleDataExtension extends \Twig_Extension
 {
-    private $ProviderService;
+    private $providerService;
 
-    private $LocaleService;
+    private $localeService;
 
-    public function __construct(ProviderService $ProviderService, LocaleService $LocaleService)
+    public function __construct(ProviderService $providerService, LocaleService $localeService)
     {
-        $this->ProviderService = $ProviderService;
-        $this->LocaleService = $LocaleService;
+        $this->providerService = $providerService;
+        $this->localeService = $localeService;
     }
 
     public function getFunctions()
@@ -63,13 +63,13 @@ class LocaleDataExtension extends \Twig_Extension
     {
         $results = [];
 
-        foreach ($this->ProviderService->$method($list) as $Entity)
-            $results[$Entity->getId()] = $Entity->getName();
+        foreach ($this->providerService->$method($list) as $entity)
+            $results[$entity->getId()] = $entity->getName();
 
         if (class_exists('Collator'))
         {
-            $Collator = new \Collator($this->LocaleService->getLocale());
-            uasort($results, [$Collator, 'compare']);
+            $collator = new \Collator($this->localeService->getLocale());
+            uasort($results, [$collator, 'compare']);
         }
 
         return $results;

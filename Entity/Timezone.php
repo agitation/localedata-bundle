@@ -33,7 +33,7 @@ class Timezone extends AbstractEntity
      * @ORM\ManyToOne(targetEntity="Country")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    protected $Country;
+    protected $country;
 
     /**
      * Get id
@@ -52,7 +52,7 @@ class Timezone extends AbstractEntity
      */
     public function getCountry()
     {
-        return $this->Country;
+        return $this->country;
     }
 
     /**

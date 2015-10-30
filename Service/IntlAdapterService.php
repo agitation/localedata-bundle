@@ -22,80 +22,80 @@ use Agit\LocaleDataBundle\Adapter\TimezoneAdapter;
  */
 class IntlAdapterService
 {
-    public function __construct(CountryCurrencyAdapter $CountryCurrencyAdapter, CurrencyAdapter $CurrencyAdapter,
-        CountryAdapter $CountryAdapter, LanguageAdapter $LanguageAdapter, TimeAdapter $TimeAdapter,
-        TimezoneAdapter $TimezoneAdapter)
+    public function __construct(CountryCurrencyAdapter $countryCurrencyAdapter, CurrencyAdapter $currencyAdapter,
+        CountryAdapter $countryAdapter, LanguageAdapter $languageAdapter, TimeAdapter $timeAdapter,
+        TimezoneAdapter $timezoneAdapter)
     {
-        $this->CountryCurrencyAdapter = $CountryCurrencyAdapter;
-        $this->CurrencyAdapter = $CurrencyAdapter;
-        $this->CountryAdapter = $CountryAdapter;
-        $this->LanguageAdapter = $LanguageAdapter;
-        $this->TimeAdapter = $TimeAdapter;
-        $this->TimezoneAdapter = $TimezoneAdapter;
+        $this->countryCurrencyAdapter = $countryCurrencyAdapter;
+        $this->currencyAdapter = $currencyAdapter;
+        $this->countryAdapter = $countryAdapter;
+        $this->languageAdapter = $languageAdapter;
+        $this->timeAdapter = $timeAdapter;
+        $this->timezoneAdapter = $timezoneAdapter;
     }
 
     public function getLanguageList()
     {
-        return $this->LanguageAdapter->getLanguageList();
+        return $this->languageAdapter->getLanguageList();
     }
 
     public function getLanguage($code)
     {
-        return $this->LanguageAdapter->getLanguage($code);
+        return $this->languageAdapter->getLanguage($code);
     }
 
     public function getCurrencyList()
     {
-        return $this->CurrencyAdapter->getCurrencyList();
+        return $this->currencyAdapter->getCurrencyList();
     }
 
     public function getCurrency($code)
     {
-        return $this->CurrencyAdapter->getCurrency($code);
+        return $this->currencyAdapter->getCurrency($code);
     }
 
     public function getTimezoneList()
     {
-        return $this->TimezoneAdapter->getTimezoneList();
+        return $this->timezoneAdapter->getTimezoneList();
     }
 
     public function getTimezone($code)
     {
-        return $this->TimezoneAdapter->getTimezone($code);
+        return $this->timezoneAdapter->getTimezone($code);
     }
 
     public function getCountryCurrencyMap()
     {
-        return $this->CountryCurrencyAdapter->getCountryCurrencyMap();
+        return $this->countryCurrencyAdapter->getCountryCurrencyMap();
     }
 
     public function getCountryList()
     {
-        return $this->CountryAdapter->getCountryList();
+        return $this->countryAdapter->getCountryList();
     }
 
     public function getCountry($code)
     {
-        return $this->CountryAdapter->getCountry($code);
+        return $this->countryAdapter->getCountry($code);
     }
 
     public function getMonthList()
     {
-        return $this->TimeAdapter->getMonthList();
+        return $this->timeAdapter->getMonthList();
     }
 
     public function getMonth($code)
     {
-        return $this->TimeAdapter->getMonth($code);
+        return $this->timeAdapter->getMonth($code);
     }
 
     public function getWeekdayList()
     {
-        return $this->TimeAdapter->getWeekdayList();
+        return $this->timeAdapter->getWeekdayList();
     }
 
     public function getWeekday($code)
     {
-        return $this->TimeAdapter->getWeekday($code);
+        return $this->timeAdapter->getWeekday($code);
     }
 }

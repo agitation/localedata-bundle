@@ -11,16 +11,16 @@ namespace Agit\LocaleDataBundle\Adapter\Object;
 
 class Timezone extends AbstractObject
 {
-    private $Country;
+    private $country;
 
-    public function __construct($code, Country $Country)
+    public function __construct($code, Country $country)
     {
         $this->code = (string)$code;
-        $this->Country = $Country;
+        $this->country = $country;
     }
 
     public function getCountry()
     {
-        return $this->Country;
+        return $this->country;
     }
 }

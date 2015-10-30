@@ -21,52 +21,52 @@ use Agit\LocaleDataBundle\Adapter\TimezoneAdapter;
 
 class CldrCatalogListener extends AbstractTemporaryFilesListener
 {
-    private $Filesystem;
+    private $filesystem;
 
-    private $LocaleService;
+    private $localeService;
 
-    private $CountryAdapter;
+    private $countryAdapter;
 
-    private $CurrencyAdapter;
+    private $currencyAdapter;
 
-    private $LanguageAdapter;
+    private $languageAdapter;
 
-    private $TimezoneAdapter;
+    private $timezoneAdapter;
 
-    private $TimeAdapter;
+    private $timeAdapter;
 
     public function __construct
     (
-        Filesystem $Filesystem,
-        LocaleService $LocaleService,
-        CurrencyAdapter $CurrencyAdapter,
-        CountryAdapter $CountryAdapter,
-        LanguageAdapter $LanguageAdapter,
-        TimeAdapter $TimeAdapter,
-        TimezoneAdapter $TimezoneAdapter
+        Filesystem $filesystem,
+        LocaleService $localeService,
+        CurrencyAdapter $currencyAdapter,
+        CountryAdapter $countryAdapter,
+        LanguageAdapter $languageAdapter,
+        TimeAdapter $timeAdapter,
+        TimezoneAdapter $timezoneAdapter
     ) {
-        $this->Filesystem = $Filesystem;
-        $this->LocaleService = $LocaleService;
-        $this->CurrencyAdapter = $CurrencyAdapter;
-        $this->CountryAdapter = $CountryAdapter;
-        $this->LanguageAdapter = $LanguageAdapter;
-        $this->TimeAdapter = $TimeAdapter;
-        $this->TimezoneAdapter = $TimezoneAdapter;
+        $this->filesystem = $filesystem;
+        $this->localeService = $localeService;
+        $this->currencyAdapter = $currencyAdapter;
+        $this->countryAdapter = $countryAdapter;
+        $this->languageAdapter = $languageAdapter;
+        $this->timeAdapter = $timeAdapter;
+        $this->timezoneAdapter = $timezoneAdapter;
     }
 
-    public function onRegistration(CatalogRegistrationEvent $RegistrationEvent)
+    public function onRegistration(CatalogRegistrationEvent $registrationEvent)
     {
-        $defaultLocale = $this->LocaleService->getDefaultLocale();
-        $localeList = $this->LocaleService->getAvailableLocales();
+        $defaultLocale = $this->localeService->getDefaultLocale();
+        $localeList = $this->localeService->getAvailableLocales();
         $catalogs = [];
 
         $lists = [];
-        $lists['currency'] = $this->CurrencyAdapter->getCurrencyList();
-        $lists['country'] = $this->CountryAdapter->getCountryList();
-        $lists['timezone'] = $this->TimezoneAdapter->getTimezoneList();
-        $lists['month'] = $this->TimeAdapter->getMonthList();
-        $lists['weekday'] = $this->TimeAdapter->getWeekdayList();
-        $lists['language'] = $this->LanguageAdapter->getLanguageList();
+        $lists['currency'] = $this->currencyAdapter->getCurrencyList();
+        $lists['country'] = $this->countryAdapter->getCountryList();
+        $lists['timezone'] = $this->timezoneAdapter->getTimezoneList();
+        $lists['month'] = $this->timeAdapter->getMonthList();
+        $lists['weekday'] = $this->timeAdapter->getWeekdayList();
+        $lists['language'] = $this->languageAdapter->getLanguageList();
 
         foreach ($localeList as $locale)
         {
@@ -103,21 +103,21 @@ class CldrCatalogListener extends AbstractTemporaryFilesListener
                 }
             }
 
-            $catalogs[$locale] = $RegistrationEvent->createCatalogHeader($locale) . $catalog;
+            $catalogs[$locale] = $registrationEvent->createCatalogHeader($locale) . $catalog;
         }
 
         // now, after fully successful generation, create and register files
 
         $tmpPath = $this->getCachePath();
 
-        if (!$this->Filesystem->exists($tmpPath))
-            $this->Filesystem->mkdir($tmpPath);
+        if (!$this->filesystem->exists($tmpPath))
+            $this->filesystem->mkdir($tmpPath);
 
         foreach ($catalogs as $locale => $catalog)
         {
             $filePath = "$tmpPath/cldr.$locale.po";
-            $this->Filesystem->dumpFile($filePath, $catalog);
-            $RegistrationEvent->registerCatalogFile($locale, $filePath);
+            $this->filesystem->dumpFile($filePath, $catalog);
+            $registrationEvent->registerCatalogFile($locale, $filePath);
         }
     }
 }

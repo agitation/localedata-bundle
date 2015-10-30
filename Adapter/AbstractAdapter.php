@@ -13,7 +13,7 @@ use Agit\CoreBundle\Exception\InternalErrorException;
 
 abstract class AbstractAdapter
 {
-    protected $LocaleService;
+    protected $localeService;
 
     protected $cldrDir;
 
@@ -22,9 +22,9 @@ abstract class AbstractAdapter
     // cache for raw retrieved data
     protected $dataCache = [];
 
-    public function setLocaleService($LocaleService)
+    public function setLocaleService($localeService)
     {
-        $this->LocaleService = $LocaleService;
+        $this->localeService = $localeService;
     }
 
     public function setCldrDir($cldrDir)

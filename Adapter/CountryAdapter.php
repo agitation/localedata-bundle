@@ -14,46 +14,46 @@ use Agit\LocaleDataBundle\Adapter\Object\Country;
 
 class CountryAdapter extends AbstractAdapter
 {
-    protected $CurrencyAdapter;
+    protected $currencyAdapter;
 
-    protected $CountryCurrencyAdapter;
+    protected $countryCurrencyAdapter;
 
-    protected $CountryList = null;
+    protected $countryList = null;
 
-    public function __construct(CurrencyAdapter $CurrencyAdapter, CountryCurrencyAdapter $CountryCurrencyAdapter)
+    public function __construct(CurrencyAdapter $currencyAdapter, CountryCurrencyAdapter $countryCurrencyAdapter)
     {
-        $this->CurrencyAdapter = $CurrencyAdapter;
-        $this->CountryCurrencyAdapter = $CountryCurrencyAdapter;
+        $this->currencyAdapter = $currencyAdapter;
+        $this->countryCurrencyAdapter = $countryCurrencyAdapter;
     }
 
     public function getCountryList()
     {
-        return $this->getList('CountryList');
+        return $this->getList('countryList');
     }
 
     public function hasCountry($code)
     {
-        return $this->hasListElement('CountryList', $code);
+        return $this->hasListElement('countryList', $code);
     }
 
     public function getCountry($code)
     {
-        return $this->getListElement('CountryList', $code);
+        return $this->getListElement('countryList', $code);
     }
 
     protected function load()
     {
-        if (is_null($this->CountryList))
+        if (is_null($this->countryList))
         {
-            $this->CountryList = [];
+            $this->countryList = [];
 
-            $defaultLocale = $this->LocaleService->getDefaultLocale();
-            $availableLocales = $this->LocaleService->getAvailableLocales();
+            $defaultLocale = $this->localeService->getDefaultLocale();
+            $availableLocales = $this->localeService->getAvailableLocales();
 
             $countries = $this->getMainData($this->baseLocDir, 'territories.json');
             $phoneCodes = $this->getSupplementalData('telephoneCodeData.json');
-            $CurrencyList = $this->CurrencyAdapter->getCurrencyList();
-            $currencyMappings = $this->CountryCurrencyAdapter->getCountryCurrencyMap();
+            $currencyList = $this->currencyAdapter->getCurrencyList();
+            $currencyMappings = $this->countryCurrencyAdapter->getCountryCurrencyMap();
 
             // collect main data ...
             foreach ($countries['main'][$this->baseLocDir]['localeDisplayNames']['territories'] as $code => $name)
@@ -63,17 +63,17 @@ class CountryAdapter extends AbstractAdapter
                     !is_numeric($code) &&
                     $code !== 'ZZ' &&
                     isset($currencyMappings[$code]) &&
-                    isset($CurrencyList[$currencyMappings[$code]]) &&
+                    isset($currencyList[$currencyMappings[$code]]) &&
                     isset($phoneCodes['supplemental']['telephoneCodeData'][$code]) &&
                     isset($phoneCodes['supplemental']['telephoneCodeData'][$code][0]) &&
                     isset($phoneCodes['supplemental']['telephoneCodeData'][$code][0]['telephoneCountryCode'])
                 ) {
-                    $this->CountryList[$code] = new Country(
+                    $this->countryList[$code] = new Country(
                         $code,
-                        $CurrencyList[$currencyMappings[$code]],
+                        $currencyList[$currencyMappings[$code]],
                         $phoneCodes['supplemental']['telephoneCodeData'][$code][0]['telephoneCountryCode']);
 
-                    $this->CountryList[$code]->addName($defaultLocale, $name);
+                    $this->countryList[$code]->addName($defaultLocale, $name);
                 }
             }
 
@@ -88,8 +88,8 @@ class CountryAdapter extends AbstractAdapter
                 $locCountries = $this->getMainData($locDir, 'territories.json');
 
                 foreach ($locCountries['main'][$locDir]['localeDisplayNames']['territories'] as $locCode => $locName)
-                    if (isset($this->CountryList[$locCode]))
-                        $this->CountryList[$locCode]->addName($loc, $locName);
+                    if (isset($this->countryList[$locCode]))
+                        $this->countryList[$locCode]->addName($loc, $locName);
             }
         }
     }

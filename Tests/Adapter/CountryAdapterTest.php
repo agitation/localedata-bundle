@@ -18,14 +18,14 @@ class CountryAdapterTest extends AbstractAdapterTest
      */
     public function testGetCountryList($code, $nameEn, $nameDe)
     {
-        $CountryAdapter = $this->createInstance();
-        $CountryList = $CountryAdapter->getCountryList();
+        $countryAdapter = $this->createInstance();
+        $countryList = $countryAdapter->getCountryList();
 
-        $this->assertTrue(is_array($CountryList));
-        $this->assertArrayHasKey($code, $CountryList);
-        $this->assertEquals($code, $CountryList[$code]->getCode());
-        $this->assertEquals($nameEn, $CountryList[$code]->getName('en_GB'));
-        $this->assertEquals($nameDe, $CountryList[$code]->getName('de_DE'));
+        $this->assertTrue(is_array($countryList));
+        $this->assertArrayHasKey($code, $countryList);
+        $this->assertEquals($code, $countryList[$code]->getCode());
+        $this->assertEquals($nameEn, $countryList[$code]->getName('en_GB'));
+        $this->assertEquals($nameDe, $countryList[$code]->getName('de_DE'));
     }
 
     /**
@@ -33,20 +33,20 @@ class CountryAdapterTest extends AbstractAdapterTest
      */
     public function testGetCountry($code, $nameEn, $nameDe)
     {
-        $CountryAdapter = $this->createInstance();
-        $Country = $CountryAdapter->getCountry($code);
-        $this->assertTrue(is_object($Country));
-        $this->assertEquals('Agit\LocaleDataBundle\Adapter\Object\Country', get_class($Country));
-        $this->assertEquals($nameEn, $Country->getName('en_GB'));
-        $this->assertEquals($nameDe, $Country->getName('de_DE'));
+        $countryAdapter = $this->createInstance();
+        $country = $countryAdapter->getCountry($code);
+        $this->assertTrue(is_object($country));
+        $this->assertEquals('Agit\LocaleDataBundle\Adapter\Object\Country', get_class($country));
+        $this->assertEquals($nameEn, $country->getName('en_GB'));
+        $this->assertEquals($nameDe, $country->getName('de_DE'));
     }
 
     public function createInstance()
     {
-        $CountryAdapter = new CountryAdapter($this->mockCurrencyAdapter(), $this->mockCountryCurrencyAdapter());
-        $CountryAdapter->setCldrDir($this->mockCldrDir());
-        $CountryAdapter->setLocaleService($this->mockLocaleService());
-        return $CountryAdapter;
+        $countryAdapter = new CountryAdapter($this->mockCurrencyAdapter(), $this->mockCountryCurrencyAdapter());
+        $countryAdapter->setCldrDir($this->mockCldrDir());
+        $countryAdapter->setLocaleService($this->mockLocaleService());
+        return $countryAdapter;
     }
 
     public function providerCountries()

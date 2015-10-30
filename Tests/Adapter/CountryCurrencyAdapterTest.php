@@ -18,11 +18,11 @@ class CountryCurrencyAdapterTest extends AbstractAdapterTest
      */
     public function testGetCountryCurrencyMap($countryCode, $currencyCode)
     {
-        $CountryCurrencyAdapter = new CountryCurrencyAdapter();
-        $CountryCurrencyAdapter->setCldrDir($this->mockCldrDir());
-        $CountryCurrencyAdapter->setLocaleService($this->mockLocaleService());
+        $countryCurrencyAdapter = new CountryCurrencyAdapter();
+        $countryCurrencyAdapter->setCldrDir($this->mockCldrDir());
+        $countryCurrencyAdapter->setLocaleService($this->mockLocaleService());
 
-        $map = $CountryCurrencyAdapter->getCountryCurrencyMap();
+        $map = $countryCurrencyAdapter->getCountryCurrencyMap();
 
         $this->assertTrue(is_array($map));
         $this->assertArrayHasKey($countryCode, $map);

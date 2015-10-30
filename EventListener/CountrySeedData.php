@@ -16,33 +16,33 @@ use Agit\LocaleDataBundle\Adapter\CountryAdapter;
 
 class CountrySeedData
 {
-    private $LocaleService;
+    private $localeService;
 
-    private $CountryAdapter;
+    private $countryAdapter;
 
-    public function __construct(LocaleService $LocaleService, CountryAdapter $CountryAdapter)
+    public function __construct(LocaleService $localeService, CountryAdapter $countryAdapter)
     {
-        $this->LocaleService = $LocaleService;
-        $this->CountryAdapter = $CountryAdapter;
+        $this->localeService = $localeService;
+        $this->countryAdapter = $countryAdapter;
     }
 
-    public function onRegistration(SeedRegistrationEvent $RegistrationEvent)
+    public function onRegistration(SeedRegistrationEvent $registrationEvent)
     {
-        $defaultLocale = $this->LocaleService->getDefaultLocale();
-        $CountryList = $this->CountryAdapter->getCountryList();
+        $defaultLocale = $this->localeService->getDefaultLocale();
+        $countryList = $this->countryAdapter->getCountryList();
 
-        foreach ($CountryList as $Country)
+        foreach ($countryList as $country)
         {
-            $RegistrationData = $RegistrationEvent->createContainer();
+            $registrationData = $registrationEvent->createContainer();
 
-            $RegistrationData->setData([
-                'id' => $Country->getCode(),
-                'phone' => $Country->getPhone(),
-                'name' => $Country->getName($defaultLocale),
-                'Currency' => $Country->getCurrency()->getCode()
+            $registrationData->setData([
+                'id' => $country->getCode(),
+                'phone' => $country->getPhone(),
+                'name' => $country->getName($defaultLocale),
+                'currency' => $country->getCurrency()->getCode()
             ]);
 
-            $RegistrationEvent->register($RegistrationData);
+            $registrationEvent->register($registrationData);
         }
     }
 }

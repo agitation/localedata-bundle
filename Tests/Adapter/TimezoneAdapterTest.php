@@ -18,14 +18,14 @@ class TimezoneAdapterTest extends AbstractAdapterTest
      */
     public function testGetTimezoneList($code, $nameEn, $nameDe)
     {
-        $TimezoneAdapter = $this->createInstance();
-        $TimezoneList = $TimezoneAdapter->getTimezoneList();
+        $timezoneAdapter = $this->createInstance();
+        $timezoneList = $timezoneAdapter->getTimezoneList();
 
-        $this->assertTrue(is_array($TimezoneList));
-        $this->assertArrayHasKey($code, $TimezoneList);
-        $this->assertEquals($code, $TimezoneList[$code]->getCode());
-        $this->assertEquals($nameEn, $TimezoneList[$code]->getName('en_GB'));
-        $this->assertEquals($nameDe, $TimezoneList[$code]->getName('de_DE'));
+        $this->assertTrue(is_array($timezoneList));
+        $this->assertArrayHasKey($code, $timezoneList);
+        $this->assertEquals($code, $timezoneList[$code]->getCode());
+        $this->assertEquals($nameEn, $timezoneList[$code]->getName('en_GB'));
+        $this->assertEquals($nameDe, $timezoneList[$code]->getName('de_DE'));
     }
 
     /**
@@ -33,20 +33,20 @@ class TimezoneAdapterTest extends AbstractAdapterTest
      */
     public function testGetTimezone($code, $nameEn, $nameDe)
     {
-        $TimezoneAdapter = $this->createInstance();
-        $Timezone = $TimezoneAdapter->getTimezone($code);
-        $this->assertTrue(is_object($Timezone));
-        $this->assertEquals('Agit\LocaleDataBundle\Adapter\Object\Timezone', get_class($Timezone));
-        $this->assertEquals($nameEn, $Timezone->getName('en_GB'));
-        $this->assertEquals($nameDe, $Timezone->getName('de_DE'));
+        $timezoneAdapter = $this->createInstance();
+        $timezone = $timezoneAdapter->getTimezone($code);
+        $this->assertTrue(is_object($timezone));
+        $this->assertEquals('Agit\LocaleDataBundle\Adapter\Object\Timezone', get_class($timezone));
+        $this->assertEquals($nameEn, $timezone->getName('en_GB'));
+        $this->assertEquals($nameDe, $timezone->getName('de_DE'));
     }
 
     public function createInstance()
     {
-        $TimezoneAdapter = new TimezoneAdapter($this->mockCountryAdapter());
-        $TimezoneAdapter->setCldrDir($this->mockCldrDir());
-        $TimezoneAdapter->setLocaleService($this->mockLocaleService());
-        return $TimezoneAdapter;
+        $timezoneAdapter = new TimezoneAdapter($this->mockCountryAdapter());
+        $timezoneAdapter->setCldrDir($this->mockCldrDir());
+        $timezoneAdapter->setLocaleService($this->mockLocaleService());
+        return $timezoneAdapter;
     }
 
     public function providerTimezones()

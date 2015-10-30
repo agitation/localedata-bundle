@@ -16,36 +16,36 @@ use Agit\LocaleDataBundle\Adapter\LanguageAdapter;
 
 class LanguageSeedData
 {
-    private $LocaleService;
+    private $localeService;
 
-    private $LanguageAdapter;
+    private $languageAdapter;
 
-    public function __construct(LocaleService $LocaleService, LanguageAdapter $LanguageAdapter)
+    public function __construct(LocaleService $localeService, LanguageAdapter $languageAdapter)
     {
-        $this->LocaleService = $LocaleService;
-        $this->LanguageAdapter = $LanguageAdapter;
+        $this->localeService = $localeService;
+        $this->languageAdapter = $languageAdapter;
     }
 
-    public function onRegistration(SeedRegistrationEvent $RegistrationEvent)
+    public function onRegistration(SeedRegistrationEvent $registrationEvent)
     {
-        $defaultLocale = $this->LocaleService->getDefaultLocale();
-        $LanguageList = $this->LanguageAdapter->getLanguageList();
+        $defaultLocale = $this->localeService->getDefaultLocale();
+        $languageList = $this->languageAdapter->getLanguageList();
 
-        foreach ($LanguageList as $Language)
+        foreach ($languageList as $language)
         {
-            $RegistrationData = $RegistrationEvent->createContainer();
+            $registrationData = $registrationEvent->createContainer();
 
             $countryList = array_map(
-                function($Country){ return $Country->getCode(); },
-                $Language->getCountryList());
+                function($country){ return $country->getCode(); },
+                $language->getCountryList());
 
-            $RegistrationData->setData([
-                'id' => $Language->getCode(),
-                'name' => $Language->getName($defaultLocale),
-                'localName' => mb_convert_case($Language->getLocalName(),  MB_CASE_TITLE, 'UTF-8')
+            $registrationData->setData([
+                'id' => $language->getCode(),
+                'name' => $language->getName($defaultLocale),
+                'localName' => mb_convert_case($language->getLocalName(),  MB_CASE_TITLE, 'UTF-8')
             ]);
 
-            $RegistrationEvent->register($RegistrationData);
+            $registrationEvent->register($registrationData);
         }
     }
 }

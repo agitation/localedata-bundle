@@ -17,10 +17,10 @@ use Agit\LocaleDataBundle\Adapter\Object\Country;
 abstract class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
 {
     // set the common services for all adapters
-    protected function setServices(AbstractAdapter $Adapter)
+    protected function setServices(AbstractAdapter $adapter)
     {
-        $Adapter->setCldrDir($this->mockCldrDir());
-        $Adapter->setLocaleService($this->mockLocaleService());
+        $adapter->setCldrDir($this->mockCldrDir());
+        $adapter->setLocaleService($this->mockLocaleService());
     }
 
     protected function mockCldrDir()
@@ -30,113 +30,113 @@ abstract class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
 
     protected function mockLocaleService()
     {
-        $LocaleService = $this
+        $localeService = $this
             ->getMockBuilder('\Agit\IntlBundle\Service\LocaleService')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $LocaleService->expects($this->any())
+        $localeService->expects($this->any())
             ->method('getDefaultLocale')
             ->will($this->returnValue('en_GB'));
 
-        $LocaleService->expects($this->any())
+        $localeService->expects($this->any())
             ->method('getAvailableLocales')
             ->will($this->returnValue(['en_GB', 'de_DE']));
 
-        return $LocaleService;
+        return $localeService;
     }
 
     protected function mockCountryCurrencyAdapter()
     {
-        $CountryCurrencyAdapter = $this
+        $countryCurrencyAdapter = $this
             ->getMockBuilder('\Agit\LocaleDataBundle\Adapter\CountryCurrencyAdapter')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $CountryCurrencyAdapter->expects($this->any())
+        $countryCurrencyAdapter->expects($this->any())
             ->method('getCountryCurrencyMap')
             ->will($this->returnValue(['BR' => 'BRL', 'CH' => 'CHE', 'DE' => 'EUR', 'GB' => 'GBP', 'US' => 'USD']));
 
-        return $CountryCurrencyAdapter;
+        return $countryCurrencyAdapter;
     }
 
     protected function mockCurrencyAdapter()
     {
-        $CurrencyAdapter = $this
+        $currencyAdapter = $this
             ->getMockBuilder('\Agit\LocaleDataBundle\Adapter\CurrencyAdapter')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $CurrencyList = [
+        $currencyList = [
             'BRL' => $this->mockCurrency('BRL', 'Brazilian Real', 'Brasilianischer Real'),
             'GBP' => $this->mockCurrency('GBP', 'British Pound Sterling', 'Britisches Pfund Sterling'),
             'EUR' => $this->mockCurrency('EUR', 'Euro', 'Euro')
         ];
 
-        $CurrencyAdapter->expects($this->any())
+        $currencyAdapter->expects($this->any())
             ->method('getCurrencyList')
-            ->will($this->returnValue($CurrencyList));
+            ->will($this->returnValue($currencyList));
 
-        $CurrencyAdapter->expects($this->any())
+        $currencyAdapter->expects($this->any())
             ->method('getCurrency')
-            ->will($this->returnCallback(function($code) use ($CurrencyList) {
-                return $CurrencyList[$code];
+            ->will($this->returnCallback(function($code) use ($currencyList) {
+                return $currencyList[$code];
             }));
 
-        $CurrencyAdapter->expects($this->any())
+        $currencyAdapter->expects($this->any())
             ->method('hasCurrency')
-            ->will($this->returnCallback(function($code) use ($CurrencyList) {
-                return isset($CurrencyList[$code]);
+            ->will($this->returnCallback(function($code) use ($currencyList) {
+                return isset($currencyList[$code]);
             }));
 
-        return $CurrencyAdapter;
+        return $currencyAdapter;
     }
 
     protected function mockCurrency($code, $nameEn, $nameDe)
     {
-        $Currency = new Currency($code);
-        $Currency->addName('en_GB', $nameEn);
-        $Currency->addName('de_DE', $nameDe);
-        return $Currency;
+        $currency = new Currency($code);
+        $currency->addName('en_GB', $nameEn);
+        $currency->addName('de_DE', $nameDe);
+        return $currency;
     }
 
     protected function mockCountryAdapter()
     {
-        $CountryAdapter = $this
+        $countryAdapter = $this
             ->getMockBuilder('\Agit\LocaleDataBundle\Adapter\CountryAdapter')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $CountryList = [
+        $countryList = [
             'BR' => $this->mockCountry('BR', 'Brazil', 'Brasilien', 'BRL', 'Brazilian Real', 'Brasilianischer Real'),
             'GB' => $this->mockCountry('GB', 'United Kingdom', 'Vereinigtes Königreich', 'GBP', 'British Pound Sterling', 'Britisches Pfund Sterling'),
             'DE' => $this->mockCountry('DE', 'Germany', 'Deutschland', 'EUR', 'Euro', 'Euro')
         ];
 
-        $CountryAdapter->expects($this->any())
+        $countryAdapter->expects($this->any())
             ->method('getCountryList')
-            ->will($this->returnValue($CountryList));
+            ->will($this->returnValue($countryList));
 
-        $CountryAdapter->expects($this->any())
+        $countryAdapter->expects($this->any())
             ->method('getCountry')
-            ->will($this->returnCallback(function($code) use ($CountryList) {
-                return $CountryList[$code];
+            ->will($this->returnCallback(function($code) use ($countryList) {
+                return $countryList[$code];
             }));
 
-        $CountryAdapter->expects($this->any())
+        $countryAdapter->expects($this->any())
             ->method('hasCountry')
-            ->will($this->returnCallback(function($code) use ($CountryList) {
-                return isset($CountryList[$code]);
+            ->will($this->returnCallback(function($code) use ($countryList) {
+                return isset($countryList[$code]);
             }));
 
-        return $CountryAdapter;
+        return $countryAdapter;
     }
 
     protected function mockCountry($code, $nameEn, $nameDe, $currCode, $currNameEn, $currNameDe)
     {
-        $Country = new Country($code, $this->mockCurrency($currCode, $currNameEn, $currNameDe));
-        $Country->addName('en_GB', $nameEn);
-        $Country->addName('de_DE', $nameDe);
-        return $Country;
+        $country = new Country($code, $this->mockCurrency($currCode, $currNameEn, $currNameDe));
+        $country->addName('en_GB', $nameEn);
+        $country->addName('de_DE', $nameDe);
+        return $country;
     }
 }

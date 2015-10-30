@@ -14,48 +14,48 @@ use Agit\LocaleDataBundle\Adapter\Object\Currency;
 
 class CurrencyAdapter extends AbstractAdapter
 {
-    protected $CurrencyList = null;
+    protected $currencyList = null;
 
-    protected $CountryCurrencyAdapter;
+    protected $countryCurrencyAdapter;
 
-    public function __construct(CountryCurrencyAdapter $CountryCurrencyAdapter)
+    public function __construct(CountryCurrencyAdapter $countryCurrencyAdapter)
     {
-        $this->CountryCurrencyAdapter = $CountryCurrencyAdapter;
+        $this->countryCurrencyAdapter = $countryCurrencyAdapter;
     }
 
     public function getCurrencyList()
     {
-        return $this->getList('CurrencyList');
+        return $this->getList('currencyList');
     }
 
     public function hasCurrency($code)
     {
-        return $this->hasListElement('CurrencyList', $code);
+        return $this->hasListElement('currencyList', $code);
     }
 
     public function getCurrency($code)
     {
-        return $this->getListElement('CurrencyList', $code);
+        return $this->getListElement('currencyList', $code);
     }
 
     protected function load()
     {
-        if (is_null($this->CurrencyList))
+        if (is_null($this->currencyList))
         {
-            $this->CurrencyList = [];
+            $this->currencyList = [];
             $currencyData = $this->getMainData($this->baseLocDir, 'currencies.json');
-            $currencyMappings = array_flip($this->CountryCurrencyAdapter->getCountryCurrencyMap());
+            $currencyMappings = array_flip($this->countryCurrencyAdapter->getCountryCurrencyMap());
 
-            $defaultLocale = $this->LocaleService->getDefaultLocale();
-            $availableLocales = $this->LocaleService->getAvailableLocales();
+            $defaultLocale = $this->localeService->getDefaultLocale();
+            $availableLocales = $this->localeService->getAvailableLocales();
 
             // collect main data ...
             foreach ($currencyData['main'][$this->baseLocDir]['numbers']['currencies'] as $code => $list)
             {
                 if (isset($currencyMappings[$code]))
                 {
-                    $this->CurrencyList[$code] = new Currency($code);
-                    $this->CurrencyList[$code]->addName($defaultLocale, $list['displayName']);
+                    $this->currencyList[$code] = new Currency($code);
+                    $this->currencyList[$code]->addName($defaultLocale, $list['displayName']);
                 }
             }
 
@@ -70,8 +70,8 @@ class CurrencyAdapter extends AbstractAdapter
                 $locCurrencies = $this->getMainData($locDir, 'currencies.json');
 
                 foreach ($locCurrencies['main'][$locDir]['numbers']['currencies'] as $locCode => $locList)
-                    if (isset($this->CurrencyList[$locCode]))
-                        $this->CurrencyList[$locCode]->addName($loc, $locList['displayName']);
+                    if (isset($this->currencyList[$locCode]))
+                        $this->currencyList[$locCode]->addName($loc, $locList['displayName']);
             }
         }
     }

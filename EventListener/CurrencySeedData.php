@@ -16,31 +16,31 @@ use Agit\LocaleDataBundle\Adapter\CurrencyAdapter;
 
 class CurrencySeedData
 {
-    private $LocaleService;
+    private $localeService;
 
-    private $CurrencyAdapter;
+    private $currencyAdapter;
 
-    public function __construct(LocaleService $LocaleService, CurrencyAdapter $CurrencyAdapter)
+    public function __construct(LocaleService $localeService, CurrencyAdapter $currencyAdapter)
     {
-        $this->LocaleService = $LocaleService;
-        $this->CurrencyAdapter = $CurrencyAdapter;
+        $this->localeService = $localeService;
+        $this->currencyAdapter = $currencyAdapter;
     }
 
-    public function onRegistration(SeedRegistrationEvent $RegistrationEvent)
+    public function onRegistration(SeedRegistrationEvent $registrationEvent)
     {
-        $defaultLocale = $this->LocaleService->getDefaultLocale();
-        $CurrencyList = $this->CurrencyAdapter->getCurrencyList();
+        $defaultLocale = $this->localeService->getDefaultLocale();
+        $currencyList = $this->currencyAdapter->getCurrencyList();
 
-        foreach ($CurrencyList as $Currency)
+        foreach ($currencyList as $currency)
         {
-            $RegistrationData = $RegistrationEvent->createContainer();
+            $registrationData = $registrationEvent->createContainer();
 
-            $RegistrationData->setData([
-                'id' => $Currency->getCode(),
-                'name' => $Currency->getName($defaultLocale)
+            $registrationData->setData([
+                'id' => $currency->getCode(),
+                'name' => $currency->getName($defaultLocale)
             ]);
 
-            $RegistrationEvent->register($RegistrationData);
+            $registrationEvent->register($registrationData);
         }
     }
 }

@@ -36,7 +36,7 @@ class Country extends AbstractEntity
     /**
      * @ORM\ManyToOne(targetEntity="Currency")
      */
-    protected $Currency;
+    protected $currency;
 
     /**
      * Get id
@@ -75,6 +75,6 @@ class Country extends AbstractEntity
      */
     public function getCurrency()
     {
-        return $this->Currency;
+        return $this->currency;
     }
 }

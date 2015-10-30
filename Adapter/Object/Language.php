@@ -13,7 +13,7 @@ use Agit\CoreBundle\Exception\InternalErrorException;
 
 class Language extends AbstractObject
 {
-    private $CountryList = [];
+    private $countryList = [];
 
     private $localName;
 
@@ -23,9 +23,9 @@ class Language extends AbstractObject
         $this->localName = (string)$localName;
     }
 
-    public function addCountry(Country $Country)
+    public function addCountry(Country $country)
     {
-        $this->CountryList[] = $Country;
+        $this->countryList[] = $country;
     }
 
     public function getLocalName()
@@ -35,6 +35,6 @@ class Language extends AbstractObject
 
     public function getCountryList()
     {
-        return $this->CountryList;
+        return $this->countryList;
     }
 }

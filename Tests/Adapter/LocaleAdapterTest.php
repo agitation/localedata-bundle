@@ -18,14 +18,14 @@ class LocaleAdapterTest extends AbstractAdapterTest
      */
     public function testGetLocaleList($code, $nameEn, $nameDe)
     {
-        $LocaleAdapter = $this->createInstance();
-        $LocaleList = $LocaleAdapter->getLocaleList();
+        $localeAdapter = $this->createInstance();
+        $localeList = $localeAdapter->getLocaleList();
 
-        $this->assertTrue(is_array($LocaleList));
-        $this->assertArrayHasKey($code, $LocaleList);
-        $this->assertEquals($code, $LocaleList[$code]->getCode());
-        $this->assertEquals($nameEn, $LocaleList[$code]->getName('en_GB'));
-        $this->assertEquals($nameDe, $LocaleList[$code]->getName('de_DE'));
+        $this->assertTrue(is_array($localeList));
+        $this->assertArrayHasKey($code, $localeList);
+        $this->assertEquals($code, $localeList[$code]->getCode());
+        $this->assertEquals($nameEn, $localeList[$code]->getName('en_GB'));
+        $this->assertEquals($nameDe, $localeList[$code]->getName('de_DE'));
     }
 
     /**
@@ -33,20 +33,20 @@ class LocaleAdapterTest extends AbstractAdapterTest
      */
     public function testGetLocale($code, $nameEn, $nameDe)
     {
-        $LocaleAdapter = $this->createInstance();
-        $Locale = $LocaleAdapter->getLocale($code);
-        $this->assertTrue(is_object($Locale));
-        $this->assertEquals('Agit\LocaleDataBundle\Adapter\Object\Locale', get_class($Locale));
-        $this->assertEquals($nameEn, $Locale->getName('en_GB'));
-        $this->assertEquals($nameDe, $Locale->getName('de_DE'));
+        $localeAdapter = $this->createInstance();
+        $locale = $localeAdapter->getLocale($code);
+        $this->assertTrue(is_object($locale));
+        $this->assertEquals('Agit\LocaleDataBundle\Adapter\Object\Locale', get_class($locale));
+        $this->assertEquals($nameEn, $locale->getName('en_GB'));
+        $this->assertEquals($nameDe, $locale->getName('de_DE'));
     }
 
     public function createInstance()
     {
-        $LocaleAdapter = new LocaleAdapter($this->mockCountryAdapter());
-        $LocaleAdapter->setCldrDir($this->mockCldrDir());
-        $LocaleAdapter->setLocaleService($this->mockLocaleService());
-        return $LocaleAdapter;
+        $localeAdapter = new LocaleAdapter($this->mockCountryAdapter());
+        $localeAdapter->setCldrDir($this->mockCldrDir());
+        $localeAdapter->setLocaleService($this->mockLocaleService());
+        return $localeAdapter;
     }
 
     public function providerLocales()
