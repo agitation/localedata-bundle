@@ -46,7 +46,7 @@ services:
     # To retrieve countries, currencies, etc., use the above repo services.
     #
 
-    # adapter services
+    # adapter services, used for loading raw CLDR data
 
     agit.localedata.adapter.abstract:
         abstract: true
@@ -88,76 +88,3 @@ services:
         class: Agit\LocaleDataBundle\EventListener\CldrCatalogListener
         arguments: [ @filesystem, @agit.intl.locale, @agit.localedata.adapter.currency, @agit.localedata.adapter.country, @agit.localedata.adapter.language, @agit.localedata.adapter.time, @agit.localedata.adapter.timezone ]
         tags: [{ name: kernel.event_listener, event: agit.intl.catalog.register, method: onRegistration }]
-
-    #
-    # seed registration listeners
-    #
-
-    # listening for currencies to be registered
-    agit.localedata.register.currency:
-        private: true
-        class: SeedListener
-        factory_service:  agit.pluggable.seed.listener.factory
-        factory_method:   create
-        arguments: [AgitLocaleDataBundle:Currency, 1]
-        tags: [{ name: kernel.event_listener, event: agit.pluggable, method: onRegistration }]
-
-    # listening for countries to be registered
-    agit.localedata.register.country:
-        private: true
-        class: SeedListener
-        factory_service:  agit.pluggable.seed.listener.factory
-        factory_method:   create
-        arguments: [AgitLocaleDataBundle:Country, 2]
-        tags: [{ name: kernel.event_listener, event: agit.pluggable, method: onRegistration }]
-
-    # listening for languages to be registered
-    agit.localedata.register.language:
-        private: true
-        class: SeedListener
-        factory_service:  agit.pluggable.seed.listener.factory
-        factory_method:   create
-        arguments: [AgitLocaleDataBundle:Language, 3]
-        tags: [{ name: kernel.event_listener, event: agit.pluggable, method: onRegistration }]
-
-    # listening for timezones to be registered
-    agit.localedata.register.timezone:
-        private: true
-        class: SeedListener
-        factory_service:  agit.pluggable.seed.listener.factory
-        factory_method:   create
-        arguments: [AgitLocaleDataBundle:Timezone, 3]
-        tags: [{ name: kernel.event_listener, event: agit.pluggable, method: onRegistration }]
-
-
-    #
-    # actual seeds
-    #
-
-    # registering our own currencies
-    agit.localedata.seed.currency.listener:
-        private: true
-        class: Agit\LocaleDataBundle\EventListener\CurrencySeedData
-        arguments: [@agit.intl.locale, @agit.localedata.adapter.currency]
-        tags: [{ name: kernel.event_listener, event: AgitLocaleDataBundle:Currency, method: onRegistration }]
-
-    # registering our own countries
-    agit.localedata.seed.country.listener:
-        private: true
-        class: Agit\LocaleDataBundle\EventListener\CountrySeedData
-        arguments: [@agit.intl.locale, @agit.localedata.adapter.country]
-        tags: [{ name: kernel.event_listener, event: AgitLocaleDataBundle:Country, method: onRegistration }]
-
-    # registering our own languages
-    agit.localedata.seed.language.listener:
-        private: true
-        class: Agit\LocaleDataBundle\EventListener\LanguageSeedData
-        arguments: [@agit.intl.locale, @agit.localedata.adapter.language]
-        tags: [{ name: kernel.event_listener, event: AgitLocaleDataBundle:Language, method: onRegistration }]
-
-    # registering our own timezones
-    agit.localedata.seed.timezone.listener:
-        private: true
-        class: Agit\LocaleDataBundle\EventListener\TimezoneSeedData
-        arguments: [@agit.intl.locale, @agit.localedata.adapter.timezone]
-        tags: [{ name: kernel.event_listener, event: AgitLocaleDataBundle:Timezone, method: onRegistration }]
