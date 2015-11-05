@@ -10,7 +10,6 @@
 namespace Agit\LocaleDataBundle\Plugin;
 
 use Agit\PluggableBundle\Strategy\Seed\SeedPlugin;
-use Agit\PluggableBundle\Strategy\Seed\SeedEntry;
 
 /**
  * @SeedPlugin(entity="AgitLocaleDataBundle:Timezone", depends={"agit.intl.locale", "agit.localedata.adapter.timezone"})
@@ -24,17 +23,11 @@ class TimezoneSeedPlugin extends AbstractLocaleSeedPlugin
         $data = [];
 
         foreach ($timezoneList as $timezone)
-        {
-            $seedEntry = new SeedEntry();
-
-            $seedEntry->setData([
+            $data[] = [
                 'id' => $timezone->getCode(),
                 'name' => $timezone->getName($defaultLocale),
                 'country' => $timezone->getCountry()->getCode()
-            ]);
-
-            $data[] = $seedEntry;
-        }
+            ];
 
         return $data;
     }

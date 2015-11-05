@@ -10,7 +10,6 @@
 namespace Agit\LocaleDataBundle\Plugin;
 
 use Agit\PluggableBundle\Strategy\Seed\SeedPlugin;
-use Agit\PluggableBundle\Strategy\Seed\SeedEntry;
 
 /**
  * @SeedPlugin(entity="AgitLocaleDataBundle:Country", depends={"agit.intl.locale", "agit.localedata.adapter.country"})
@@ -24,18 +23,12 @@ class CountrySeedPlugin extends AbstractLocaleSeedPlugin
         $data = [];
 
         foreach ($countryList as $country)
-        {
-            $seedEntry = new SeedEntry();
-
-            $seedEntry->setData([
+            $data[] = [
                 'id' => $country->getCode(),
                 'phone' => $country->getPhone(),
                 'name' => $country->getName($defaultLocale),
                 'currency' => $country->getCurrency()->getCode()
-            ]);
-
-            $data[] = $seedEntry;
-        }
+            ];
 
         return $data;
     }

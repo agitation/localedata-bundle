@@ -12,6 +12,7 @@ namespace Agit\LocaleDataBundle\Plugin;
 use Agit\PluggableBundle\Strategy\Seed\SeedPluginInterface;
 use Agit\PluggableBundle\Strategy\ServiceAwarePluginInterface;
 use Agit\PluggableBundle\Strategy\ServiceAwarePluginTrait;
+use Agit\PluggableBundle\Strategy\Seed\SeedEntry;
 
 abstract class AbstractLocaleSeedPlugin implements SeedPluginInterface, ServiceAwarePluginInterface
 {
@@ -21,7 +22,13 @@ abstract class AbstractLocaleSeedPlugin implements SeedPluginInterface, ServiceA
 
     public function load()
     {
-        $this->data = $this->getData();
+        foreach ($this->getData() as $entry)
+        {
+            $seedEntry = new SeedEntry();
+            $seedEntry->setDoUpdate(true);
+            $seedEntry->setData($entry);
+            $this->data[] = $seedEntry;
+        }
     }
 
     public function nextSeedEntry()

@@ -10,7 +10,6 @@
 namespace Agit\LocaleDataBundle\Plugin;
 
 use Agit\PluggableBundle\Strategy\Seed\SeedPlugin;
-use Agit\PluggableBundle\Strategy\Seed\SeedEntry;
 
 /**
  * @SeedPlugin(entity="AgitLocaleDataBundle:Currency", depends={"agit.intl.locale", "agit.localedata.adapter.currency"})
@@ -24,16 +23,10 @@ class CurrencySeedPlugin extends AbstractLocaleSeedPlugin
         $data = [];
 
         foreach ($currencyList as $currency)
-        {
-            $seedEntry = new SeedEntry();
-
-            $seedEntry->setData([
+            $data[] = [
                 'id' => $currency->getCode(),
                 'name' => $currency->getName($defaultLocale)
-            ]);
-
-            $data[] = $seedEntry;
-        }
+            ];
 
         return $data;
     }
