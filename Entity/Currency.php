@@ -10,7 +10,7 @@
 namespace Agit\LocaleDataBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Agit\IntlBundle\Service\Translate;
+use Agit\IntlBundle\Translate;
 use Agit\CoreBundle\Entity\AbstractEntity;
 
 /**
@@ -46,6 +46,6 @@ class Currency extends AbstractEntity
      */
     public function getName()
     {
-        return Translate::getInstance()->x($this->name, 'currency');
+        return Translate::x($this->name, 'currency');
     }
 }
