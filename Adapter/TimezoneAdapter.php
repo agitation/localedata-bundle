@@ -9,7 +9,7 @@
 
 namespace Agit\LocaleDataBundle\Adapter;
 
-use Agit\CoreBundle\Exception\InternalErrorException;
+use Agit\CommonBundle\Exception\InternalErrorException;
 use Agit\LocaleDataBundle\Adapter\Object\Timezone;
 
 class TimezoneAdapter extends AbstractAdapter

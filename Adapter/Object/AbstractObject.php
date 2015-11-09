@@ -9,7 +9,7 @@
 
 namespace Agit\LocaleDataBundle\Adapter\Object;
 
-use Agit\CoreBundle\Exception\InternalErrorException;
+use Agit\CommonBundle\Exception\InternalErrorException;
 
 abstract class AbstractObject
 {
