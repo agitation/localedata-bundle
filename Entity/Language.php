@@ -10,41 +10,33 @@
 namespace Agit\LocaleDataBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Agit\CommonBundle\Entity\IdentityAwareTrait;
 use Agit\IntlBundle\Translate;
-use Agit\CommonBundle\Entity\AbstractEntity;
 
 /**
  * @ORM\Entity(repositoryClass="Agit\LocaleDataBundle\Entity\LanguageRepository")
  */
-class Language extends AbstractEntity
+class Language
 {
+    use IdentityAwareTrait;
+
     /**
      * @ORM\Id
-     * @ORM\Column(type="string",length=5,unique=true)
+     * @ORM\Column(type="string", length=5)
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="string",length=30)
+     * @ORM\Column(type="string", length=30)
      */
     protected $name;
 
     /**
-     * @ORM\Column(type="string",length=30)
+     * @ORM\Column(type="string", length=30)
      *
      * The name of the language in its local language
      */
     protected $localName;
-
-    /**
-     * Get id
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Get name

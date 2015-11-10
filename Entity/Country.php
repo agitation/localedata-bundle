@@ -10,17 +10,19 @@
 namespace Agit\LocaleDataBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Agit\CommonBundle\Entity\IdentityAwareTrait;
 use Agit\IntlBundle\Translate;
-use Agit\CommonBundle\Entity\AbstractEntity;
 
 /**
  * @ORM\Entity(repositoryClass="Agit\LocaleDataBundle\Entity\CountryRepository")
  */
-class Country extends AbstractEntity
+class Country
 {
+    use IdentityAwareTrait;
+
     /**
      * @ORM\Id
-     * @ORM\Column(type="string",length=2,unique=true)
+     * @ORM\Column(type="string", length=2)
      */
     protected $id;
 
@@ -37,16 +39,6 @@ class Country extends AbstractEntity
      * @ORM\ManyToOne(targetEntity="Currency")
      */
     protected $currency;
-
-    /**
-     * Get id
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Get name

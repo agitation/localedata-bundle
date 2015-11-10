@@ -10,17 +10,19 @@
 namespace Agit\LocaleDataBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Agit\CommonBundle\Entity\IdentityAwareTrait;
 use Agit\IntlBundle\Translate;
-use Agit\CommonBundle\Entity\AbstractEntity;
 
 /**
  * @ORM\Entity(repositoryClass="Agit\LocaleDataBundle\Entity\TimezoneRepository")
  */
-class Timezone extends AbstractEntity
+class Timezone
 {
+    use IdentityAwareTrait;
+
     /**
      * @ORM\Id
-     * @ORM\Column(type="string",length=40,unique=true)
+     * @ORM\Column(type="string", length=40)
      */
     protected $id;
 
@@ -34,16 +36,6 @@ class Timezone extends AbstractEntity
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $country;
-
-    /**
-     * Get id
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Get Country
