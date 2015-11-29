@@ -1,5 +1,5 @@
 {
-    "name": "agitation/localedata",
+    "name": "agitation/localedata-bundle",
     "type": "symfony-bundle",
     "minimum-stability": "dev",
     "require": {
