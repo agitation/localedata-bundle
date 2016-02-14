@@ -11,15 +11,23 @@ namespace Agit\LocaleDataBundle\Adapter\Object;
 
 class Country extends AbstractObject
 {
+    private $longCode;
+
     private $currency;
 
     private $phone;
 
-    public function __construct($code, Currency $currency, $phone)
+    public function __construct($code, $longCode, Currency $currency, $phone)
     {
         $this->code = (string)$code;
+        $this->longCode = (string)$longCode;
         $this->currency = $currency;
         $this->phone = $phone;
+    }
+
+    public function getLongCode()
+    {
+        return $this->longCode;
     }
 
     public function getCurrency()

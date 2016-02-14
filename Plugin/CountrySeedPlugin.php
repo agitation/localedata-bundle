@@ -25,6 +25,7 @@ class CountrySeedPlugin extends AbstractLocaleSeedPlugin
         foreach ($countryList as $country)
             $data[] = [
                 'id' => $country->getCode(),
+                'code' => $country->getLongCode(),
                 'phone' => $country->getPhone(),
                 'name' => $country->getName($defaultLocale),
                 'currency' => $country->getCurrency()->getCode()

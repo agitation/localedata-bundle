@@ -27,6 +27,13 @@ class Country
     protected $id;
 
     /**
+     * @ORM\Column(type="string",length=3)
+     *
+     * The official 3-letter code.
+     */
+    protected $code;
+
+    /**
      * @ORM\Column(type="string",length=60)
      */
     protected $name;
@@ -48,6 +55,16 @@ class Country
     public function getName()
     {
         return Translate::x($this->name, 'country');
+    }
+
+    /**
+     * Get code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
     }
 
     /**

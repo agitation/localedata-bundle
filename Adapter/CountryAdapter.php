@@ -51,6 +51,7 @@ class CountryAdapter extends AbstractAdapter
             $availableLocales = $this->localeService->getAvailableLocales();
 
             $countries = $this->getMainData($this->baseLocDir, 'territories.json');
+            $codeMappings = $this->getSupplementalData('codeMappings.json');
             $phoneCodes = $this->getSupplementalData('telephoneCodeData.json');
             $currencyList = $this->currencyAdapter->getCurrencyList();
             $currencyMappings = $this->countryCurrencyAdapter->getCountryCurrencyMap();
@@ -64,12 +65,17 @@ class CountryAdapter extends AbstractAdapter
                     $code !== 'ZZ' &&
                     isset($currencyMappings[$code]) &&
                     isset($currencyList[$currencyMappings[$code]]) &&
+
+                    isset($codeMappings['supplemental']['codeMappings'][$code]) &&
+                    isset($codeMappings['supplemental']['codeMappings'][$code]["_alpha3"]) &&
+
                     isset($phoneCodes['supplemental']['telephoneCodeData'][$code]) &&
                     isset($phoneCodes['supplemental']['telephoneCodeData'][$code][0]) &&
                     isset($phoneCodes['supplemental']['telephoneCodeData'][$code][0]['telephoneCountryCode'])
                 ) {
                     $this->countryList[$code] = new Country(
                         $code,
+                        $codeMappings['supplemental']['codeMappings'][$code]["_alpha3"],
                         $currencyList[$currencyMappings[$code]],
                         $phoneCodes['supplemental']['telephoneCodeData'][$code][0]['telephoneCountryCode']);
 
