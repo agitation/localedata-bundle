@@ -16,16 +16,16 @@ class CurrencyAdapterTest extends AbstractAdapterTest
     /**
      * @dataProvider providerCurrencies
      */
-    public function testGetCurrencyList($code, $nameEn, $nameDe)
+    public function testGetCurrencies($code, $nameEn, $nameDe)
     {
         $currencyAdapter = $this->createInstance();
-        $currencyList = $currencyAdapter->getCurrencyList();
+        $currencies = $currencyAdapter->getCurrencies();
 
-        $this->assertTrue(is_array($currencyList));
-        $this->assertArrayHasKey($code, $currencyList);
-        $this->assertEquals($code, $currencyList[$code]->getCode());
-        $this->assertEquals($nameEn, $currencyList[$code]->getName('en_GB'));
-        $this->assertEquals($nameDe, $currencyList[$code]->getName('de_DE'));
+        $this->assertTrue(is_array($currencies));
+        $this->assertArrayHasKey($code, $currencies);
+        $this->assertEquals($code, $currencies[$code]->getCode());
+        $this->assertEquals($nameEn, $currencies[$code]->getName('en_GB'));
+        $this->assertEquals($nameDe, $currencies[$code]->getName('de_DE'));
     }
 
     /**

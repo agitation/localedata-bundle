@@ -16,16 +16,16 @@ class TimezoneAdapterTest extends AbstractAdapterTest
     /**
      * @dataProvider providerTimezones
      */
-    public function testGetTimezoneList($code, $nameEn, $nameDe)
+    public function testGetTimezones($code, $nameEn, $nameDe)
     {
         $timezoneAdapter = $this->createInstance();
-        $timezoneList = $timezoneAdapter->getTimezoneList();
+        $timezones = $timezoneAdapter->getTimezones();
 
-        $this->assertTrue(is_array($timezoneList));
-        $this->assertArrayHasKey($code, $timezoneList);
-        $this->assertEquals($code, $timezoneList[$code]->getCode());
-        $this->assertEquals($nameEn, $timezoneList[$code]->getName('en_GB'));
-        $this->assertEquals($nameDe, $timezoneList[$code]->getName('de_DE'));
+        $this->assertTrue(is_array($timezones));
+        $this->assertArrayHasKey($code, $timezones);
+        $this->assertEquals($code, $timezones[$code]->getCode());
+        $this->assertEquals($nameEn, $timezones[$code]->getName('en_GB'));
+        $this->assertEquals($nameDe, $timezones[$code]->getName('de_DE'));
     }
 
     /**

@@ -16,16 +16,16 @@ class CountryAdapterTest extends AbstractAdapterTest
     /**
      * @dataProvider providerCountries
      */
-    public function testGetCountryList($code, $nameEn, $nameDe)
+    public function testGetCountries($code, $nameEn, $nameDe)
     {
         $countryAdapter = $this->createInstance();
-        $countryList = $countryAdapter->getCountryList();
+        $countries = $countryAdapter->getCountries();
 
-        $this->assertTrue(is_array($countryList));
-        $this->assertArrayHasKey($code, $countryList);
-        $this->assertEquals($code, $countryList[$code]->getCode());
-        $this->assertEquals($nameEn, $countryList[$code]->getName('en_GB'));
-        $this->assertEquals($nameDe, $countryList[$code]->getName('de_DE'));
+        $this->assertTrue(is_array($countries));
+        $this->assertArrayHasKey($code, $countries);
+        $this->assertEquals($code, $countries[$code]->getCode());
+        $this->assertEquals($nameEn, $countries[$code]->getName('en_GB'));
+        $this->assertEquals($nameDe, $countries[$code]->getName('de_DE'));
     }
 
     /**

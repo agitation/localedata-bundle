@@ -19,10 +19,10 @@ class CurrencySeedPlugin extends AbstractLocaleSeedPlugin
     public function getData()
     {
         $defaultLocale = $this->getService('agit.intl.locale')->getDefaultLocale();
-        $currencyList = $this->getService('agit.localedata.adapter.currency')->getCurrencyList();
+        $currencies = $this->getService('agit.localedata.adapter.currency')->getCurrencies();
         $data = [];
 
-        foreach ($currencyList as $currency)
+        foreach ($currencies as $currency)
             $data[] = [
                 'id' => $currency->getCode(),
                 'name' => $currency->getName($defaultLocale)

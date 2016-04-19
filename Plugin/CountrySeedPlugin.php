@@ -19,10 +19,10 @@ class CountrySeedPlugin extends AbstractLocaleSeedPlugin
     public function getData()
     {
         $defaultLocale = $this->getService('agit.intl.locale')->getDefaultLocale();
-        $countryList = $this->getService('agit.localedata.adapter.country')->getCountryList();
+        $countries = $this->getService('agit.localedata.adapter.country')->getCountries();
         $data = [];
 
-        foreach ($countryList as $country)
+        foreach ($countries as $country)
             $data[] = [
                 'id' => $country->getCode(),
                 'code' => $country->getLongCode(),

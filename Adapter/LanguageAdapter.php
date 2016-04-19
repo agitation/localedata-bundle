@@ -16,7 +16,7 @@ class LanguageAdapter extends AbstractAdapter
 {
     protected $countryAdapter;
 
-    protected $languageList = null;
+    protected $languages = null;
 
     protected $languageCountryMap = [];
 
@@ -25,26 +25,26 @@ class LanguageAdapter extends AbstractAdapter
         $this->countryAdapter = $countryAdapter;
     }
 
-    public function getLanguageList()
+    public function getLanguages()
     {
-        return $this->getList('languageList');
+        return $this->getList('languages');
     }
 
     public function hasLanguage($code)
     {
-        return $this->hasListElement('languageList', $code);
+        return $this->hasListElement('languages', $code);
     }
 
     public function getLanguage($code)
     {
-        return $this->getListElement('languageList', $code);
+        return $this->getListElement('languages', $code);
     }
 
     protected function load()
     {
-        if (is_null($this->languageList))
+        if (is_null($this->languages))
         {
-            $this->languageList = [];
+            $this->languages = [];
 
             $defaultLocale = $this->localeService->getDefaultLocale();
             $availableLocales = $this->localeService->getAvailableLocales();
@@ -79,7 +79,7 @@ class LanguageAdapter extends AbstractAdapter
 
                     $localName = $languages['main'][$localeDir]['localeDisplayNames']['languages'][$langCode];
 
-                    $this->languageList[$langCode] = new Language($langCode, $localName);
+                    $this->languages[$langCode] = new Language($langCode, $localName);
 
                     if (!isset($this->languageCountryMap[$langCode]))
                         $this->languageCountryMap[$langCode] = [];
@@ -96,19 +96,19 @@ class LanguageAdapter extends AbstractAdapter
 
                 $languages = $this->getMainData($localeDir, 'languages.json');
 
-                foreach ($this->languageList as $langCode => &$language)
+                foreach ($this->languages as $langCode => &$language)
                 {
                     $language->addName($locale, $languages['main'][$localeDir]['localeDisplayNames']['languages'][$langCode]);
                 }
             }
 
             // add countries for languages
-            foreach ($this->languageList as $langCode => &$language)
+            foreach ($this->languages as $langCode => &$language)
             {
                 // dead language?
                 if (!isset($this->languageCountryMap[$langCode]))
                 {
-                    unset($this->languageList[$langCode]);
+                    unset($this->languages[$langCode]);
                     continue;
                 }
 

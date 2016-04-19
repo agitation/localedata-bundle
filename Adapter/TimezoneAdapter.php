@@ -16,37 +16,37 @@ class TimezoneAdapter extends AbstractAdapter
 {
     protected $countryAdapter;
 
-    protected $timezoneList = null;
+    protected $timezones = null;
 
     public function __construct(CountryAdapter $countryAdapter)
     {
         $this->countryAdapter = $countryAdapter;
     }
 
-    public function getTimezoneList()
+    public function getTimezones()
     {
-        return $this->getList('timezoneList');
+        return $this->getList('timezones');
     }
 
     public function hasTimezone($code)
     {
-        return $this->hasListElement('timezoneList', $code);
+        return $this->hasListElement('timezones', $code);
     }
 
     public function getTimezone($code)
     {
-        return $this->getListElement('timezoneList', $code);
+        return $this->getListElement('timezones', $code);
     }
 
     protected function load()
     {
-        if (is_null($this->timezoneList))
+        if (is_null($this->timezones))
         {
 
             $defaultLocale = $this->localeService->getDefaultLocale();
             $availableLocales = $this->localeService->getAvailableLocales();
 
-            $this->timezoneList = [];
+            $this->timezones = [];
             $data = $this->getMainData($this->baseLocDir, 'timeZoneNames.json');
 
             $allTimezones = [];
@@ -55,7 +55,7 @@ class TimezoneAdapter extends AbstractAdapter
             foreach ($data['main'][$this->baseLocDir]['dates']['timeZoneNames']['zone'] as $continent => $list)
                 $allTimezones = array_merge($allTimezones, $this->getCodesFromSublist($continent, $list));
 
-            $countryList = $this->countryAdapter->getCountryList();
+            $countries = $this->countryAdapter->getCountries();
 
             foreach ($allTimezones as $tzName => $tzCity)
             {
@@ -64,10 +64,10 @@ class TimezoneAdapter extends AbstractAdapter
                     $dateTimezone = new \DateTimeZone($tzName);
                     $locData = $dateTimezone->getLocation();
 
-                    if (is_array($locData) && isset($locData['country_code']) && isset($countryList[$locData['country_code']]))
+                    if (is_array($locData) && isset($locData['country_code']) && isset($countries[$locData['country_code']]))
                     {
-                        $this->timezoneList[$tzName] = new Timezone($tzName, $countryList[$locData['country_code']]);
-                        $this->timezoneList[$tzName]->addName($defaultLocale, $this->makeName($tzCity, $this->timezoneList[$tzName]->getCountry(), $defaultLocale));
+                        $this->timezones[$tzName] = new Timezone($tzName, $countries[$locData['country_code']]);
+                        $this->timezones[$tzName]->addName($defaultLocale, $this->makeName($tzCity, $this->timezones[$tzName]->getCountry(), $defaultLocale));
                     }
                 }
             }
@@ -84,12 +84,12 @@ class TimezoneAdapter extends AbstractAdapter
                 $locData = $this->getMainData($locDir, 'timeZoneNames.json');
                 $locTimezones = [];
 
-                foreach ($locData['main'][$locDir]['dates']['timeZoneNames']['zone'] as $locContinent => $locList)
-                    $locTimezones = array_merge($locTimezones, $this->getCodesFromSublist($locContinent, $locList));
+                foreach ($locData['main'][$locDir]['dates']['timeZoneNames']['zone'] as $locContinent => $locs)
+                    $locTimezones = array_merge($locTimezones, $this->getCodesFromSublist($locContinent, $locs));
 
                 foreach ($locTimezones as $locTzName => $locTzCity)
-                    if (isset($this->timezoneList[$locTzName]))
-                        $this->timezoneList[$locTzName]->addName($loc, $this->makeName($locTzCity, $this->timezoneList[$locTzName]->getCountry(), $loc));
+                    if (isset($this->timezones[$locTzName]))
+                        $this->timezones[$locTzName]->addName($loc, $this->makeName($locTzCity, $this->timezones[$locTzName]->getCountry(), $loc));
 
             }
 

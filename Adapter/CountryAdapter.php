@@ -18,7 +18,7 @@ class CountryAdapter extends AbstractAdapter
 
     protected $countryCurrencyAdapter;
 
-    protected $countryList = null;
+    protected $countries = null;
 
     public function __construct(CurrencyAdapter $currencyAdapter, CountryCurrencyAdapter $countryCurrencyAdapter)
     {
@@ -26,26 +26,26 @@ class CountryAdapter extends AbstractAdapter
         $this->countryCurrencyAdapter = $countryCurrencyAdapter;
     }
 
-    public function getCountryList()
+    public function getCountries()
     {
-        return $this->getList('countryList');
+        return $this->getList('countries');
     }
 
     public function hasCountry($code)
     {
-        return $this->hasListElement('countryList', $code);
+        return $this->hasListElement('countries', $code);
     }
 
     public function getCountry($code)
     {
-        return $this->getListElement('countryList', $code);
+        return $this->getListElement('countries', $code);
     }
 
     protected function load()
     {
-        if (is_null($this->countryList))
+        if (is_null($this->countries))
         {
-            $this->countryList = [];
+            $this->countries = [];
 
             $defaultLocale = $this->localeService->getDefaultLocale();
             $availableLocales = $this->localeService->getAvailableLocales();
@@ -53,7 +53,7 @@ class CountryAdapter extends AbstractAdapter
             $countries = $this->getMainData($this->baseLocDir, 'territories.json');
             $codeMappings = $this->getSupplementalData('codeMappings.json');
             $phoneCodes = $this->getSupplementalData('telephoneCodeData.json');
-            $currencyList = $this->currencyAdapter->getCurrencyList();
+            $currencies = $this->currencyAdapter->getCurrencies();
             $currencyMappings = $this->countryCurrencyAdapter->getCountryCurrencyMap();
 
             // collect main data ...
@@ -64,7 +64,7 @@ class CountryAdapter extends AbstractAdapter
                     !is_numeric($code) &&
                     $code !== 'ZZ' &&
                     isset($currencyMappings[$code]) &&
-                    isset($currencyList[$currencyMappings[$code]]) &&
+                    isset($currencies[$currencyMappings[$code]]) &&
 
                     isset($codeMappings['supplemental']['codeMappings'][$code]) &&
                     isset($codeMappings['supplemental']['codeMappings'][$code]["_alpha3"]) &&
@@ -73,13 +73,13 @@ class CountryAdapter extends AbstractAdapter
                     isset($phoneCodes['supplemental']['telephoneCodeData'][$code][0]) &&
                     isset($phoneCodes['supplemental']['telephoneCodeData'][$code][0]['telephoneCountryCode'])
                 ) {
-                    $this->countryList[$code] = new Country(
+                    $this->countries[$code] = new Country(
                         $code,
                         $codeMappings['supplemental']['codeMappings'][$code]["_alpha3"],
-                        $currencyList[$currencyMappings[$code]],
+                        $currencies[$currencyMappings[$code]],
                         $phoneCodes['supplemental']['telephoneCodeData'][$code][0]['telephoneCountryCode']);
 
-                    $this->countryList[$code]->addName($defaultLocale, $name);
+                    $this->countries[$code]->addName($defaultLocale, $name);
                 }
             }
 
@@ -94,8 +94,8 @@ class CountryAdapter extends AbstractAdapter
                 $locCountries = $this->getMainData($locDir, 'territories.json');
 
                 foreach ($locCountries['main'][$locDir]['localeDisplayNames']['territories'] as $locCode => $locName)
-                    if (isset($this->countryList[$locCode]))
-                        $this->countryList[$locCode]->addName($loc, $locName);
+                    if (isset($this->countries[$locCode]))
+                        $this->countries[$locCode]->addName($loc, $locName);
             }
         }
     }

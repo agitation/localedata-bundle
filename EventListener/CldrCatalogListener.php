@@ -57,18 +57,18 @@ class CldrCatalogListener extends AbstractTemporaryFilesListener
     public function onRegistration(CatalogRegistrationEvent $registrationEvent)
     {
         $defaultLocale = $this->localeService->getDefaultLocale();
-        $localeList = $this->localeService->getAvailableLocales();
+        $locales = $this->localeService->getAvailableLocales();
         $catalogs = [];
 
         $lists = [];
-        $lists['currency'] = $this->currencyAdapter->getCurrencyList();
-        $lists['country'] = $this->countryAdapter->getCountryList();
-        $lists['timezone'] = $this->timezoneAdapter->getTimezoneList();
-        $lists['month'] = $this->timeAdapter->getMonthList();
-        $lists['weekday'] = $this->timeAdapter->getWeekdayList();
-        $lists['language'] = $this->languageAdapter->getLanguageList();
+        $lists['currency'] = $this->currencyAdapter->getCurrencies();
+        $lists['country'] = $this->countryAdapter->getCountries();
+        $lists['timezone'] = $this->timezoneAdapter->getTimezones();
+        $lists['month'] = $this->timeAdapter->getMonths();
+        $lists['weekday'] = $this->timeAdapter->getWeekdays();
+        $lists['language'] = $this->languageAdapter->getLanguages();
 
-        foreach ($localeList as $locale)
+        foreach ($locales as $locale)
         {
             $catalog = '';
 

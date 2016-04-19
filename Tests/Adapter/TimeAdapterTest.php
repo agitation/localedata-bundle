@@ -16,16 +16,16 @@ class TimeAdapterTest extends AbstractAdapterTest
     /**
      * @dataProvider providerMonths
      */
-    public function testGetMonthList($code, $nameEn, $nameDe)
+    public function testGetMonths($code, $nameEn, $nameDe)
     {
         $timeAdapter = $this->createInstance();
-        $monthList = $timeAdapter->getMonthList();
+        $months = $timeAdapter->getMonths();
 
-        $this->assertTrue(is_array($monthList));
-        $this->assertArrayHasKey($code, $monthList);
-        $this->assertEquals($code, $monthList[$code]->getCode());
-        $this->assertEquals($nameEn, $monthList[$code]->getName('en_GB'));
-        $this->assertEquals($nameDe, $monthList[$code]->getName('de_DE'));
+        $this->assertTrue(is_array($months));
+        $this->assertArrayHasKey($code, $months);
+        $this->assertEquals($code, $months[$code]->getCode());
+        $this->assertEquals($nameEn, $months[$code]->getName('en_GB'));
+        $this->assertEquals($nameDe, $months[$code]->getName('de_DE'));
     }
 
     /**
@@ -44,16 +44,16 @@ class TimeAdapterTest extends AbstractAdapterTest
     /**
      * @dataProvider providerWeekdays
      */
-    public function testGetWeekdayList($code, $nameEn, $nameDe)
+    public function testGetWeekdays($code, $nameEn, $nameDe)
     {
         $timeAdapter = $this->createInstance();
-        $weekdayList = $timeAdapter->getWeekdayList();
+        $weekdays = $timeAdapter->getWeekdays();
 
-        $this->assertTrue(is_array($weekdayList));
-        $this->assertArrayHasKey($code, $weekdayList);
-        $this->assertEquals($code, $weekdayList[$code]->getCode());
-        $this->assertEquals($nameEn, $weekdayList[$code]->getName('en_GB'));
-        $this->assertEquals($nameDe, $weekdayList[$code]->getName('de_DE'));
+        $this->assertTrue(is_array($weekdays));
+        $this->assertArrayHasKey($code, $weekdays);
+        $this->assertEquals($code, $weekdays[$code]->getCode());
+        $this->assertEquals($nameEn, $weekdays[$code]->getName('en_GB'));
+        $this->assertEquals($nameDe, $weekdays[$code]->getName('de_DE'));
     }
 
     /**

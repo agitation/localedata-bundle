@@ -17,9 +17,9 @@ abstract class AbstractObject
 
     protected $code;
 
-    protected $nameList = [];
+    protected $names = [];
 
-    protected $abbrList = [];
+    protected $abbrs = [];
 
     public function __construct($code)
     {
@@ -31,8 +31,8 @@ abstract class AbstractObject
         if (static::$hasAbbr && !is_string($abbr))
             throw new InternalErrorException(sprintf("Object type %s needs an abbreviation.", get_class()));
 
-        $this->nameList[$locale] = (string)$name;
-        $this->abbrList[$locale] = (string)$abbr;
+        $this->names[$locale] = (string)$name;
+        $this->abbrs[$locale] = (string)$abbr;
     }
 
     public function getCode()
@@ -40,17 +40,17 @@ abstract class AbstractObject
         return $this->code;
     }
 
-    public function getNameList()
+    public function getNames()
     {
-        return $this->nameList;
+        return $this->names;
     }
 
     public function getName($locale)
     {
-        if (!isset($this->nameList[$locale]))
+        if (!isset($this->names[$locale]))
             throw new InternalErrorException("No name was found for locale '$locale'.");
 
-        return $this->nameList[$locale];
+        return $this->names[$locale];
     }
 
     public function getAbbr($locale)
@@ -58,9 +58,9 @@ abstract class AbstractObject
         if (!static::$hasAbbr)
             throw new InternalErrorException(sprintf("Object type %s doesn't support abbreviations.", get_class()));
 
-        if (!isset($this->abbrList[$locale]))
+        if (!isset($this->abbrs[$locale]))
             throw new InternalErrorException("No abbreviation was found for locale '$locale'.");
 
-        return $this->abbrList[$locale];
+        return $this->abbrs[$locale];
     }
 }

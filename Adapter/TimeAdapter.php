@@ -15,46 +15,46 @@ use Agit\LocaleDataBundle\Adapter\Object\Weekday;
 
 class TimeAdapter extends AbstractAdapter
 {
-    protected $monthList = null;
+    protected $months = null;
 
-    protected $weekdayList = null;
+    protected $weekdays = null;
 
-    public function getMonthList()
+    public function getMonths()
     {
-        return $this->getList('monthList');
+        return $this->getList('months');
     }
 
     public function hasMonth($code)
     {
-        return $this->hasListElement('monthList', $code);
+        return $this->hasListElement('months', $code);
     }
 
     public function getMonth($code)
     {
-        return $this->getListElement('monthList', $code);
+        return $this->getListElement('months', $code);
     }
 
-    public function getWeekdayList()
+    public function getWeekdays()
     {
-        return $this->getList('weekdayList');
+        return $this->getList('weekdays');
     }
 
     public function hasWeekday($code)
     {
-        return $this->hasListElement('weekdayList', $code);
+        return $this->hasListElement('weekdays', $code);
     }
 
     public function getWeekday($code)
     {
-        return $this->getListElement('weekdayList', $code);
+        return $this->getListElement('weekdays', $code);
     }
 
     protected function load()
     {
-        if (is_null($this->monthList))
+        if (is_null($this->months))
         {
-            $this->monthList = [];
-            $this->weekdayList = [];
+            $this->months = [];
+            $this->weekdays = [];
 
             $defaultLocale = $this->localeService->getDefaultLocale();
             $availableLocales = $this->localeService->getAvailableLocales();
@@ -63,14 +63,14 @@ class TimeAdapter extends AbstractAdapter
 
             foreach ($dataNode['months']['stand-alone']['wide'] as $id => $name)
             {
-                $this->monthList[$id] = new Month($id);
-                $this->monthList[$id]->addName($defaultLocale, $name, $dataNode['months']['stand-alone']['abbreviated'][$id]);
+                $this->months[$id] = new Month($id);
+                $this->months[$id]->addName($defaultLocale, $name, $dataNode['months']['stand-alone']['abbreviated'][$id]);
             }
 
             foreach ($dataNode['days']['stand-alone']['wide'] as $id => $name)
             {
-                $this->weekdayList[$id] = new Weekday($id);
-                $this->weekdayList[$id]->addName($defaultLocale, $name, $dataNode['days']['stand-alone']['abbreviated'][$id]);
+                $this->weekdays[$id] = new Weekday($id);
+                $this->weekdays[$id]->addName($defaultLocale, $name, $dataNode['days']['stand-alone']['abbreviated'][$id]);
             }
 
             // ... and fill up with translations
@@ -85,10 +85,10 @@ class TimeAdapter extends AbstractAdapter
                 $locDataNode = $locData['main'][$locDir]['dates']['calendars']['gregorian'];
 
                 foreach ($locDataNode['months']['stand-alone']['wide'] as $id => $name)
-                    $this->monthList[$id]->addName($loc, $name, $locDataNode['months']['stand-alone']['abbreviated'][$id]);
+                    $this->months[$id]->addName($loc, $name, $locDataNode['months']['stand-alone']['abbreviated'][$id]);
 
                 foreach ($locDataNode['days']['stand-alone']['wide'] as $id => $name)
-                    $this->weekdayList[$id]->addName($loc, $name, $locDataNode['days']['stand-alone']['abbreviated'][$id]);
+                    $this->weekdays[$id]->addName($loc, $name, $locDataNode['days']['stand-alone']['abbreviated'][$id]);
             }
         }
     }

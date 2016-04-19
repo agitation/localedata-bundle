@@ -19,10 +19,10 @@ class TimezoneSeedPlugin extends AbstractLocaleSeedPlugin
     public function getData()
     {
         $defaultLocale = $this->getService('agit.intl.locale')->getDefaultLocale();
-        $timezoneList = $this->getService('agit.localedata.adapter.timezone')->getTimezoneList();
+        $timezones = $this->getService('agit.localedata.adapter.timezone')->getTimezones();
         $data = [];
 
-        foreach ($timezoneList as $timezone)
+        foreach ($timezones as $timezone)
             $data[] = [
                 'id' => $timezone->getCode(),
                 'name' => $timezone->getName($defaultLocale),

@@ -34,9 +34,9 @@ class IntlAdapterService
         $this->timezoneAdapter = $timezoneAdapter;
     }
 
-    public function getLanguageList()
+    public function getLanguages()
     {
-        return $this->languageAdapter->getLanguageList();
+        return $this->languageAdapter->getLanguages();
     }
 
     public function getLanguage($code)
@@ -44,9 +44,9 @@ class IntlAdapterService
         return $this->languageAdapter->getLanguage($code);
     }
 
-    public function getCurrencyList()
+    public function getCurrencies()
     {
-        return $this->currencyAdapter->getCurrencyList();
+        return $this->currencyAdapter->getCurrencies();
     }
 
     public function getCurrency($code)
@@ -54,9 +54,9 @@ class IntlAdapterService
         return $this->currencyAdapter->getCurrency($code);
     }
 
-    public function getTimezoneList()
+    public function getTimezones()
     {
-        return $this->timezoneAdapter->getTimezoneList();
+        return $this->timezoneAdapter->getTimezones();
     }
 
     public function getTimezone($code)
@@ -69,9 +69,9 @@ class IntlAdapterService
         return $this->countryCurrencyAdapter->getCountryCurrencyMap();
     }
 
-    public function getCountryList()
+    public function getCountries()
     {
-        return $this->countryAdapter->getCountryList();
+        return $this->countryAdapter->getCountries();
     }
 
     public function getCountry($code)
@@ -79,9 +79,9 @@ class IntlAdapterService
         return $this->countryAdapter->getCountry($code);
     }
 
-    public function getMonthList()
+    public function getMonths()
     {
-        return $this->timeAdapter->getMonthList();
+        return $this->timeAdapter->getMonths();
     }
 
     public function getMonth($code)
@@ -89,9 +89,9 @@ class IntlAdapterService
         return $this->timeAdapter->getMonth($code);
     }
 
-    public function getWeekdayList()
+    public function getWeekdays()
     {
-        return $this->timeAdapter->getWeekdayList();
+        return $this->timeAdapter->getWeekdays();
     }
 
     public function getWeekday($code)

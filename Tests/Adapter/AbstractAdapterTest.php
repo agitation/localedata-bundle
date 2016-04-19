@@ -67,26 +67,26 @@ abstract class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $currencyList = [
+        $currencies = [
             'BRL' => $this->mockCurrency('BRL', 'Brazilian Real', 'Brasilianischer Real'),
             'GBP' => $this->mockCurrency('GBP', 'British Pound Sterling', 'Britisches Pfund Sterling'),
             'EUR' => $this->mockCurrency('EUR', 'Euro', 'Euro')
         ];
 
         $currencyAdapter->expects($this->any())
-            ->method('getCurrencyList')
-            ->will($this->returnValue($currencyList));
+            ->method('getCurrencies')
+            ->will($this->returnValue($currencies));
 
         $currencyAdapter->expects($this->any())
             ->method('getCurrency')
-            ->will($this->returnCallback(function($code) use ($currencyList) {
-                return $currencyList[$code];
+            ->will($this->returnCallback(function($code) use ($currencies) {
+                return $currencies[$code];
             }));
 
         $currencyAdapter->expects($this->any())
             ->method('hasCurrency')
-            ->will($this->returnCallback(function($code) use ($currencyList) {
-                return isset($currencyList[$code]);
+            ->will($this->returnCallback(function($code) use ($currencies) {
+                return isset($currencies[$code]);
             }));
 
         return $currencyAdapter;
@@ -107,26 +107,26 @@ abstract class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $countryList = [
+        $countries = [
             'BR' => $this->mockCountry('BR', 'Brazil', 'Brasilien', 'BRL', 'Brazilian Real', 'Brasilianischer Real'),
             'GB' => $this->mockCountry('GB', 'United Kingdom', 'Vereinigtes Königreich', 'GBP', 'British Pound Sterling', 'Britisches Pfund Sterling'),
             'DE' => $this->mockCountry('DE', 'Germany', 'Deutschland', 'EUR', 'Euro', 'Euro')
         ];
 
         $countryAdapter->expects($this->any())
-            ->method('getCountryList')
-            ->will($this->returnValue($countryList));
+            ->method('getCountries')
+            ->will($this->returnValue($countries));
 
         $countryAdapter->expects($this->any())
             ->method('getCountry')
-            ->will($this->returnCallback(function($code) use ($countryList) {
-                return $countryList[$code];
+            ->will($this->returnCallback(function($code) use ($countries) {
+                return $countries[$code];
             }));
 
         $countryAdapter->expects($this->any())
             ->method('hasCountry')
-            ->will($this->returnCallback(function($code) use ($countryList) {
-                return isset($countryList[$code]);
+            ->will($this->returnCallback(function($code) use ($countries) {
+                return isset($countries[$code]);
             }));
 
         return $countryAdapter;

@@ -14,7 +14,7 @@ use Agit\LocaleDataBundle\Adapter\Object\Currency;
 
 class CurrencyAdapter extends AbstractAdapter
 {
-    protected $currencyList = null;
+    protected $currencies = null;
 
     protected $countryCurrencyAdapter;
 
@@ -23,26 +23,26 @@ class CurrencyAdapter extends AbstractAdapter
         $this->countryCurrencyAdapter = $countryCurrencyAdapter;
     }
 
-    public function getCurrencyList()
+    public function getCurrencies()
     {
-        return $this->getList('currencyList');
+        return $this->getList('currencies');
     }
 
     public function hasCurrency($code)
     {
-        return $this->hasListElement('currencyList', $code);
+        return $this->hasListElement('currencies', $code);
     }
 
     public function getCurrency($code)
     {
-        return $this->getListElement('currencyList', $code);
+        return $this->getListElement('currencies', $code);
     }
 
     protected function load()
     {
-        if (is_null($this->currencyList))
+        if (is_null($this->currencies))
         {
-            $this->currencyList = [];
+            $this->currencies = [];
             $currencyData = $this->getMainData($this->baseLocDir, 'currencies.json');
             $currencyMappings = array_flip($this->countryCurrencyAdapter->getCountryCurrencyMap());
 
@@ -54,8 +54,8 @@ class CurrencyAdapter extends AbstractAdapter
             {
                 if (isset($currencyMappings[$code]))
                 {
-                    $this->currencyList[$code] = new Currency($code);
-                    $this->currencyList[$code]->addName($defaultLocale, $list['displayName']);
+                    $this->currencies[$code] = new Currency($code);
+                    $this->currencies[$code]->addName($defaultLocale, $list['displayName']);
                 }
             }
 
@@ -69,9 +69,9 @@ class CurrencyAdapter extends AbstractAdapter
 
                 $locCurrencies = $this->getMainData($locDir, 'currencies.json');
 
-                foreach ($locCurrencies['main'][$locDir]['numbers']['currencies'] as $locCode => $locList)
-                    if (isset($this->currencyList[$locCode]))
-                        $this->currencyList[$locCode]->addName($loc, $locList['displayName']);
+                foreach ($locCurrencies['main'][$locDir]['numbers']['currencies'] as $locCode => $locs)
+                    if (isset($this->currencies[$locCode]))
+                        $this->currencies[$locCode]->addName($loc, $locs['displayName']);
             }
         }
     }

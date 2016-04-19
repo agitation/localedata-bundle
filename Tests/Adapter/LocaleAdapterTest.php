@@ -16,16 +16,16 @@ class LocaleAdapterTest extends AbstractAdapterTest
     /**
      * @dataProvider providerLocales
      */
-    public function testGetLocaleList($code, $nameEn, $nameDe)
+    public function testGetLocales($code, $nameEn, $nameDe)
     {
         $localeAdapter = $this->createInstance();
-        $localeList = $localeAdapter->getLocaleList();
+        $locales = $localeAdapter->getLocales();
 
-        $this->assertTrue(is_array($localeList));
-        $this->assertArrayHasKey($code, $localeList);
-        $this->assertEquals($code, $localeList[$code]->getCode());
-        $this->assertEquals($nameEn, $localeList[$code]->getName('en_GB'));
-        $this->assertEquals($nameDe, $localeList[$code]->getName('de_DE'));
+        $this->assertTrue(is_array($locales));
+        $this->assertArrayHasKey($code, $locales);
+        $this->assertEquals($code, $locales[$code]->getCode());
+        $this->assertEquals($nameEn, $locales[$code]->getName('en_GB'));
+        $this->assertEquals($nameDe, $locales[$code]->getName('de_DE'));
     }
 
     /**

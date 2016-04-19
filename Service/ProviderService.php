@@ -19,7 +19,7 @@ use Agit\LocaleDataBundle\Entity\TimezoneRepository;
  */
 class ProviderService
 {
-    private $repositoryList = [];
+    private $repositories = [];
 
     public function __construct(
         CurrencyRepository $currencyRepository,
@@ -27,10 +27,10 @@ class ProviderService
         LanguageRepository $languageRepository,
         TimezoneRepository $timezoneRepository)
     {
-        $this->repositoryList['Currency'] = $currencyRepository;
-        $this->repositoryList['Country'] = $countryRepository;
-        $this->repositoryList['Language'] = $languageRepository;
-        $this->repositoryList['Timezone'] = $timezoneRepository;
+        $this->repositories['Currency'] = $currencyRepository;
+        $this->repositories['Country'] = $countryRepository;
+        $this->repositories['Language'] = $languageRepository;
+        $this->repositories['Timezone'] = $timezoneRepository;
     }
 
     public function getCountries(array $list = null)
@@ -76,12 +76,12 @@ class ProviderService
     private function getList($entityName, array $list = null)
     {
         return ($list === null)
-            ? $this->repositoryList[$entityName]->findAll()
-            : $this->repositoryList[$entityName]->findBy(['id' => $list]);
+            ? $this->repositories[$entityName]->findAll()
+            : $this->repositories[$entityName]->findBy(['id' => $list]);
     }
 
     private function getOne($entityName, $id)
     {
-        return $this->repositoryList[$entityName]->find($id);
+        return $this->repositories[$entityName]->find($id);
     }
 }

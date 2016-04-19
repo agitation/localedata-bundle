@@ -19,10 +19,10 @@ class LanguageSeedPlugin extends AbstractLocaleSeedPlugin
     public function getData()
     {
         $defaultLocale = $this->getService('agit.intl.locale')->getDefaultLocale();
-        $languageList = $this->getService('agit.localedata.adapter.language')->getLanguageList();
+        $languages = $this->getService('agit.localedata.adapter.language')->getLanguages();
         $data = [];
 
-        foreach ($languageList as $language)
+        foreach ($languages as $language)
             $data[] = [
                 'id' => $language->getCode(),
                 'name' => $language->getName($defaultLocale),
