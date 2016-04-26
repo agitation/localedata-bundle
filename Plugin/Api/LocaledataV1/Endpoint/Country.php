@@ -2,12 +2,12 @@
 
 namespace Agit\LocaleDataBundle\Plugin\Api\LocaledataV1\Endpoint;
 
-use Agit\ApiBundle\Annotation\Endpoint\EntityEndpointClass;
-use Agit\ApiBundle\Common\AbstractEntityEndpointClass;
+use Agit\ApiBundle\Annotation\Endpoint\EntityController;
+use Agit\ApiBundle\Common\AbstractEntityController;
 
 /**
- * @EntityEndpointClass(entity="AgitLocaleDataBundle:Country", endpoints={"get", "search"}, cap="")
+ * @EntityController(entity="AgitLocaleDataBundle:Country", endpoints={"get", "search"}, cap="")
  */
-class Country extends AbstractEntityEndpointClass
+class Country extends AbstractEntityController
 {
 }
