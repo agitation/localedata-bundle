@@ -7,7 +7,7 @@
  * @license    http://opensource.org/licenses/MIT
  */
 
-namespace Agit\LocaleDataBundle\Plugin;
+namespace Agit\LocaleDataBundle\Plugin\Seed;
 
 use Agit\PluggableBundle\Strategy\Seed\SeedPlugin;
 
