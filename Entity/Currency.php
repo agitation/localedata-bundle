@@ -9,6 +9,7 @@
 
 namespace Agit\LocaleDataBundle\Entity;
 
+use JsonSerializable;
 use Doctrine\ORM\Mapping as ORM;
 use Agit\CommonBundle\Entity\IdentityAwareTrait;
 use Agit\IntlBundle\Translate;
@@ -16,7 +17,7 @@ use Agit\IntlBundle\Translate;
 /**
  * @ORM\Entity(repositoryClass="Agit\LocaleDataBundle\Entity\CurrencyRepository")
  */
-class Currency
+class Currency implements JsonSerializable
 {
     use IdentityAwareTrait;
 
@@ -34,10 +35,18 @@ class Currency
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
         return Translate::x($this->name, 'currency');
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            "id" => $this->getId(),
+            "name" => $this->getName()
+        ];
     }
 }
