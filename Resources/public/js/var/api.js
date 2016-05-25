@@ -1,4 +1,4 @@
-agit.api.Endpoint.register({
+ag.api.Endpoint.register({
     "localedata.v1/Country.get": [
         "common.v1/String",
         "localedata.v1/Country"
@@ -24,7 +24,7 @@ agit.api.Endpoint.register({
         "localedata.v1/Currency[]"
     ]
 });
-agit.api.Object.register({
+ag.api.Object.register({
     "localedata.v1/Country": {
         "id": {
             "type": "string"
