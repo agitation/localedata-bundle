@@ -12,7 +12,7 @@ namespace Agit\LocaleDataBundle\Plugin\Seed;
 use Agit\PluggableBundle\Strategy\Seed\SeedPlugin;
 
 /**
- * @SeedPlugin(entity="AgitLocaleDataBundle:Language", depends={"agit.intl.locale", "agit.localedata.adapter.language"})
+ * @SeedPlugin(entity="AgitLocaleDataBundle:Language", depends={"@agit.intl.locale", "@agit.localedata.adapter.language"})
  */
 class LanguageSeedPlugin extends AbstractLocaleSeedPlugin
 {

@@ -12,7 +12,7 @@ namespace Agit\LocaleDataBundle\Plugin\Seed;
 use Agit\PluggableBundle\Strategy\Seed\SeedPlugin;
 
 /**
- * @SeedPlugin(entity="AgitLocaleDataBundle:Currency", depends={"agit.intl.locale", "agit.localedata.adapter.currency"})
+ * @SeedPlugin(entity="AgitLocaleDataBundle:Currency", depends={"@agit.intl.locale", "@agit.localedata.adapter.currency"})
  */
 class CurrencySeedPlugin extends AbstractLocaleSeedPlugin
 {

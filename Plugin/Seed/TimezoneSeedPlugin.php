@@ -12,7 +12,7 @@ namespace Agit\LocaleDataBundle\Plugin\Seed;
 use Agit\PluggableBundle\Strategy\Seed\SeedPlugin;
 
 /**
- * @SeedPlugin(entity="AgitLocaleDataBundle:Timezone", depends={"agit.intl.locale", "agit.localedata.adapter.timezone"})
+ * @SeedPlugin(entity="AgitLocaleDataBundle:Timezone", depends={"@agit.intl.locale", "@agit.localedata.adapter.timezone"})
  */
 class TimezoneSeedPlugin extends AbstractLocaleSeedPlugin
 {
