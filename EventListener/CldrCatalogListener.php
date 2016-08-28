@@ -103,7 +103,7 @@ class CldrCatalogListener extends AbstractTemporaryFilesListener
                 }
             }
 
-            $catalogs[$locale] = $registrationEvent->createCatalogHeader($locale) . $catalog;
+            $catalogs[$locale] = $catalog;
         }
 
         // now, after fully successful generation, create and register files
