@@ -50,10 +50,10 @@ class Timezone
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
-        return Translate::x($this->name, 'timezone');
+        return Translate::x("timezone", $this->name);
     }
 }

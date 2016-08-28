@@ -54,7 +54,7 @@ class Country
      */
     public function getName()
     {
-        return Translate::x($this->name, 'country');
+        return Translate::x("country", $this->name);
     }
 
     /**

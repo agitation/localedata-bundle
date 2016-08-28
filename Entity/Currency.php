@@ -39,7 +39,7 @@ class Currency implements JsonSerializable
      */
     public function getName()
     {
-        return Translate::x($this->name, 'currency');
+        return Translate::x("currency", $this->name);
     }
 
     public function jsonSerialize()

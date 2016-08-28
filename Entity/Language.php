@@ -45,7 +45,7 @@ class Language
      */
     public function getName()
     {
-        return Translate::x($this->name, 'language');
+        return Translate::x("language", $this->name);
     }
 
     /**
