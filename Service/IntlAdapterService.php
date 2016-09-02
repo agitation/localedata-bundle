@@ -9,7 +9,7 @@
 
 namespace Agit\LocaleDataBundle\Service;
 
-use Agit\CommonBundle\Exception\InternalErrorException;
+use Agit\BaseBundle\Exception\InternalErrorException;
 use Agit\LocaleDataBundle\Adapter\CountryAdapter;
 use Agit\LocaleDataBundle\Adapter\CountryCurrencyAdapter;
 use Agit\LocaleDataBundle\Adapter\CurrencyAdapter;

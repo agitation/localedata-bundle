@@ -11,7 +11,7 @@ namespace Agit\LocaleDataBundle\Entity;
 
 use JsonSerializable;
 use Doctrine\ORM\Mapping as ORM;
-use Agit\CommonBundle\Entity\IdentityAwareTrait;
+use Agit\BaseBundle\Entity\IdentityAwareTrait;
 use Agit\IntlBundle\Translate;
 
 /**
