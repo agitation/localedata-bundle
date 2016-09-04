@@ -12,7 +12,7 @@ namespace Agit\LocaleDataBundle\Entity;
 use JsonSerializable;
 use Doctrine\ORM\Mapping as ORM;
 use Agit\BaseBundle\Entity\IdentityAwareTrait;
-use Agit\IntlBundle\Translate;
+use Agit\BaseBundle\Tool\Translate;
 
 /**
  * @ORM\Entity(repositoryClass="Agit\LocaleDataBundle\Entity\CurrencyRepository")

@@ -9,7 +9,7 @@
 
 namespace Agit\LocaleDataBundle\Twig;
 
-use Agit\IntlBundle\Service\LocaleService;
+use Agit\BaseBundle\Service\LocaleService;
 use Agit\LocaleDataBundle\Service\ProviderService;
 
 class LocaleDataExtension extends \Twig_Extension

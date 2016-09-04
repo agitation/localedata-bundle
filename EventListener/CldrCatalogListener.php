@@ -9,17 +9,16 @@
 
 namespace Agit\LocaleDataBundle\EventListener;
 
-use Agit\IntlBundle\Event\CatalogRegistrationEvent;
-use Agit\IntlBundle\EventListener\AbstractTemporaryFilesListener;
+use Agit\BaseBundle\Event\TranslationCatalogEvent;
 use Symfony\Component\Filesystem\Filesystem;
-use Agit\IntlBundle\Service\LocaleService;
+use Agit\BaseBundle\Service\LocaleService;
 use Agit\LocaleDataBundle\Adapter\CountryAdapter;
 use Agit\LocaleDataBundle\Adapter\CurrencyAdapter;
 use Agit\LocaleDataBundle\Adapter\LanguageAdapter;
 use Agit\LocaleDataBundle\Adapter\TimeAdapter;
 use Agit\LocaleDataBundle\Adapter\TimezoneAdapter;
 
-class CldrCatalogListener extends AbstractTemporaryFilesListener
+class CldrCatalogListener
 {
     private $filesystem;
 
@@ -54,7 +53,7 @@ class CldrCatalogListener extends AbstractTemporaryFilesListener
         $this->timezoneAdapter = $timezoneAdapter;
     }
 
-    public function onRegistration(CatalogRegistrationEvent $registrationEvent)
+    public function onRegistration(TranslationCatalogEvent $event)
     {
         $defaultLocale = $this->localeService->getDefaultLocale();
         $locales = $this->localeService->getAvailableLocales();
@@ -108,16 +107,14 @@ class CldrCatalogListener extends AbstractTemporaryFilesListener
 
         // now, after fully successful generation, create and register files
 
-        $tmpPath = $this->getCachePath();
-
-        if (!$this->filesystem->exists($tmpPath))
-            $this->filesystem->mkdir($tmpPath);
+        $cachePath = $event->getCacheBasePath() . md5(__CLASS__);
+        $this->filesystem->mkdir($cachePath);
 
         foreach ($catalogs as $locale => $catalog)
         {
-            $filePath = "$tmpPath/cldr.$locale.po";
+            $filePath = "$cachePath/cldr.$locale.po";
             $this->filesystem->dumpFile($filePath, $catalog);
-            $registrationEvent->registerCatalogFile($locale, $filePath);
+            $event->registerCatalogFile($locale, $filePath);
         }
     }
 }
