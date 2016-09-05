@@ -9,10 +9,10 @@
 
 namespace Agit\LocaleDataBundle\Plugin\Seed;
 
-use Agit\PluggableBundle\Strategy\Seed\SeedPluginInterface;
-use Agit\PluggableBundle\Strategy\ServiceAwarePluginInterface;
-use Agit\PluggableBundle\Strategy\ServiceAwarePluginTrait;
-use Agit\PluggableBundle\Strategy\Seed\SeedEntry;
+use Agit\BaseBundle\Pluggable\Seed\SeedPluginInterface;
+use Agit\BaseBundle\Pluggable\ServiceAwarePluginInterface;
+use Agit\BaseBundle\Pluggable\ServiceAwarePluginTrait;
+use Agit\BaseBundle\Pluggable\Seed\SeedEntry;
 
 abstract class AbstractLocaleSeedPlugin implements SeedPluginInterface, ServiceAwarePluginInterface
 {
