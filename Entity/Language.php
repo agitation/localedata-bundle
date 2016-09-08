@@ -11,7 +11,7 @@ namespace Agit\LocaleDataBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Agit\BaseBundle\Entity\IdentityAwareTrait;
-use Agit\BaseBundle\Tool\Translate;
+use Agit\IntlBundle\Tool\Translate;
 
 /**
  * @ORM\Entity(repositoryClass="Agit\LocaleDataBundle\Entity\LanguageRepository")

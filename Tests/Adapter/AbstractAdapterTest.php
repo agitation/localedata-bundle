@@ -31,7 +31,7 @@ abstract class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
     protected function mockLocaleService()
     {
         $localeService = $this
-            ->getMockBuilder('\Agit\BaseBundle\Service\LocaleService')
+            ->getMockBuilder('\Agit\IntlBundle\Service\LocaleService')
             ->disableOriginalConstructor()
             ->getMock();
 

@@ -11,7 +11,7 @@ namespace Agit\LocaleDataBundle\EventListener;
 
 use Agit\BaseBundle\Event\TranslationCatalogEvent;
 use Symfony\Component\Filesystem\Filesystem;
-use Agit\BaseBundle\Service\LocaleService;
+use Agit\IntlBundle\Service\LocaleService;
 use Agit\LocaleDataBundle\Adapter\CountryAdapter;
 use Agit\LocaleDataBundle\Adapter\CurrencyAdapter;
 use Agit\LocaleDataBundle\Adapter\LanguageAdapter;
