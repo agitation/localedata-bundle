@@ -41,6 +41,37 @@ services:
         factory_method: getRepository
         arguments: [ AgitLocaleDataBundle:Timezone ]
 
+
+    #
+    # seed services to insert data into the DB
+    #
+
+    agit.localedata.seed.currency:
+        private: true
+        class: Agit\LocaleDataBundle\Seed\CurrencySeed
+        arguments: [ "@agit.intl.locale", "@agit.localedata.adapter.currency" ]
+        tags: [{ name: kernel.event_listener, event: agit.seed, method: registerSeed }]
+
+    agit.localedata.seed.country:
+        private: true
+        class: Agit\LocaleDataBundle\Seed\CountrySeed
+        arguments: [ "@agit.intl.locale", "@agit.localedata.adapter.country" ]
+        tags: [{ name: kernel.event_listener, event: agit.seed, method: registerSeed }]
+
+    agit.localedata.seed.language:
+        private: true
+        class: Agit\LocaleDataBundle\Seed\LanguageSeed
+        arguments: [ "@agit.intl.locale", "@agit.localedata.adapter.language" ]
+        tags: [{ name: kernel.event_listener, event: agit.seed, method: registerSeed }]
+
+    agit.localedata.seed.timezone:
+        private: true
+        class: Agit\LocaleDataBundle\Seed\TimezoneSeed
+        arguments: [ "@agit.intl.locale", "@agit.localedata.adapter.timezone" ]
+        tags: [{ name: kernel.event_listener, event: agit.seed, method: registerSeed }]
+
+
+
     #
     # NOTE: The following services make only sense in the scope of this bundle.
     # To retrieve countries, currencies, etc., use the above repo services.
