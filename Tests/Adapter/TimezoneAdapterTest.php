@@ -1,7 +1,15 @@
 <?php
+
+/*
+ * @package    agitation/localedata-bundle
+ * @link       http://github.com/agitation/localedata-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 /**
- * @package    agitation/localedata
  * @link       http://github.com/agitation/AgitLocaleDataBundle
+ *
  * @author     Alex Günsche <http://www.agitsol.com/>
  * @copyright  2012-2015 AGITsol GmbH
  * @license    http://opensource.org/licenses/MIT
@@ -23,9 +31,9 @@ class TimezoneAdapterTest extends AbstractAdapterTest
 
         $this->assertTrue(is_array($timezones));
         $this->assertArrayHasKey($code, $timezones);
-        $this->assertEquals($code, $timezones[$code]->getCode());
-        $this->assertEquals($nameEn, $timezones[$code]->getName('en_GB'));
-        $this->assertEquals($nameDe, $timezones[$code]->getName('de_DE'));
+        $this->assertSame($code, $timezones[$code]->getCode());
+        $this->assertSame($nameEn, $timezones[$code]->getName('en_GB'));
+        $this->assertSame($nameDe, $timezones[$code]->getName('de_DE'));
     }
 
     /**
@@ -36,9 +44,9 @@ class TimezoneAdapterTest extends AbstractAdapterTest
         $timezoneAdapter = $this->createInstance();
         $timezone = $timezoneAdapter->getTimezone($code);
         $this->assertTrue(is_object($timezone));
-        $this->assertEquals('Agit\LocaleDataBundle\Adapter\Object\Timezone', get_class($timezone));
-        $this->assertEquals($nameEn, $timezone->getName('en_GB'));
-        $this->assertEquals($nameDe, $timezone->getName('de_DE'));
+        $this->assertSame('Agit\LocaleDataBundle\Adapter\Object\Timezone', get_class($timezone));
+        $this->assertSame($nameEn, $timezone->getName('en_GB'));
+        $this->assertSame($nameDe, $timezone->getName('de_DE'));
     }
 
     public function createInstance()
@@ -46,6 +54,7 @@ class TimezoneAdapterTest extends AbstractAdapterTest
         $timezoneAdapter = new TimezoneAdapter($this->mockCountryAdapter());
         $timezoneAdapter->setCldrDir($this->mockCldrDir());
         $timezoneAdapter->setLocaleService($this->mockLocaleService());
+
         return $timezoneAdapter;
     }
 

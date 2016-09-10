@@ -1,7 +1,15 @@
 <?php
+
+/*
+ * @package    agitation/localedata-bundle
+ * @link       http://github.com/agitation/localedata-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 /**
- * @package    agitation/localedata
  * @link       http://github.com/agitation/AgitLocaleDataBundle
+ *
  * @author     Alex Günsche <http://www.agitsol.com/>
  * @copyright  2012-2015 AGITsol GmbH
  * @license    http://opensource.org/licenses/MIT
@@ -26,7 +34,7 @@ class CountryCurrencyAdapterTest extends AbstractAdapterTest
 
         $this->assertTrue(is_array($map));
         $this->assertArrayHasKey($countryCode, $map);
-        $this->assertEquals($map[$countryCode], $currencyCode);
+        $this->assertSame($map[$countryCode], $currencyCode);
     }
 
     public function providerGetCountryCurrencyMap()
@@ -42,6 +50,3 @@ class CountryCurrencyAdapterTest extends AbstractAdapterTest
         ];
     }
 }
-
-
-

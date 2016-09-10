@@ -1,7 +1,15 @@
 <?php
+
+/*
+ * @package    agitation/localedata-bundle
+ * @link       http://github.com/agitation/localedata-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 /**
- * @package    agitation/localedata
  * @link       http://github.com/agitation/AgitLocaleDataBundle
+ *
  * @author     Alex Günsche <http://www.agitsol.com/>
  * @copyright  2012-2015 AGITsol GmbH
  * @license    http://opensource.org/licenses/MIT
@@ -27,10 +35,10 @@ class LocaleDataExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            'getCountries' => new \Twig_Function_Method($this, 'getCountries'),
+            'getCountries'  => new \Twig_Function_Method($this, 'getCountries'),
             'getCurrencies' => new \Twig_Function_Method($this, 'getCurrencies'),
-            'getLanguages' => new \Twig_Function_Method($this, 'getLanguages'),
-            'getTimezones' => new \Twig_Function_Method($this, 'getTimezones')
+            'getLanguages'  => new \Twig_Function_Method($this, 'getLanguages'),
+            'getTimezones'  => new \Twig_Function_Method($this, 'getTimezones')
         ];
     }
 
@@ -63,11 +71,11 @@ class LocaleDataExtension extends \Twig_Extension
     {
         $results = [];
 
-        foreach ($this->providerService->$method($list) as $entity)
+        foreach ($this->providerService->$method($list) as $entity) {
             $results[$entity->getId()] = $entity->getName();
+        }
 
-        if (class_exists('Collator'))
-        {
+        if (class_exists('Collator')) {
             $collator = new \Collator($this->localeService->getLocale());
             uasort($results, [$collator, 'compare']);
         }

@@ -1,7 +1,15 @@
 <?php
+
+/*
+ * @package    agitation/localedata-bundle
+ * @link       http://github.com/agitation/localedata-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 /**
- * @package    agitation/localedata
  * @link       http://github.com/agitation/AgitLocaleDataBundle
+ *
  * @author     Alex Günsche <http://www.agitsol.com/>
  * @copyright  2012-2015 AGITsol GmbH
  * @license    http://opensource.org/licenses/MIT
@@ -23,9 +31,9 @@ class TimeAdapterTest extends AbstractAdapterTest
 
         $this->assertTrue(is_array($months));
         $this->assertArrayHasKey($code, $months);
-        $this->assertEquals($code, $months[$code]->getCode());
-        $this->assertEquals($nameEn, $months[$code]->getName('en_GB'));
-        $this->assertEquals($nameDe, $months[$code]->getName('de_DE'));
+        $this->assertSame($code, $months[$code]->getCode());
+        $this->assertSame($nameEn, $months[$code]->getName('en_GB'));
+        $this->assertSame($nameDe, $months[$code]->getName('de_DE'));
     }
 
     /**
@@ -36,9 +44,9 @@ class TimeAdapterTest extends AbstractAdapterTest
         $timeAdapter = $this->createInstance();
         $month = $timeAdapter->getMonth($code);
         $this->assertTrue(is_object($month));
-        $this->assertEquals('Agit\LocaleDataBundle\Adapter\Object\Month', get_class($month));
-        $this->assertEquals($nameEn, $month->getName('en_GB'));
-        $this->assertEquals($nameDe, $month->getName('de_DE'));
+        $this->assertSame('Agit\LocaleDataBundle\Adapter\Object\Month', get_class($month));
+        $this->assertSame($nameEn, $month->getName('en_GB'));
+        $this->assertSame($nameDe, $month->getName('de_DE'));
     }
 
     /**
@@ -51,9 +59,9 @@ class TimeAdapterTest extends AbstractAdapterTest
 
         $this->assertTrue(is_array($weekdays));
         $this->assertArrayHasKey($code, $weekdays);
-        $this->assertEquals($code, $weekdays[$code]->getCode());
-        $this->assertEquals($nameEn, $weekdays[$code]->getName('en_GB'));
-        $this->assertEquals($nameDe, $weekdays[$code]->getName('de_DE'));
+        $this->assertSame($code, $weekdays[$code]->getCode());
+        $this->assertSame($nameEn, $weekdays[$code]->getName('en_GB'));
+        $this->assertSame($nameDe, $weekdays[$code]->getName('de_DE'));
     }
 
     /**
@@ -64,9 +72,9 @@ class TimeAdapterTest extends AbstractAdapterTest
         $timeAdapter = $this->createInstance();
         $weekday = $timeAdapter->getWeekday($code);
         $this->assertTrue(is_object($weekday));
-        $this->assertEquals('Agit\LocaleDataBundle\Adapter\Object\Weekday', get_class($weekday));
-        $this->assertEquals($nameEn, $weekday->getName('en_GB'));
-        $this->assertEquals($nameDe, $weekday->getName('de_DE'));
+        $this->assertSame('Agit\LocaleDataBundle\Adapter\Object\Weekday', get_class($weekday));
+        $this->assertSame($nameEn, $weekday->getName('en_GB'));
+        $this->assertSame($nameDe, $weekday->getName('de_DE'));
     }
 
     public function createInstance()
@@ -74,9 +82,9 @@ class TimeAdapterTest extends AbstractAdapterTest
         $timeAdapter = new TimeAdapter();
         $timeAdapter->setCldrDir($this->mockCldrDir());
         $timeAdapter->setLocaleService($this->mockLocaleService());
+
         return $timeAdapter;
     }
-
 
     public function providerMonths()
     {

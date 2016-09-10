@@ -5,9 +5,9 @@ services:
         class: Agit\LocaleDataBundle\Service\ProviderService
         arguments: [@agit.localedata.currency, @agit.localedata.country, @agit.localedata.language, @agit.localedata.timezone]
 
-    # (optional!) Twig extension for key-value-lists of localedata
+    # optional Twig extension for key-value-lists of localedata
     agit.localedata.twig:
-        class: Agit\LocaleDataBundle\Twig\LocaleDataExtension
+        class: Agit\LocaleDataBundle\Service\LocaleDataExtension
         tags:
             - { name: twig.extension }
         arguments:  [ @agit.localedata.provider, @agit.intl.locale ]
@@ -48,25 +48,25 @@ services:
 
     agit.localedata.seed.currency:
         private: true
-        class: Agit\LocaleDataBundle\Seed\CurrencySeed
+        class: Agit\LocaleDataBundle\EventListener\CurrencySeed
         arguments: [ "@agit.intl.locale", "@agit.localedata.adapter.currency" ]
         tags: [{ name: kernel.event_listener, event: agit.seed, method: registerSeed }]
 
     agit.localedata.seed.country:
         private: true
-        class: Agit\LocaleDataBundle\Seed\CountrySeed
+        class: Agit\LocaleDataBundle\EventListener\CountrySeed
         arguments: [ "@agit.intl.locale", "@agit.localedata.adapter.country" ]
         tags: [{ name: kernel.event_listener, event: agit.seed, method: registerSeed }]
 
     agit.localedata.seed.language:
         private: true
-        class: Agit\LocaleDataBundle\Seed\LanguageSeed
+        class: Agit\LocaleDataBundle\EventListener\LanguageSeed
         arguments: [ "@agit.intl.locale", "@agit.localedata.adapter.language" ]
         tags: [{ name: kernel.event_listener, event: agit.seed, method: registerSeed }]
 
     agit.localedata.seed.timezone:
         private: true
-        class: Agit\LocaleDataBundle\Seed\TimezoneSeed
+        class: Agit\LocaleDataBundle\EventListener\TimezoneSeed
         arguments: [ "@agit.intl.locale", "@agit.localedata.adapter.timezone" ]
         tags: [{ name: kernel.event_listener, event: agit.seed, method: registerSeed }]
 
@@ -118,4 +118,4 @@ services:
     agit.localedata.catalog.register:
         class: Agit\LocaleDataBundle\EventListener\CldrCatalogListener
         arguments: [ @filesystem, @agit.intl.locale, @agit.localedata.adapter.currency, @agit.localedata.adapter.country, @agit.localedata.adapter.language, @agit.localedata.adapter.time, @agit.localedata.adapter.timezone ]
-        tags: [{ name: kernel.event_listener, event: agit.intl.catalog.register, method: onRegistration }]
+        tags: [{ name: kernel.event_listener, event: agit.intl.translations.register, method: onRegistration }]

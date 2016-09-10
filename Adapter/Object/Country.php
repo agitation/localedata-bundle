@@ -1,7 +1,15 @@
 <?php
+
+/*
+ * @package    agitation/localedata-bundle
+ * @link       http://github.com/agitation/localedata-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 /**
- * @package    agitation/localedata
  * @link       http://github.com/agitation/AgitLocaleDataBundle
+ *
  * @author     Alex Günsche <http://www.agitsol.com/>
  * @copyright  2012-2015 AGITsol GmbH
  * @license    http://opensource.org/licenses/MIT
@@ -19,8 +27,8 @@ class Country extends AbstractObject
 
     public function __construct($code, $longCode, Currency $currency, $phone)
     {
-        $this->code = (string)$code;
-        $this->longCode = (string)$longCode;
+        $this->code = (string) $code;
+        $this->longCode = (string) $longCode;
         $this->currency = $currency;
         $this->phone = $phone;
     }

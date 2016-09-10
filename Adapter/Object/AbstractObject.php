@@ -1,7 +1,15 @@
 <?php
+
+/*
+ * @package    agitation/localedata-bundle
+ * @link       http://github.com/agitation/localedata-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 /**
- * @package    agitation/localedata
  * @link       http://github.com/agitation/AgitLocaleDataBundle
+ *
  * @author     Alex Günsche <http://www.agitsol.com/>
  * @copyright  2012-2015 AGITsol GmbH
  * @license    http://opensource.org/licenses/MIT
@@ -23,16 +31,17 @@ abstract class AbstractObject
 
     public function __construct($code)
     {
-        $this->code = (string)$code;
+        $this->code = (string) $code;
     }
 
     public function addName($locale, $name, $abbr = null)
     {
-        if (static::$hasAbbr && !is_string($abbr))
+        if (static::$hasAbbr && ! is_string($abbr)) {
             throw new InternalErrorException(sprintf("Object type %s needs an abbreviation.", get_class()));
+        }
 
-        $this->names[$locale] = (string)$name;
-        $this->abbrs[$locale] = (string)$abbr;
+        $this->names[$locale] = (string) $name;
+        $this->abbrs[$locale] = (string) $abbr;
     }
 
     public function getCode()
@@ -47,19 +56,22 @@ abstract class AbstractObject
 
     public function getName($locale)
     {
-        if (!isset($this->names[$locale]))
+        if (! isset($this->names[$locale])) {
             throw new InternalErrorException("No name was found for locale '$locale'.");
+        }
 
         return $this->names[$locale];
     }
 
     public function getAbbr($locale)
     {
-        if (!static::$hasAbbr)
+        if (! static::$hasAbbr) {
             throw new InternalErrorException(sprintf("Object type %s doesn't support abbreviations.", get_class()));
+        }
 
-        if (!isset($this->abbrs[$locale]))
+        if (! isset($this->abbrs[$locale])) {
             throw new InternalErrorException("No abbreviation was found for locale '$locale'.");
+        }
 
         return $this->abbrs[$locale];
     }

@@ -1,7 +1,15 @@
 <?php
+
+/*
+ * @package    agitation/localedata-bundle
+ * @link       http://github.com/agitation/localedata-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 /**
- * @package    agitation/localedata
  * @link       http://github.com/agitation/AgitLocaleDataBundle
+ *
  * @author     Alex Günsche <http://www.agitsol.com/>
  * @copyright  2012-2015 AGITsol GmbH
  * @license    http://opensource.org/licenses/MIT
@@ -29,12 +37,13 @@ abstract class AbstractAdapter
 
     public function setCldrDir($cldrDir)
     {
-        $this->cldrDir = realpath(__DIR__."/../$cldrDir");
+        $this->cldrDir = realpath(__DIR__ . "/../$cldrDir");
     }
 
     protected function getMainData($locDir, $filename)
     {
         $path = sprintf('%s/main/%s/%s', $this->cldrDir, $locDir ?: $this->baseLocDir, $filename);
+
         return $this->getData($path);
     }
 
@@ -43,12 +52,10 @@ abstract class AbstractAdapter
         $locDir = null;
         $variants = [str_replace('_', '-', $locale), substr($locale, 0, 2)];
 
-        foreach ($variants as $variant)
-        {
+        foreach ($variants as $variant) {
             $path = sprintf('%s/main/%s', $this->cldrDir, $variant);
 
-            if (is_dir($path))
-            {
+            if (is_dir($path)) {
                 $locDir = $variant;
                 break;
             }
@@ -60,15 +67,16 @@ abstract class AbstractAdapter
     protected function getSupplementalData($filename)
     {
         $path = sprintf('%s/supplemental/%s', $this->cldrDir, $filename);
+
         return $this->getData($path);
     }
 
     private function getData($path)
     {
-        if (!isset($this->dataCache[$path]))
-        {
-            if (!is_readable($path))
+        if (! isset($this->dataCache[$path])) {
+            if (! is_readable($path)) {
                 throw new InternalErrorException("Cannot read '$path'.");
+            }
 
             $this->dataCache[$path] = json_decode(file_get_contents($path), true);
         }
@@ -80,8 +88,9 @@ abstract class AbstractAdapter
     {
         $this->load();
 
-        if (!property_exists($this, $listname) || !is_array($this->$listname))
+        if (! property_exists($this, $listname) || ! is_array($this->$listname)) {
             throw new InternalErrorException("No list named '$listname' found.");
+        }
 
         return $this->$listname;
     }
@@ -90,8 +99,9 @@ abstract class AbstractAdapter
     {
         $list = $this->getList($listname);
 
-        if (!isset($list[$code]))
+        if (! isset($list[$code])) {
             throw new InternalErrorException("No element with name '$code' found.");
+        }
 
         return $list[$code];
     }
@@ -99,7 +109,8 @@ abstract class AbstractAdapter
     protected function hasListElement($listname, $code)
     {
         $list = $this->getList($listname);
-        return (isset($list[$code]));
+
+        return isset($list[$code]);
     }
 
     abstract protected function load();

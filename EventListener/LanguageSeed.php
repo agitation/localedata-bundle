@@ -1,13 +1,21 @@
 <?php
+
+/*
+ * @package    agitation/localedata-bundle
+ * @link       http://github.com/agitation/localedata-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 /**
- * @package    agitation/localedata
  * @link       http://github.com/agitation/AgitLocaleDataBundle
+ *
  * @author     Alex Günsche <http://www.agitsol.com/>
  * @copyright  2012-2015 AGITsol GmbH
  * @license    http://opensource.org/licenses/MIT
  */
 
-namespace Agit\LocaleDataBundle\Seed;
+namespace Agit\LocaleDataBundle\EventListener;
 
 use Agit\IntlBundle\Service\LocaleService;
 use Agit\LocaleDataBundle\Adapter\LanguageAdapter;
@@ -30,11 +38,10 @@ class LanguageSeed
         $defaultLocale = $this->localeService->getDefaultLocale();
         $languages = $this->languageAdapter->getLanguages();
 
-        foreach ($languages as $language)
-        {
+        foreach ($languages as $language) {
             $event->addSeedEntry("AgitLocaleDataBundle:Language", [
-                "id" => $language->getCode(),
-                "name" => $language->getName($defaultLocale),
+                "id"        => $language->getCode(),
+                "name"      => $language->getName($defaultLocale),
                 "localName" => mb_convert_case($language->getLocalName(),  MB_CASE_TITLE, "UTF-8")
             ]);
         }

@@ -1,13 +1,21 @@
 <?php
+
+/*
+ * @package    agitation/localedata-bundle
+ * @link       http://github.com/agitation/localedata-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 /**
- * @package    agitation/localedata
  * @link       http://github.com/agitation/AgitLocaleDataBundle
+ *
  * @author     Alex Günsche <http://www.agitsol.com/>
  * @copyright  2012-2015 AGITsol GmbH
  * @license    http://opensource.org/licenses/MIT
  */
 
-namespace Agit\LocaleDataBundle\Seed;
+namespace Agit\LocaleDataBundle\EventListener;
 
 use Agit\IntlBundle\Service\LocaleService;
 use Agit\LocaleDataBundle\Adapter\CountryAdapter;
@@ -30,13 +38,12 @@ class CountrySeed
         $defaultLocale = $this->localeService->getDefaultLocale();
         $countries = $this->countryAdapter->getCountries();
 
-        foreach ($countries as $country)
-        {
+        foreach ($countries as $country) {
             $event->addSeedEntry("AgitLocaleDataBundle:Country", [
-                "id" => $country->getCode(),
-                "code" => $country->getLongCode(),
-                "phone" => $country->getPhone(),
-                "name" => $country->getName($defaultLocale),
+                "id"       => $country->getCode(),
+                "code"     => $country->getLongCode(),
+                "phone"    => $country->getPhone(),
+                "name"     => $country->getName($defaultLocale),
                 "currency" => $country->getCurrency()->getCode()
             ]);
         }

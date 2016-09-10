@@ -1,7 +1,15 @@
 <?php
+
+/*
+ * @package    agitation/localedata-bundle
+ * @link       http://github.com/agitation/localedata-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 /**
- * @package    agitation/localedata
  * @link       http://github.com/agitation/AgitLocaleDataBundle
+ *
  * @author     Alex Günsche <http://www.agitsol.com/>
  * @copyright  2012-2015 AGITsol GmbH
  * @license    http://opensource.org/licenses/MIT
@@ -9,7 +17,6 @@
 
 namespace Agit\LocaleDataBundle\Adapter;
 
-use Agit\BaseBundle\Exception\InternalErrorException;
 use Agit\LocaleDataBundle\Adapter\Object\Currency;
 
 class CurrencyAdapter extends AbstractAdapter
@@ -40,8 +47,7 @@ class CurrencyAdapter extends AbstractAdapter
 
     protected function load()
     {
-        if (is_null($this->currencies))
-        {
+        if (is_null($this->currencies)) {
             $this->currencies = [];
             $currencyData = $this->getMainData($this->baseLocDir, 'currencies.json');
             $currencyMappings = array_flip($this->countryCurrencyAdapter->getCountryCurrencyMap());
@@ -50,28 +56,31 @@ class CurrencyAdapter extends AbstractAdapter
             $availableLocales = $this->localeService->getAvailableLocales();
 
             // collect main data ...
-            foreach ($currencyData['main'][$this->baseLocDir]['numbers']['currencies'] as $code => $list)
-            {
-                if (isset($currencyMappings[$code]))
-                {
+            foreach ($currencyData['main'][$this->baseLocDir]['numbers']['currencies'] as $code => $list) {
+                if (isset($currencyMappings[$code])) {
                     $this->currencies[$code] = new Currency($code);
                     $this->currencies[$code]->addName($defaultLocale, $list['displayName']);
                 }
             }
 
             // ... and fill up with translations
-            foreach ($availableLocales as $loc)
-            {
-                if ($loc === $defaultLocale) continue;
+            foreach ($availableLocales as $loc) {
+                if ($loc === $defaultLocale) {
+                    continue;
+                }
 
                 $locDir = $this->findLocDirForLocale($loc);
-                if (!$locDir) continue;
+                if (! $locDir) {
+                    continue;
+                }
 
                 $locCurrencies = $this->getMainData($locDir, 'currencies.json');
 
-                foreach ($locCurrencies['main'][$locDir]['numbers']['currencies'] as $locCode => $locs)
-                    if (isset($this->currencies[$locCode]))
+                foreach ($locCurrencies['main'][$locDir]['numbers']['currencies'] as $locCode => $locs) {
+                    if (isset($this->currencies[$locCode])) {
                         $this->currencies[$locCode]->addName($loc, $locs['displayName']);
+                    }
+                }
             }
         }
     }

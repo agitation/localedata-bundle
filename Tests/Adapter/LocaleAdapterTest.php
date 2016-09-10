@@ -1,7 +1,15 @@
 <?php
+
+/*
+ * @package    agitation/localedata-bundle
+ * @link       http://github.com/agitation/localedata-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 /**
- * @package    agitation/localedata
  * @link       http://github.com/agitation/AgitLocaleDataBundle
+ *
  * @author     Alex Günsche <http://www.agitsol.com/>
  * @copyright  2012-2015 AGITsol GmbH
  * @license    http://opensource.org/licenses/MIT
@@ -23,9 +31,9 @@ class LocaleAdapterTest extends AbstractAdapterTest
 
         $this->assertTrue(is_array($locales));
         $this->assertArrayHasKey($code, $locales);
-        $this->assertEquals($code, $locales[$code]->getCode());
-        $this->assertEquals($nameEn, $locales[$code]->getName('en_GB'));
-        $this->assertEquals($nameDe, $locales[$code]->getName('de_DE'));
+        $this->assertSame($code, $locales[$code]->getCode());
+        $this->assertSame($nameEn, $locales[$code]->getName('en_GB'));
+        $this->assertSame($nameDe, $locales[$code]->getName('de_DE'));
     }
 
     /**
@@ -36,9 +44,9 @@ class LocaleAdapterTest extends AbstractAdapterTest
         $localeAdapter = $this->createInstance();
         $locale = $localeAdapter->getLocale($code);
         $this->assertTrue(is_object($locale));
-        $this->assertEquals('Agit\LocaleDataBundle\Adapter\Object\Locale', get_class($locale));
-        $this->assertEquals($nameEn, $locale->getName('en_GB'));
-        $this->assertEquals($nameDe, $locale->getName('de_DE'));
+        $this->assertSame('Agit\LocaleDataBundle\Adapter\Object\Locale', get_class($locale));
+        $this->assertSame($nameEn, $locale->getName('en_GB'));
+        $this->assertSame($nameDe, $locale->getName('de_DE'));
     }
 
     public function createInstance()
@@ -46,6 +54,7 @@ class LocaleAdapterTest extends AbstractAdapterTest
         $localeAdapter = new LocaleAdapter($this->mockCountryAdapter());
         $localeAdapter->setCldrDir($this->mockCldrDir());
         $localeAdapter->setLocaleService($this->mockLocaleService());
+
         return $localeAdapter;
     }
 

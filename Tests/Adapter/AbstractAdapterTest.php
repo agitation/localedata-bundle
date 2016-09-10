@@ -1,7 +1,15 @@
 <?php
+
+/*
+ * @package    agitation/localedata-bundle
+ * @link       http://github.com/agitation/localedata-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 /**
- * @package    agitation/localedata
  * @link       http://github.com/agitation/AgitLocaleDataBundle
+ *
  * @author     Alex Günsche <http://www.agitsol.com/>
  * @copyright  2012-2015 AGITsol GmbH
  * @license    http://opensource.org/licenses/MIT
@@ -10,8 +18,8 @@
 namespace Agit\LocaleDataBundle\Tests\Adapter;
 
 use Agit\LocaleDataBundle\Adapter\AbstractAdapter;
-use Agit\LocaleDataBundle\Adapter\Object\Currency;
 use Agit\LocaleDataBundle\Adapter\Object\Country;
+use Agit\LocaleDataBundle\Adapter\Object\Currency;
 
 // NOTE: this is not a test for the AbstractAdapter, but a helper for adapter tests
 abstract class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
@@ -79,13 +87,13 @@ abstract class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
 
         $currencyAdapter->expects($this->any())
             ->method('getCurrency')
-            ->will($this->returnCallback(function($code) use ($currencies) {
+            ->will($this->returnCallback(function ($code) use ($currencies) {
                 return $currencies[$code];
             }));
 
         $currencyAdapter->expects($this->any())
             ->method('hasCurrency')
-            ->will($this->returnCallback(function($code) use ($currencies) {
+            ->will($this->returnCallback(function ($code) use ($currencies) {
                 return isset($currencies[$code]);
             }));
 
@@ -97,6 +105,7 @@ abstract class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
         $currency = new Currency($code);
         $currency->addName('en_GB', $nameEn);
         $currency->addName('de_DE', $nameDe);
+
         return $currency;
     }
 
@@ -119,13 +128,13 @@ abstract class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
 
         $countryAdapter->expects($this->any())
             ->method('getCountry')
-            ->will($this->returnCallback(function($code) use ($countries) {
+            ->will($this->returnCallback(function ($code) use ($countries) {
                 return $countries[$code];
             }));
 
         $countryAdapter->expects($this->any())
             ->method('hasCountry')
-            ->will($this->returnCallback(function($code) use ($countries) {
+            ->will($this->returnCallback(function ($code) use ($countries) {
                 return isset($countries[$code]);
             }));
 
@@ -137,6 +146,7 @@ abstract class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
         $country = new Country($code, $this->mockCurrency($currCode, $currNameEn, $currNameDe));
         $country->addName('en_GB', $nameEn);
         $country->addName('de_DE', $nameDe);
+
         return $country;
     }
 }

@@ -1,7 +1,15 @@
 <?php
+
+/*
+ * @package    agitation/localedata-bundle
+ * @link       http://github.com/agitation/localedata-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 /**
- * @package    agitation/localedata
  * @link       http://github.com/agitation/AgitLocaleDataBundle
+ *
  * @author     Alex Günsche <http://www.agitsol.com/>
  * @copyright  2012-2015 AGITsol GmbH
  * @license    http://opensource.org/licenses/MIT
@@ -9,7 +17,6 @@
 
 namespace Agit\LocaleDataBundle\Service;
 
-use Agit\BaseBundle\Exception\InternalErrorException;
 use Agit\LocaleDataBundle\Adapter\CountryAdapter;
 use Agit\LocaleDataBundle\Adapter\CountryCurrencyAdapter;
 use Agit\LocaleDataBundle\Adapter\CurrencyAdapter;
@@ -18,7 +25,7 @@ use Agit\LocaleDataBundle\Adapter\TimeAdapter;
 use Agit\LocaleDataBundle\Adapter\TimezoneAdapter;
 
 /**
- * Facade service to all the intl adapters
+ * Facade service to all the intl adapters.
  */
 class IntlAdapterService
 {

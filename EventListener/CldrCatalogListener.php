@@ -1,7 +1,15 @@
 <?php
+
+/*
+ * @package    agitation/localedata-bundle
+ * @link       http://github.com/agitation/localedata-bundle
+ * @author     Alexander Günsche
+ * @license    http://opensource.org/licenses/MIT
+ */
+
 /**
- * @package    agitation/localedata
  * @link       http://github.com/agitation/AgitLocaleDataBundle
+ *
  * @author     Alex Günsche <http://www.agitsol.com/>
  * @copyright  2012-2015 AGITsol GmbH
  * @license    http://opensource.org/licenses/MIT
@@ -9,14 +17,15 @@
 
 namespace Agit\LocaleDataBundle\EventListener;
 
-use Agit\BaseBundle\Event\TranslationCatalogEvent;
-use Symfony\Component\Filesystem\Filesystem;
+use Agit\IntlBundle\Event\TranslationsEvent;
 use Agit\IntlBundle\Service\LocaleService;
 use Agit\LocaleDataBundle\Adapter\CountryAdapter;
 use Agit\LocaleDataBundle\Adapter\CurrencyAdapter;
 use Agit\LocaleDataBundle\Adapter\LanguageAdapter;
 use Agit\LocaleDataBundle\Adapter\TimeAdapter;
 use Agit\LocaleDataBundle\Adapter\TimezoneAdapter;
+use Gettext\Translation;
+use Symfony\Component\Filesystem\Filesystem;
 
 class CldrCatalogListener
 {
@@ -34,8 +43,7 @@ class CldrCatalogListener
 
     private $timeAdapter;
 
-    public function __construct
-    (
+    public function __construct(
         Filesystem $filesystem,
         LocaleService $localeService,
         CurrencyAdapter $currencyAdapter,
@@ -53,68 +61,40 @@ class CldrCatalogListener
         $this->timezoneAdapter = $timezoneAdapter;
     }
 
-    public function onRegistration(TranslationCatalogEvent $event)
+    public function onRegistration(TranslationsEvent $event)
     {
         $defaultLocale = $this->localeService->getDefaultLocale();
         $locales = $this->localeService->getAvailableLocales();
         $catalogs = [];
 
         $lists = [];
-        $lists['currency'] = $this->currencyAdapter->getCurrencies();
-        $lists['country'] = $this->countryAdapter->getCountries();
-        $lists['timezone'] = $this->timezoneAdapter->getTimezones();
-        $lists['month'] = $this->timeAdapter->getMonths();
-        $lists['weekday'] = $this->timeAdapter->getWeekdays();
-        $lists['language'] = $this->languageAdapter->getLanguages();
+        $lists["currency"] = $this->currencyAdapter->getCurrencies();
+        $lists["country"] = $this->countryAdapter->getCountries();
+        $lists["timezone"] = $this->timezoneAdapter->getTimezones();
+        $lists["month"] = $this->timeAdapter->getMonths();
+        $lists["weekday"] = $this->timeAdapter->getWeekdays();
+        $lists["language"] = $this->languageAdapter->getLanguages();
 
-        foreach ($locales as $locale)
-        {
-            $catalog = '';
+        foreach ($locales as $locale) {
+            $catalog = "";
 
-            foreach ($lists as $type => $list)
-            {
-                foreach ($list as $id => $elem)
-                {
-                    $catalog .= "\n";
-                    $catalog .= "#: localedata:$type:$id\n";
+            foreach ($lists as $type => $list) {
+                foreach ($list as $id => $elem) {
+                    $context = (in_array($type, ["currency", "country", "timezone", "language"])) ? $type : "";
 
-                    if (in_array($type, ['currency', 'country', 'timezone', 'language']))
-                        $catalog .= "msgctxt \"$type\"\n";
+                    $translation = new Translation($context, $elem->getName($defaultLocale));
+                    $translation->setTranslation($elem->getName($locale));
+                    $translation->addReference("localedata:$type:$id");
+                    $event->addTranslation($locale, $translation);
 
-                    $msgId = addcslashes($elem->getName($defaultLocale), '"');
-
-                    $catalog .= sprintf("msgid \"%s\"\n", $msgId);
-                    $catalog .= sprintf("msgstr \"%s\"\n", addcslashes($elem->getName($locale), '"'));
-
-                    if (in_array($type, ['weekday', 'month']))
-                    {
-                        $abbrMsgId = addcslashes($elem->getAbbr($defaultLocale), '"');
-
-                        // avoid duplicate messages where long and short form are identical (May/May)
-                        if ($msgId !== $abbrMsgId)
-                        {
-                            $catalog .= "\n";
-                            $catalog .= "#: localedata:$type:$id\n";
-                            $catalog .= sprintf("msgid \"%s\"\n", $abbrMsgId);
-                            $catalog .= sprintf("msgstr \"%s\"\n", addcslashes($elem->getAbbr($locale), '"'));
-                        }
+                    if (in_array($type, ["weekday", "month"])) {
+                        $translation = new Translation("", $elem->getAbbr($defaultLocale));
+                        $translation->setTranslation($elem->getAbbr($locale));
+                        $translation->addReference("localedata:$type:$id");
+                        $event->addTranslation($locale, $translation);
                     }
                 }
             }
-
-            $catalogs[$locale] = $catalog;
-        }
-
-        // now, after fully successful generation, create and register files
-
-        $cachePath = $event->getCacheBasePath() . md5(__CLASS__);
-        $this->filesystem->mkdir($cachePath);
-
-        foreach ($catalogs as $locale => $catalog)
-        {
-            $filePath = "$cachePath/cldr.$locale.po";
-            $this->filesystem->dumpFile($filePath, $catalog);
-            $event->registerCatalogFile($locale, $filePath);
         }
     }
 }
