@@ -9,10 +9,10 @@
 
 namespace Agit\LocaleDataBundle\Service;
 
+use Agit\IntlBundle\Service\LocaleService;
 use Collator;
 use Twig_Extension;
 use Twig_Function_Method;
-use Agit\IntlBundle\Service\LocaleService;
 
 class LocaleDataExtension extends Twig_Extension
 {
