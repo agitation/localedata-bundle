@@ -7,20 +7,14 @@
  * @license    http://opensource.org/licenses/MIT
  */
 
-/**
- * @link       http://github.com/agitation/AgitLocaleDataBundle
- *
- * @author     Alex Günsche <http://www.agitsol.com/>
- * @copyright  2012-2015 AGITsol GmbH
- * @license    http://opensource.org/licenses/MIT
- */
+namespace Agit\LocaleDataBundle\Service;
 
-namespace Agit\LocaleDataBundle\Twig;
-
+use Collator;
+use Twig_Extension;
+use Twig_Function_Method;
 use Agit\IntlBundle\Service\LocaleService;
-use Agit\LocaleDataBundle\Service\ProviderService;
 
-class LocaleDataExtension extends \Twig_Extension
+class LocaleDataExtension extends Twig_Extension
 {
     private $providerService;
 
@@ -35,16 +29,16 @@ class LocaleDataExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            'getCountries'  => new \Twig_Function_Method($this, 'getCountries'),
-            'getCurrencies' => new \Twig_Function_Method($this, 'getCurrencies'),
-            'getLanguages'  => new \Twig_Function_Method($this, 'getLanguages'),
-            'getTimezones'  => new \Twig_Function_Method($this, 'getTimezones')
+            "getCountries"  => new Twig_Function_Method($this, "getCountries"),
+            "getCurrencies" => new Twig_Function_Method($this, "getCurrencies"),
+            "getLanguages"  => new Twig_Function_Method($this, "getLanguages"),
+            "getTimezones"  => new Twig_Function_Method($this, "getTimezones")
         ];
     }
 
     public function getName()
     {
-        return 'agit.localedata';
+        return "agit.localedata";
     }
 
     public function getCountries(array $list = null)
@@ -75,9 +69,9 @@ class LocaleDataExtension extends \Twig_Extension
             $results[$entity->getId()] = $entity->getName();
         }
 
-        if (class_exists('Collator')) {
-            $collator = new \Collator($this->localeService->getLocale());
-            uasort($results, [$collator, 'compare']);
+        if (class_exists("Collator")) {
+            $collator = new Collator($this->localeService->getLocale());
+            uasort($results, [$collator, "compare"]);
         }
 
         return $results;
