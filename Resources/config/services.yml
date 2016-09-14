@@ -1,5 +1,4 @@
 services:
-
     # facade service and wrapper for the repository services
     agit.localedata.provider:
         class: Agit\LocaleDataBundle\Service\ProviderService
@@ -92,17 +91,17 @@ services:
     agit.localedata.adapter.currency:
         parent: agit.localedata.adapter.abstract
         class: Agit\LocaleDataBundle\Adapter\CurrencyAdapter
-        arguments: [@agit.localedata.adapter.countrycurrency]
+        arguments: [ "@agit.localedata.adapter.countrycurrency" ]
 
     agit.localedata.adapter.country:
         parent: agit.localedata.adapter.abstract
         class: Agit\LocaleDataBundle\Adapter\CountryAdapter
-        arguments: [@agit.localedata.adapter.currency, @agit.localedata.adapter.countrycurrency]
+        arguments: [ "@agit.localedata.adapter.currency", "@agit.localedata.adapter.countrycurrency" ]
 
     agit.localedata.adapter.language:
         parent: agit.localedata.adapter.abstract
         class: Agit\LocaleDataBundle\Adapter\LanguageAdapter
-        arguments: [@agit.localedata.adapter.country]
+        arguments: [ "@agit.localedata.adapter.country" ]
 
     agit.localedata.adapter.time:
         parent: agit.localedata.adapter.abstract
@@ -111,11 +110,18 @@ services:
     agit.localedata.adapter.timezone:
         parent: agit.localedata.adapter.abstract
         class: Agit\LocaleDataBundle\Adapter\TimezoneAdapter
-        arguments: [@agit.localedata.adapter.country]
+        arguments: [ "@agit.localedata.adapter.country" ]
 
 
     # registration listener for translation catalogs
     agit.localedata.catalog.register:
         class: Agit\LocaleDataBundle\EventListener\CldrCatalogListener
-        arguments: [ @filesystem, @agit.intl.locale, @agit.localedata.adapter.currency, @agit.localedata.adapter.country, @agit.localedata.adapter.language, @agit.localedata.adapter.time, @agit.localedata.adapter.timezone ]
+        arguments:
+            - "@filesystem"
+            - "@agit.intl.locale"
+            - "@agit.localedata.adapter.currency"
+            - "@agit.localedata.adapter.country"
+            - "@agit.localedata.adapter.language"
+            - "@agit.localedata.adapter.time"
+            - "@agit.localedata.adapter.timezone"
         tags: [{ name: kernel.event_listener, event: agit.intl.translations.register, method: onRegistration }]
