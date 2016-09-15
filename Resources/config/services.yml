@@ -70,6 +70,24 @@ services:
         tags: [{ name: kernel.event_listener, event: agit.seed, method: registerSeed }]
 
 
+    # settings (optional, only loaded if setting-bundle is installed)
+
+    agit.order.setting.currency:
+        class: Agit\LocaleDataBundle\Service\CurrencySetting
+        arguments: [ "@agit.localedata.currency" ]
+        tags: [{ name: agit.setting }]
+
+    agit.order.setting.country:
+        class: Agit\LocaleDataBundle\Service\CountrySetting
+        arguments: [ "@agit.localedata.country" ]
+        tags: [{ name: agit.setting }]
+
+    agit.order.setting.timezone:
+        class: Agit\LocaleDataBundle\Service\TimezoneSetting
+        arguments: [ "@agit.localedata.timezone" ]
+        tags: [{ name: agit.setting }]
+
+
 
     #
     # NOTE: The following services make only sense in the scope of this bundle.
