@@ -7,13 +7,13 @@
  * @license    http://opensource.org/licenses/MIT
  */
 
-namespace Agit\LocaleDataBundle\Plugin\Api\LocaledataV1\Object;
+namespace Agit\LocaleDataBundle\Api\Object;
 
 use Agit\ApiBundle\Annotation\Object;
-use Agit\ApiBundle\Common\AbstractRequestObject;
+use Agit\ApiBundle\Api\Object\AbstractRequestObject;
 
 /**
- * @Object\Object
+ * @Object\Object(namespace="localedata.v1")
  *
  * Country search request object. Actually, this is just a dummy object, as
  * the Country.search method doesn’t take any methods anyway.

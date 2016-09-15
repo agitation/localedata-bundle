@@ -7,14 +7,14 @@
  * @license    http://opensource.org/licenses/MIT
  */
 
-namespace Agit\LocaleDataBundle\Plugin\Api\LocaledataV1\Object;
+namespace Agit\LocaleDataBundle\Api\Object;
 
 use Agit\ApiBundle\Annotation\Object;
 use Agit\ApiBundle\Annotation\Property;
-use Agit\ApiBundle\Common\AbstractEntityObject;
+use Agit\ApiBundle\Api\Object\AbstractEntityObject;
 
 /**
- * @Object\Object
+ * @Object\Object(namespace="localedata.v1")
  *
  * A currency.
  */
