@@ -12,7 +12,7 @@ namespace Agit\LocaleDataBundle\Service;
 use Agit\IntlBundle\Service\LocaleService;
 use Collator;
 use Twig_Extension;
-use Twig_Function_Method;
+use Twig_SimpleFunction;
 
 class LocaleDataExtension extends Twig_Extension
 {
@@ -29,10 +29,10 @@ class LocaleDataExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            "getCountries"  => new Twig_Function_Method($this, "getCountries"),
-            "getCurrencies" => new Twig_Function_Method($this, "getCurrencies"),
-            "getLanguages"  => new Twig_Function_Method($this, "getLanguages"),
-            "getTimezones"  => new Twig_Function_Method($this, "getTimezones")
+            new Twig_SimpleFunction("getCountries", [$this, "getCountries"]),
+            new Twig_SimpleFunction("getCurrencies", [$this, "getCurrencies"]),
+            new Twig_SimpleFunction("getLanguages", [$this, "getLanguages"]),
+            new Twig_SimpleFunction("getTimezones", [$this, "getTimezones"])
         ];
     }
 
