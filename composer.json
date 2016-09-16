@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Agit\\LocaleDataBundle\\": ""
+            "Agit\\LocaleDataBundle\\": "lib/"
         }
     },
     "license": "MIT",
