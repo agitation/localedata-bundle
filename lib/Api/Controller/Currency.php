@@ -15,7 +15,7 @@ use Agit\ApiBundle\Api\Controller\EntitySearchTrait;
 use Agit\ApiBundle\Api\Controller\AbstractEntityController;
 
 /**
- * @EntityController(namespace="localedata.v1", entity="AgitLocaleDataBundle:Timezone", cap="")
+ * @EntityController(namespace="localedata.v1", entity="AgitLocaleDataBundle:Currency", cap="")
  */
 class Currency extends AbstractEntityController
 {
