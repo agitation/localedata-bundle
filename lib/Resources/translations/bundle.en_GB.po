@@ -1,0 +1,28 @@
+msgid ""
+msgstr ""
+"Language: en_GB\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: @AgitLocaleDataBundle/Service/CountrySetting.php:32
+msgid "Country"
+msgstr ""
+
+#: @AgitLocaleDataBundle/Service/CountrySetting.php:43
+msgid "The selected country is invalid."
+msgstr ""
+
+#: @AgitLocaleDataBundle/Service/TimezoneSetting.php:32
+msgid "Default Timezone"
+msgstr ""
+
+#: @AgitLocaleDataBundle/Service/TimezoneSetting.php:43
+msgid "The selected timezone is invalid."
+msgstr ""
+
+#: @AgitLocaleDataBundle/Service/CurrencySetting.php:32
+msgid "Currency"
+msgstr ""
+
+#: @AgitLocaleDataBundle/Service/CurrencySetting.php:43
+msgid "The selected currency is invalid."
+msgstr ""
