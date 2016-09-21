@@ -7,10 +7,11 @@
  * @license    http://opensource.org/licenses/MIT
  */
 
-namespace Agit\LocaleDataBundle\Service;
+namespace Agit\LocaleDataBundle\Setting;
 
 use Agit\IntlBundle\Tool\Translate;
 use Agit\LocaleDataBundle\Entity\CountryRepository;
+use Agit\SettingBundle\Exception\InvalidSettingValueException;
 use Agit\SettingBundle\Service\AbstractSetting;
 
 class CountrySetting extends AbstractSetting
@@ -40,7 +41,7 @@ class CountrySetting extends AbstractSetting
     public function validate($value)
     {
         if (! $this->countryRepository->find($value)) {
-            throw new InvalidValueException(Translate::t("The selected country is invalid."));
+            throw new InvalidSettingValueException(Translate::t("The selected country is invalid."));
         }
     }
 }

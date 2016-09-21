@@ -70,20 +70,20 @@ services:
         tags: [{ name: kernel.event_listener, event: agit.seed, method: registerSeed }]
 
 
-    # settings (optional, only loaded if setting-bundle is installed)
+    # settings (only loaded if setting-bundle is installed)
 
     agit.order.setting.currency:
-        class: Agit\LocaleDataBundle\Service\CurrencySetting
+        class: Agit\LocaleDataBundle\Setting\CurrencySetting
         arguments: [ "@agit.localedata.currency" ]
         tags: [{ name: agit.setting }]
 
     agit.order.setting.country:
-        class: Agit\LocaleDataBundle\Service\CountrySetting
+        class: Agit\LocaleDataBundle\Setting\CountrySetting
         arguments: [ "@agit.localedata.country" ]
         tags: [{ name: agit.setting }]
 
     agit.order.setting.timezone:
-        class: Agit\LocaleDataBundle\Service\TimezoneSetting
+        class: Agit\LocaleDataBundle\Setting\TimezoneSetting
         arguments: [ "@agit.localedata.timezone" ]
         tags: [{ name: agit.setting }]
 

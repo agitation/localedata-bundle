@@ -7,10 +7,11 @@
  * @license    http://opensource.org/licenses/MIT
  */
 
-namespace Agit\LocaleDataBundle\Service;
+namespace Agit\LocaleDataBundle\Setting;
 
 use Agit\IntlBundle\Tool\Translate;
 use Agit\LocaleDataBundle\Entity\TimezoneRepository;
+use Agit\SettingBundle\Exception\InvalidSettingValueException;
 use Agit\SettingBundle\Service\AbstractSetting;
 
 class TimezoneSetting extends AbstractSetting
@@ -39,7 +40,7 @@ class TimezoneSetting extends AbstractSetting
 
     public function validate($value)
     {
-        if (!$this->timezoneRepository->getTimezone($value))
-            throw new InvalidValueException(Translate::t("The selected timezone is invalid."));
+        if (!$this->timezoneRepository->find($value))
+            throw new InvalidSettingValueException(Translate::t("The selected timezone is invalid."));
     }
 }
