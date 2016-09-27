@@ -30,7 +30,7 @@ class TimezoneSetting extends AbstractSetting
 
     public function getName()
     {
-        return Translate::t("Default Timezone");
+        return Translate::t("Timezone");
     }
 
     public function getDefaultValue()
