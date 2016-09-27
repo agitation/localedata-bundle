@@ -2,14 +2,14 @@ services:
     # facade service and wrapper for the repository services
     agit.localedata.provider:
         class: Agit\LocaleDataBundle\Service\ProviderService
-        arguments: [@agit.localedata.currency, @agit.localedata.country, @agit.localedata.language, @agit.localedata.timezone]
+        arguments: [ "@agit.localedata.currency", "@agit.localedata.country", "@agit.localedata.language", "@agit.localedata.timezone" ]
 
     # optional Twig extension for key-value-lists of localedata
     agit.localedata.twig:
         class: Agit\LocaleDataBundle\Service\LocaleDataExtension
         tags:
             - { name: twig.extension }
-        arguments:  [ @agit.localedata.provider, @agit.intl.locale ]
+        arguments:  [ "@agit.localedata.provider", "@agit.intl.locale" ]
 
     #
     # repository services, to access single localedata repositories, if using
@@ -99,7 +99,7 @@ services:
     agit.localedata.adapter.abstract:
         abstract: true
         calls:
-            - [setLocaleService, [@agit.intl.locale]]
+            - [setLocaleService, [ "@agit.intl.locale" ]]
             - [setCldrDir, ["Resources/cldr"]]
 
     agit.localedata.adapter.countrycurrency:
