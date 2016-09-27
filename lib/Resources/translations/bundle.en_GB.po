@@ -3,26 +3,26 @@ msgstr ""
 "Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: @AgitLocaleDataBundle/Service/CountrySetting.php:32
+#: @AgitLocaleDataBundle/Setting/CountrySetting.php:33
 msgid "Country"
 msgstr ""
 
-#: @AgitLocaleDataBundle/Service/CountrySetting.php:43
+#: @AgitLocaleDataBundle/Setting/CountrySetting.php:44
 msgid "The selected country is invalid."
 msgstr ""
 
-#: @AgitLocaleDataBundle/Service/TimezoneSetting.php:32
+#: @AgitLocaleDataBundle/Setting/TimezoneSetting.php:33
 msgid "Default Timezone"
 msgstr ""
 
-#: @AgitLocaleDataBundle/Service/TimezoneSetting.php:43
+#: @AgitLocaleDataBundle/Setting/TimezoneSetting.php:44
 msgid "The selected timezone is invalid."
 msgstr ""
 
-#: @AgitLocaleDataBundle/Service/CurrencySetting.php:32
+#: @AgitLocaleDataBundle/Setting/CurrencySetting.php:33
 msgid "Currency"
 msgstr ""
 
-#: @AgitLocaleDataBundle/Service/CurrencySetting.php:43
+#: @AgitLocaleDataBundle/Setting/CurrencySetting.php:44
 msgid "The selected currency is invalid."
 msgstr ""
