@@ -9,16 +9,23 @@
 
 namespace Agit\LocaleDataBundle\Api\Controller;
 
-use Agit\ApiBundle\Annotation\Controller\EntityController;
-use Agit\ApiBundle\Api\Controller\EntityGetTrait;
-use Agit\ApiBundle\Api\Controller\EntitySearchTrait;
-use Agit\ApiBundle\Api\Controller\AbstractEntityController;
+use Agit\ApiBundle\Annotation\Controller\Controller;
+use Agit\ApiBundle\Annotation\Depends;
+use Agit\ApiBundle\Annotation\Endpoint\Endpoint;
+use Agit\ApiBundle\Annotation\Endpoint\Security;
 
 /**
- * @EntityController(namespace="localedata.v1", entity="AgitLocaleDataBundle:Country", cap="")
+ * @Controller(namespace="localedata.v1")
+ * @Depends({"@agit.localedata.provider"})
  */
-class Country extends AbstractEntityController
+class Country extends AbstractLocaledataController
 {
-    use EntityGetTrait;
-    use EntitySearchTrait;
+    /**
+     * @Endpoint(request="common.v1/Null", response="Country[]")
+     * @Security(capability="", allowCrossOrigin=true)
+     */
+    public function search()
+    {
+        return $this->createSearchResult("Country");
+    }
 }

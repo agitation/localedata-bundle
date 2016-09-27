@@ -15,8 +15,6 @@ use Agit\ApiBundle\Api\Object\AbstractEntityObject;
 
 /**
  * @Object\Object(namespace="localedata.v1")
- *
- * A language.
  */
 class Locale extends AbstractEntityObject
 {
