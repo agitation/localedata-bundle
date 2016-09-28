@@ -12,7 +12,7 @@ msgid "The selected country is invalid."
 msgstr ""
 
 #: @AgitLocaleDataBundle/Setting/TimezoneSetting.php:33
-msgid "Default Timezone"
+msgid "Timezone"
 msgstr ""
 
 #: @AgitLocaleDataBundle/Setting/TimezoneSetting.php:44
