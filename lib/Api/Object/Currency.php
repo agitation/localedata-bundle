@@ -21,6 +21,7 @@ use Agit\ApiBundle\Api\Object\AbstractEntityObject;
 class Currency extends AbstractEntityObject
 {
     /**
+     * @Property\Name("ID")
      * @Property\StringType
      *
      * The ISO 4217 currency code.
@@ -28,6 +29,7 @@ class Currency extends AbstractEntityObject
     protected $id;
 
     /**
+     * @Property\Name("Name")
      * @Property\StringType
      *
      * Name of the currency, in the requested locale.

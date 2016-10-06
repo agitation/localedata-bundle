@@ -21,6 +21,7 @@ use Agit\ApiBundle\Api\Object\AbstractEntityObject;
 class Language extends AbstractEntityObject
 {
     /**
+     * @Property\Name("ID")
      * @Property\StringType
      *
      * The ISO 4217 language code.
@@ -28,6 +29,7 @@ class Language extends AbstractEntityObject
     protected $id;
 
     /**
+     * @Property\Name("Name")
      * @Property\StringType
      *
      * Name of the language, in the requested locale.

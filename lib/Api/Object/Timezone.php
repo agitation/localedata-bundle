@@ -21,6 +21,7 @@ use Agit\ApiBundle\Api\Object\AbstractEntityObject;
 class Timezone extends AbstractEntityObject
 {
     /**
+     * @Property\Name("ID")
      * @Property\StringType
      *
      * The timezone identifier.
@@ -28,6 +29,7 @@ class Timezone extends AbstractEntityObject
     public $id;
 
     /**
+     * @Property\Name("Name")
      * @Property\StringType
      *
      * Name of the timezone, in the requested locale.

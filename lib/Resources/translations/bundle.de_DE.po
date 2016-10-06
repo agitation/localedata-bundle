@@ -26,3 +26,9 @@ msgstr "Währung"
 #: @AgitLocaleDataBundle/Setting/CurrencySetting.php:44
 msgid "The selected currency is invalid."
 msgstr "Die gewählte Währung ist ungültig."
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Name"
+msgstr "Name"

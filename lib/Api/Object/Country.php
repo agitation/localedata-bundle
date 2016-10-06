@@ -21,6 +21,7 @@ use Agit\ApiBundle\Api\Object\AbstractEntityObject;
 class Country extends AbstractEntityObject
 {
     /**
+     * @Property\Name("ID")
      * @Property\StringType
      *
      * The ISO 3166 alpha-2 country code.
@@ -28,6 +29,7 @@ class Country extends AbstractEntityObject
     protected $id;
 
     /**
+     * @Property\Name("Name")
      * @Property\StringType
      *
      * Name of the country, in the requested locale.

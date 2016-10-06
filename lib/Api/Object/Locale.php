@@ -19,6 +19,7 @@ use Agit\ApiBundle\Api\Object\AbstractEntityObject;
 class Locale extends AbstractEntityObject
 {
     /**
+     * @Property\Name("ID")
      * @Property\StringType
      *
      * The locale code, e.g. de_DE or en_GB.
@@ -26,6 +27,7 @@ class Locale extends AbstractEntityObject
     protected $id;
 
     /**
+     * @Property\Name("Name")
      * @Property\StringType
      *
      * Name of the locale, in the requested locale.
