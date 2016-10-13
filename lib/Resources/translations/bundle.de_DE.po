@@ -27,8 +27,18 @@ msgstr "Währung"
 msgid "The selected currency is invalid."
 msgstr "Die gewählte Währung ist ungültig."
 
+#: @AgitLocaleDataBundle/Api/Object/Country.php
+#: @AgitLocaleDataBundle/Api/Object/Timezone.php
+#: @AgitLocaleDataBundle/Api/Object/Locale.php
+#: @AgitLocaleDataBundle/Api/Object/Language.php
+#: @AgitLocaleDataBundle/Api/Object/Currency.php
 msgid "ID"
 msgstr "ID"
 
+#: @AgitLocaleDataBundle/Api/Object/Country.php
+#: @AgitLocaleDataBundle/Api/Object/Timezone.php
+#: @AgitLocaleDataBundle/Api/Object/Locale.php
+#: @AgitLocaleDataBundle/Api/Object/Language.php
+#: @AgitLocaleDataBundle/Api/Object/Currency.php
 msgid "Name"
 msgstr "Name"
