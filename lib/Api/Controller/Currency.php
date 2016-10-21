@@ -21,7 +21,7 @@ use Agit\ApiBundle\Annotation\Endpoint\Security;
 class Currency extends AbstractLocaledataController
 {
     /**
-     * @Endpoint(request="common.v1/Null", response="Currency[]")
+     * @Endpoint(request="common.v1/ScalarNull", response="Currency[]")
      * @Security(capability="", allowCrossOrigin=true)
      */
     public function search()

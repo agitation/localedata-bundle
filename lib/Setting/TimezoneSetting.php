@@ -40,7 +40,8 @@ class TimezoneSetting extends AbstractSetting
 
     public function validate($value)
     {
-        if (!$this->timezoneRepository->find($value))
+        if (! $this->timezoneRepository->find($value)) {
             throw new InvalidSettingValueException(Translate::t("The selected timezone is invalid."));
+        }
     }
 }

@@ -21,7 +21,7 @@ use Agit\ApiBundle\Annotation\Endpoint\Security;
 class Country extends AbstractLocaledataController
 {
     /**
-     * @Endpoint(request="common.v1/Null", response="Country[]")
+     * @Endpoint(request="common.v1/ScalarNull", response="Country[]")
      * @Security(capability="", allowCrossOrigin=true)
      */
     public function search()

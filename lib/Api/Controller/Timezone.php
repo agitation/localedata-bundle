@@ -21,7 +21,7 @@ use Agit\ApiBundle\Annotation\Endpoint\Security;
 class Timezone extends AbstractLocaledataController
 {
     /**
-     * @Endpoint(request="common.v1/Null", response="Timezone[]")
+     * @Endpoint(request="common.v1/ScalarNull", response="Timezone[]")
      * @Security(capability="", allowCrossOrigin=true)
      */
     public function search()

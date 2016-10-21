@@ -9,11 +9,11 @@
 
 namespace Agit\LocaleDataBundle\Api\Controller;
 
+use Agit\ApiBundle\Annotation\Controller\Controller;
+use Agit\ApiBundle\Annotation\Depends;
 use Agit\ApiBundle\Annotation\Endpoint\Endpoint;
 use Agit\ApiBundle\Annotation\Endpoint\Security;
-use Agit\ApiBundle\Annotation\Controller\Controller;
 use Agit\ApiBundle\Api\Controller\AbstractController;
-use Agit\ApiBundle\Annotation\Depends;
 use Agit\IntlBundle\Service\LocaleService;
 use Doctrine\ORM\EntityManager;
 
@@ -34,13 +34,13 @@ class Locale extends AbstractController
     }
 
     /**
-     * @Endpoint(request="common.v1/Null", response="Locale[]")
+     * @Endpoint(request="common.v1/ScalarNull", response="Locale[]")
      * @Security(capability="", allowCrossOrigin=true)
      */
     public function search()
     {
         $locales = $this->localeService->getAvailableLocales();
-        $langs = array_map(function($locale){ return substr($locale, 0, 2); }, $locales);
+        $langs = array_map(function ($locale) { return substr($locale, 0, 2); }, $locales);
 
         $languages = $this->entityManager->createQueryBuilder()
             ->select("language")
@@ -64,6 +64,7 @@ class Locale extends AbstractController
         $locale = $this->createObject("Locale");
         $locale->set("id", $localeCode);
         $locale->set("name", sprintf("%s (%s)", $language->getName(), $countryCode));
+
         return $locale;
     }
 }
