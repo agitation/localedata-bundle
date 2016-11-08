@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Language: en_GB\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: fr_FR\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
 
 #: @AgitLocaleDataBundle/Setting/CountrySetting.php:33
 msgid "Country"
