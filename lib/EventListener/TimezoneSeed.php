@@ -9,8 +9,8 @@
 
 namespace Agit\LocaleDataBundle\EventListener;
 
+use Agit\CldrBundle\Adapter\TimezoneAdapter;
 use Agit\IntlBundle\Service\LocaleService;
-use Agit\LocaleDataBundle\Adapter\TimezoneAdapter;
 use Agit\SeedBundle\Event\SeedEvent;
 
 class TimezoneSeed
@@ -28,7 +28,11 @@ class TimezoneSeed
     public function registerSeed(SeedEvent $event)
     {
         $defaultLocale = $this->localeService->getDefaultLocale();
-        $timezones = $this->timezoneAdapter->getTimezones();
+
+        $timezones = $this->timezoneAdapter->getTimezones(
+            $defaultLocale,
+            $this->localeService->getAvailableLocales()
+        );
 
         foreach ($timezones as $timezone) {
             $event->addSeedEntry("AgitLocaleDataBundle:Timezone", [

@@ -9,8 +9,8 @@
 
 namespace Agit\LocaleDataBundle\EventListener;
 
+use Agit\CldrBundle\Adapter\LanguageAdapter;
 use Agit\IntlBundle\Service\LocaleService;
-use Agit\LocaleDataBundle\Adapter\LanguageAdapter;
 use Agit\SeedBundle\Event\SeedEvent;
 
 class LanguageSeed
@@ -28,7 +28,11 @@ class LanguageSeed
     public function registerSeed(SeedEvent $event)
     {
         $defaultLocale = $this->localeService->getDefaultLocale();
-        $languages = $this->languageAdapter->getLanguages();
+
+        $languages = $this->languageAdapter->getLanguages(
+            $defaultLocale,
+            $this->localeService->getAvailableLocales()
+        );
 
         foreach ($languages as $language) {
             $event->addSeedEntry("AgitLocaleDataBundle:Language", [

@@ -9,8 +9,8 @@
 
 namespace Agit\LocaleDataBundle\EventListener;
 
+use Agit\CldrBundle\Adapter\CurrencyAdapter;
 use Agit\IntlBundle\Service\LocaleService;
-use Agit\LocaleDataBundle\Adapter\CurrencyAdapter;
 use Agit\SeedBundle\Event\SeedEvent;
 
 class CurrencySeed
@@ -28,7 +28,11 @@ class CurrencySeed
     public function registerSeed(SeedEvent $event)
     {
         $defaultLocale = $this->localeService->getDefaultLocale();
-        $currencies = $this->currencyAdapter->getCurrencies();
+
+        $currencies = $this->currencyAdapter->getCurrencies(
+            $defaultLocale,
+            $this->localeService->getAvailableLocales()
+        );
 
         foreach ($currencies as $currency) {
             $event->addSeedEntry("AgitLocaleDataBundle:Currency", [

@@ -9,8 +9,8 @@
 
 namespace Agit\LocaleDataBundle\EventListener;
 
+use Agit\CldrBundle\Adapter\CountryAdapter;
 use Agit\IntlBundle\Service\LocaleService;
-use Agit\LocaleDataBundle\Adapter\CountryAdapter;
 use Agit\SeedBundle\Event\SeedEvent;
 
 class CountrySeed
@@ -28,7 +28,11 @@ class CountrySeed
     public function registerSeed(SeedEvent $event)
     {
         $defaultLocale = $this->localeService->getDefaultLocale();
-        $countries = $this->countryAdapter->getCountries();
+
+        $countries = $this->countryAdapter->getCountries(
+            $defaultLocale,
+            $this->localeService->getAvailableLocales()
+        );
 
         foreach ($countries as $country) {
             $event->addSeedEntry("AgitLocaleDataBundle:Country", [
