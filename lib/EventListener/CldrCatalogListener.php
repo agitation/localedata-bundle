@@ -9,13 +9,12 @@
 
 namespace Agit\LocaleDataBundle\EventListener;
 
+use Agit\CldrBundle\Adapter\CountryAdapter;
+use Agit\CldrBundle\Adapter\CurrencyAdapter;
+use Agit\CldrBundle\Adapter\LanguageAdapter;
+use Agit\CldrBundle\Adapter\TimezoneAdapter;
 use Agit\IntlBundle\Event\TranslationsEvent;
 use Agit\IntlBundle\Service\LocaleService;
-use Agit\LocaleDataBundle\Adapter\CountryAdapter;
-use Agit\LocaleDataBundle\Adapter\CurrencyAdapter;
-use Agit\LocaleDataBundle\Adapter\LanguageAdapter;
-use Agit\LocaleDataBundle\Adapter\TimeAdapter;
-use Agit\LocaleDataBundle\Adapter\TimezoneAdapter;
 use Gettext\Translation;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -33,15 +32,12 @@ class CldrCatalogListener
 
     private $timezoneAdapter;
 
-    private $timeAdapter;
-
     public function __construct(
         Filesystem $filesystem,
         LocaleService $localeService,
         CurrencyAdapter $currencyAdapter,
         CountryAdapter $countryAdapter,
         LanguageAdapter $languageAdapter,
-        TimeAdapter $timeAdapter,
         TimezoneAdapter $timezoneAdapter
     ) {
         $this->filesystem = $filesystem;
@@ -49,7 +45,6 @@ class CldrCatalogListener
         $this->currencyAdapter = $currencyAdapter;
         $this->countryAdapter = $countryAdapter;
         $this->languageAdapter = $languageAdapter;
-        $this->timeAdapter = $timeAdapter;
         $this->timezoneAdapter = $timezoneAdapter;
     }
 
@@ -57,34 +52,20 @@ class CldrCatalogListener
     {
         $defaultLocale = $this->localeService->getDefaultLocale();
         $locales = $this->localeService->getAvailableLocales();
-        $catalogs = [];
 
         $lists = [];
-        $lists["currency"] = $this->currencyAdapter->getCurrencies();
-        $lists["country"] = $this->countryAdapter->getCountries();
-        $lists["timezone"] = $this->timezoneAdapter->getTimezones();
-        $lists["month"] = $this->timeAdapter->getMonths();
-        $lists["weekday"] = $this->timeAdapter->getWeekdays();
-        $lists["language"] = $this->languageAdapter->getLanguages();
+        $lists["currency"] = $this->currencyAdapter->getCurrencies($defaultLocale, $locales);
+        $lists["country"] = $this->countryAdapter->getCountries($defaultLocale, $locales);
+        $lists["timezone"] = $this->timezoneAdapter->getTimezones($defaultLocale, $locales);
+        $lists["language"] = $this->languageAdapter->getLanguages($defaultLocale, $locales);
 
         foreach ($locales as $locale) {
-            $catalog = "";
-
             foreach ($lists as $type => $list) {
                 foreach ($list as $id => $elem) {
-                    $context = (in_array($type, ["currency", "country", "timezone", "language"])) ? $type : "";
-
-                    $translation = new Translation($context, $elem->getName($defaultLocale));
+                    $translation = new Translation($type, $elem->getName($defaultLocale));
                     $translation->setTranslation($elem->getName($locale));
                     $translation->addReference("localedata:$type:$id");
                     $event->addTranslation($locale, $translation);
-
-                    if (in_array($type, ["weekday", "month"])) {
-                        $translation = new Translation("", $elem->getAbbr($defaultLocale));
-                        $translation->setTranslation($elem->getAbbr($locale));
-                        $translation->addReference("localedata:$type:$id");
-                        $event->addTranslation($locale, $translation);
-                    }
                 }
             }
         }

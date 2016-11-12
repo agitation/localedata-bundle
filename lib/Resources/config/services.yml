@@ -97,6 +97,5 @@ services:
             - "@agit.cldr.adapter.currency"
             - "@agit.cldr.adapter.country"
             - "@agit.cldr.adapter.language"
-            - "@agit.cldr.adapter.time"
             - "@agit.cldr.adapter.timezone"
         tags: [{ name: kernel.event_listener, event: agit.intl.global.translations, method: onRegistration }]
