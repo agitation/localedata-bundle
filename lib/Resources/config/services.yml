@@ -18,26 +18,22 @@ services:
 
     agit.localedata.currency:
         class: Doctrine\Common\Persistence\ObjectRepository
-        factory_service: doctrine
-        factory_method: getRepository
+        factory: [ "@doctrine", getRepository ]
         arguments: [ AgitLocaleDataBundle:Currency ]
 
     agit.localedata.country:
         class: Doctrine\Common\Persistence\ObjectRepository
-        factory_service: doctrine
-        factory_method: getRepository
+        factory: [ "@doctrine", getRepository ]
         arguments: [ AgitLocaleDataBundle:Country ]
 
     agit.localedata.language:
         class: Doctrine\Common\Persistence\ObjectRepository
-        factory_service: doctrine
-        factory_method: getRepository
+        factory: [ "@doctrine", getRepository ]
         arguments: [ AgitLocaleDataBundle:Language ]
 
     agit.localedata.timezone:
         class: Doctrine\Common\Persistence\ObjectRepository
-        factory_service: doctrine
-        factory_method: getRepository
+        factory: [ "@doctrine", getRepository ]
         arguments: [ AgitLocaleDataBundle:Timezone ]
 
 
