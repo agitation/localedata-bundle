@@ -22,7 +22,7 @@ class Locale extends AbstractEntityObject
      * @Property\Name("ID")
      * @Property\StringType
      *
-     * The locale code, e.g. de_DE or en_GB.
+     * The locale code, e.g. de_DE or en_US.
      */
     protected $id;
 
