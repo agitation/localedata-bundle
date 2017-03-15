@@ -16,6 +16,7 @@ use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass="Agit\LocaleDataBundle\Entity\CurrencyRepository")
+ * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  */
 class Currency implements JsonSerializable
 {

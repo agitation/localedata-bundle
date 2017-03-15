@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="Agit\LocaleDataBundle\Entity\TimezoneRepository")
+ * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  */
 class Timezone
 {
