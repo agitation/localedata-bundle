@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/localedata-bundle
  * @link       http://github.com/agitation/localedata-bundle
@@ -55,6 +55,6 @@ class Timezone
      */
     public function getName()
     {
-        return Translate::x("timezone", $this->name);
+        return Translate::x('timezone', $this->name);
     }
 }

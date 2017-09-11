@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/localedata-bundle
  * @link       http://github.com/agitation/localedata-bundle
@@ -29,16 +29,16 @@ class LocaleDataExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction("getCountries", [$this, "getCountries"]),
-            new Twig_SimpleFunction("getCurrencies", [$this, "getCurrencies"]),
-            new Twig_SimpleFunction("getLanguages", [$this, "getLanguages"]),
-            new Twig_SimpleFunction("getTimezones", [$this, "getTimezones"])
+            new Twig_SimpleFunction('getCountries', [$this, 'getCountries']),
+            new Twig_SimpleFunction('getCurrencies', [$this, 'getCurrencies']),
+            new Twig_SimpleFunction('getLanguages', [$this, 'getLanguages']),
+            new Twig_SimpleFunction('getTimezones', [$this, 'getTimezones'])
         ];
     }
 
     public function getName()
     {
-        return "agit.localedata";
+        return 'agit.localedata';
     }
 
     public function getCountries(array $list = null)
@@ -65,13 +65,15 @@ class LocaleDataExtension extends Twig_Extension
     {
         $results = [];
 
-        foreach ($this->providerService->$method($list) as $entity) {
+        foreach ($this->providerService->$method($list) as $entity)
+        {
             $results[$entity->getId()] = $entity->getName();
         }
 
-        if (class_exists("Collator")) {
+        if (class_exists('Collator'))
+        {
             $collator = new Collator($this->localeService->getLocale());
-            uasort($results, [$collator, "compare"]);
+            uasort($results, [$collator, 'compare']);
         }
 
         return $results;

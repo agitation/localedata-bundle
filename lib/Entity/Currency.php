@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/localedata-bundle
  * @link       http://github.com/agitation/localedata-bundle
@@ -40,14 +40,14 @@ class Currency implements JsonSerializable
      */
     public function getName()
     {
-        return Translate::x("currency", $this->name);
+        return Translate::x('currency', $this->name);
     }
 
     public function jsonSerialize()
     {
         return [
-            "id"   => $this->getId(),
-            "name" => $this->getName()
+            'id' => $this->getId(),
+            'name' => $this->getName()
         ];
     }
 }

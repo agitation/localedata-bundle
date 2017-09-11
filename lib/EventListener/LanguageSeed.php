@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/localedata-bundle
  * @link       http://github.com/agitation/localedata-bundle
@@ -34,11 +34,12 @@ class LanguageSeed
             $this->localeService->getAvailableLocales()
         );
 
-        foreach ($languages as $language) {
-            $event->addSeedEntry("AgitLocaleDataBundle:Language", [
-                "id"        => $language->getCode(),
-                "name"      => $language->getName($defaultLocale),
-                "localName" => mb_convert_case($language->getLocalName(),  MB_CASE_TITLE, "UTF-8")
+        foreach ($languages as $language)
+        {
+            $event->addSeedEntry('AgitLocaleDataBundle:Language', [
+                'id' => $language->getCode(),
+                'name' => $language->getName($defaultLocale),
+                'localName' => mb_convert_case($language->getLocalName(), MB_CASE_TITLE, 'UTF-8')
             ]);
         }
     }

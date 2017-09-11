@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/localedata-bundle
  * @link       http://github.com/agitation/localedata-bundle
@@ -25,59 +25,59 @@ class ProviderService
         CurrencyRepository $currencyRepository,
         CountryRepository $countryRepository,
         LanguageRepository $languageRepository,
-        TimezoneRepository $timezoneRepository)
-    {
-        $this->repositories["Currency"] = $currencyRepository;
-        $this->repositories["Country"] = $countryRepository;
-        $this->repositories["Language"] = $languageRepository;
-        $this->repositories["Timezone"] = $timezoneRepository;
+        TimezoneRepository $timezoneRepository
+    ) {
+        $this->repositories['Currency'] = $currencyRepository;
+        $this->repositories['Country'] = $countryRepository;
+        $this->repositories['Language'] = $languageRepository;
+        $this->repositories['Timezone'] = $timezoneRepository;
     }
 
     public function getCountries(array $list = null)
     {
-        return $this->getList("Country", $list);
+        return $this->getList('Country', $list);
     }
 
     public function getCountry($id)
     {
-        return $this->getOne("Country", $id);
+        return $this->getOne('Country', $id);
     }
 
     public function getCurrencies(array $list = null)
     {
-        return $this->getList("Currency", $list);
+        return $this->getList('Currency', $list);
     }
 
     public function getCurrency($id)
     {
-        return $this->getOne("Currency", $id);
+        return $this->getOne('Currency', $id);
     }
 
     public function getLanguages(array $list = null)
     {
-        return $this->getList("Language", $list);
+        return $this->getList('Language', $list);
     }
 
     public function getLanguage($id)
     {
-        return $this->getOne("Language", $id);
+        return $this->getOne('Language', $id);
     }
 
     public function getTimezones(array $list = null)
     {
-        return $this->getList("Timezone", $list);
+        return $this->getList('Timezone', $list);
     }
 
     public function getTimezone($id)
     {
-        return $this->getOne("Timezone", $id);
+        return $this->getOne('Timezone', $id);
     }
 
     public function getList($entityName, array $list = null)
     {
         return ($list === null)
             ? $this->repositories[$entityName]->findAll()
-            : $this->repositories[$entityName]->findBy(["id" => $list]);
+            : $this->repositories[$entityName]->findBy(['id' => $list]);
     }
 
     public function getOne($entityName, $id)

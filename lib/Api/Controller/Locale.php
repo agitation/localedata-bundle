@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/localedata-bundle
  * @link       http://github.com/agitation/localedata-bundle
@@ -40,19 +40,22 @@ class Locale extends AbstractController
     public function search()
     {
         $locales = $this->localeService->getAvailableLocales();
-        $langs = array_map(function ($locale) { return substr($locale, 0, 2); }, $locales);
+        $langs = array_map(function ($locale) {
+            return substr($locale, 0, 2);
+        }, $locales);
 
         $languages = $this->entityManager->createQueryBuilder()
-            ->select("language")
-            ->from("AgitLocaleDataBundle:Language", "language", "language.id")
-            ->where("language.id IN (:langs)")
-            ->setParameter("langs", $langs)
+            ->select('language')
+            ->from('AgitLocaleDataBundle:Language', 'language', 'language.id')
+            ->where('language.id IN (:langs)')
+            ->setParameter('langs', $langs)
             ->getQuery()->getResult();
 
         $result = [];
 
-        foreach ($locales as $locale) {
-            list($lang, $countryCode) = explode("_", $locale);
+        foreach ($locales as $locale)
+        {
+            list($lang, $countryCode) = explode('_', $locale);
             $result[] = $this->createLocaleObject($locale, $languages[$lang], $countryCode);
         }
 
@@ -61,9 +64,9 @@ class Locale extends AbstractController
 
     private function createLocaleObject($localeCode, $language, $countryCode)
     {
-        $locale = $this->createObject("Locale");
-        $locale->set("id", $localeCode);
-        $locale->set("name", sprintf("%s (%s)", $language->getName(), $countryCode));
+        $locale = $this->createObject('Locale');
+        $locale->set('id', $localeCode);
+        $locale->set('name', sprintf('%s (%s)', $language->getName(), $countryCode));
 
         return $locale;
     }

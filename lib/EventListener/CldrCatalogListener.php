@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/localedata-bundle
  * @link       http://github.com/agitation/localedata-bundle
@@ -54,14 +54,17 @@ class CldrCatalogListener
         $locales = $this->localeService->getAvailableLocales();
 
         $lists = [];
-        $lists["currency"] = $this->currencyAdapter->getCurrencies($defaultLocale, $locales);
-        $lists["country"] = $this->countryAdapter->getCountries($defaultLocale, $locales);
-        $lists["timezone"] = $this->timezoneAdapter->getTimezones($defaultLocale, $locales);
-        $lists["language"] = $this->languageAdapter->getLanguages($defaultLocale, $locales);
+        $lists['currency'] = $this->currencyAdapter->getCurrencies($defaultLocale, $locales);
+        $lists['country'] = $this->countryAdapter->getCountries($defaultLocale, $locales);
+        $lists['timezone'] = $this->timezoneAdapter->getTimezones($defaultLocale, $locales);
+        $lists['language'] = $this->languageAdapter->getLanguages($defaultLocale, $locales);
 
-        foreach ($locales as $locale) {
-            foreach ($lists as $type => $list) {
-                foreach ($list as $id => $elem) {
+        foreach ($locales as $locale)
+        {
+            foreach ($lists as $type => $list)
+            {
+                foreach ($list as $id => $elem)
+                {
                     $translation = new Translation($type, $elem->getName($defaultLocale));
                     $translation->setTranslation($elem->getName($locale));
                     $translation->addReference("localedata:$type:$id");

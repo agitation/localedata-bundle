@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/localedata-bundle
  * @link       http://github.com/agitation/localedata-bundle
@@ -25,23 +25,24 @@ class TimezoneSetting extends AbstractSetting
 
     public function getId()
     {
-        return "agit.timezone";
+        return 'agit.timezone';
     }
 
     public function getName()
     {
-        return Translate::t("Timezone");
+        return Translate::t('Timezone');
     }
 
     public function getDefaultValue()
     {
-        return "Europe/Berlin";
+        return 'Europe/Berlin';
     }
 
     public function validate($value)
     {
-        if (! $this->timezoneRepository->find($value)) {
-            throw new InvalidSettingValueException(Translate::t("The selected timezone is invalid."));
+        if (! $this->timezoneRepository->find($value))
+        {
+            throw new InvalidSettingValueException(Translate::t('The selected timezone is invalid.'));
         }
     }
 }

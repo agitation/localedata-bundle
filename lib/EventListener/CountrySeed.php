@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/localedata-bundle
  * @link       http://github.com/agitation/localedata-bundle
@@ -34,13 +34,14 @@ class CountrySeed
             $this->localeService->getAvailableLocales()
         );
 
-        foreach ($countries as $country) {
-            $event->addSeedEntry("AgitLocaleDataBundle:Country", [
-                "id"       => $country->getCode(),
-                "code"     => $country->getLongCode(),
-                "phone"    => $country->getPhone(),
-                "name"     => $country->getName($defaultLocale),
-                "currency" => $country->getCurrency()->getCode()
+        foreach ($countries as $country)
+        {
+            $event->addSeedEntry('AgitLocaleDataBundle:Country', [
+                'id' => $country->getCode(),
+                'code' => $country->getLongCode(),
+                'phone' => $country->getPhone(),
+                'name' => $country->getName($defaultLocale),
+                'currency' => $country->getCurrency()->getCode()
             ]);
         }
     }

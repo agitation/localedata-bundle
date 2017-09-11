@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/localedata-bundle
  * @link       http://github.com/agitation/localedata-bundle
@@ -46,7 +46,7 @@ class Language
      */
     public function getName()
     {
-        return Translate::x("language", $this->name);
+        return Translate::x('language', $this->name);
     }
 
     /**

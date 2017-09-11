@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/localedata-bundle
  * @link       http://github.com/agitation/localedata-bundle
@@ -26,6 +26,6 @@ class Country extends AbstractLocaledataController
      */
     public function search()
     {
-        return $this->createSearchResult("Country");
+        return $this->createSearchResult('Country');
     }
 }

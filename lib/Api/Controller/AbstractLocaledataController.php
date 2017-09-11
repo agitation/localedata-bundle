@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/localedata-bundle
  * @link       http://github.com/agitation/localedata-bundle
@@ -26,7 +26,8 @@ abstract class AbstractLocaledataController extends AbstractController
         $entities = $this->provider->getList($entityName);
         $result = [];
 
-        foreach ($entities as $entity) {
+        foreach ($entities as $entity)
+        {
             $result[] = $this->createObject($entityName, $entity);
         }
 

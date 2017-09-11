@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/localedata-bundle
  * @link       http://github.com/agitation/localedata-bundle
@@ -25,23 +25,24 @@ class CurrencySetting extends AbstractSetting
 
     public function getId()
     {
-        return "agit.currency";
+        return 'agit.currency';
     }
 
     public function getName()
     {
-        return Translate::t("Currency");
+        return Translate::t('Currency');
     }
 
     public function getDefaultValue()
     {
-        return "EUR";
+        return 'EUR';
     }
 
     public function validate($value)
     {
-        if (! $this->currencyRepository->find($value)) {
-            throw new InvalidSettingValueException(Translate::t("The selected currency is invalid."));
+        if (! $this->currencyRepository->find($value))
+        {
+            throw new InvalidSettingValueException(Translate::t('The selected currency is invalid.'));
         }
     }
 }

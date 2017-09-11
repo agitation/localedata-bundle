@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/localedata-bundle
  * @link       http://github.com/agitation/localedata-bundle
@@ -34,11 +34,12 @@ class TimezoneSeed
             $this->localeService->getAvailableLocales()
         );
 
-        foreach ($timezones as $timezone) {
-            $event->addSeedEntry("AgitLocaleDataBundle:Timezone", [
-                "id"      => $timezone->getCode(),
-                "name"    => $timezone->getName($defaultLocale),
-                "country" => $timezone->getCountry()->getCode()
+        foreach ($timezones as $timezone)
+        {
+            $event->addSeedEntry('AgitLocaleDataBundle:Timezone', [
+                'id' => $timezone->getCode(),
+                'name' => $timezone->getName($defaultLocale),
+                'country' => $timezone->getCountry()->getCode()
             ]);
         }
     }

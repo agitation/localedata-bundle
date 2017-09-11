@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 /*
  * @package    agitation/localedata-bundle
  * @link       http://github.com/agitation/localedata-bundle
@@ -25,23 +25,24 @@ class CountrySetting extends AbstractSetting
 
     public function getId()
     {
-        return "agit.country";
+        return 'agit.country';
     }
 
     public function getName()
     {
-        return Translate::t("Country");
+        return Translate::t('Country');
     }
 
     public function getDefaultValue()
     {
-        return "DE";
+        return 'DE';
     }
 
     public function validate($value)
     {
-        if (! $this->countryRepository->find($value)) {
-            throw new InvalidSettingValueException(Translate::t("The selected country is invalid."));
+        if (! $this->countryRepository->find($value))
+        {
+            throw new InvalidSettingValueException(Translate::t('The selected country is invalid.'));
         }
     }
 }
