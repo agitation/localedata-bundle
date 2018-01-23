@@ -35,4 +35,20 @@ class Currency extends AbstractEntityObject
      * Name of the currency, in the requested locale.
      */
     protected $name;
+
+    /**
+     * @Property\Name("Symbol")
+     * @Property\StringType
+     *
+     * Symbol to be used with a value expression of this currency.
+     */
+    protected $symbol;
+
+    /**
+     * @Property\Name("Digits")
+     * @Property\IntegerType
+     *
+     * Number of fraction digits
+     */
+    protected $digits;
 }

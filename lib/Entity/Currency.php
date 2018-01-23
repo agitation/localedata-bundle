@@ -34,6 +34,16 @@ class Currency implements JsonSerializable
     protected $name;
 
     /**
+     * @ORM\Column(type="string",length=4)
+     */
+    protected $symbol;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    protected $digits;
+
+    /**
      * Get name.
      *
      * @return string
@@ -43,11 +53,23 @@ class Currency implements JsonSerializable
         return Translate::x('currency', $this->name);
     }
 
+    public function getSymbol()
+    {
+        return $this->symbol;
+    }
+
+    public function getDigits()
+    {
+        return $this->digits;
+    }
+
     public function jsonSerialize()
     {
         return [
             'id' => $this->getId(),
-            'name' => $this->getName()
+            'name' => $this->getName(),
+            'symbol' => $this->getSymbol(),
+            'digits' => $this->getDigits()
         ];
     }
 }
