@@ -11,8 +11,7 @@ namespace Agit\LocaleDataBundle\Api\Controller;
 
 use Agit\ApiBundle\Annotation\Controller\Controller;
 use Agit\ApiBundle\Annotation\Depends;
-use Agit\ApiBundle\Annotation\Endpoint\Endpoint;
-use Agit\ApiBundle\Annotation\Endpoint\Security;
+use Agit\ApiBundle\Annotation\Endpoint;
 
 /**
  * @Controller(namespace="localedata.v1")
@@ -21,8 +20,9 @@ use Agit\ApiBundle\Annotation\Endpoint\Security;
 class Language extends AbstractLocaledataController
 {
     /**
-     * @Endpoint(request="common.v1/ScalarNull", response="Language[]")
-     * @Security(capability="", allowCrossOrigin=true)
+     * @Endpoint\Endpoint(request="common.v1/ScalarNull", response="Language[]")
+     * @Endpoint\Security(capability="")
+     * @Endpoint\CrossOrigin(allow="all")
      */
     public function search()
     {

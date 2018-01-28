@@ -11,8 +11,7 @@ namespace Agit\LocaleDataBundle\Api\Controller;
 
 use Agit\ApiBundle\Annotation\Controller\Controller;
 use Agit\ApiBundle\Annotation\Depends;
-use Agit\ApiBundle\Annotation\Endpoint\Endpoint;
-use Agit\ApiBundle\Annotation\Endpoint\Security;
+use Agit\ApiBundle\Annotation\Endpoint;
 use Agit\ApiBundle\Api\Controller\AbstractController;
 use Agit\IntlBundle\Service\LocaleService;
 use Doctrine\ORM\EntityManager;
@@ -34,8 +33,9 @@ class Locale extends AbstractController
     }
 
     /**
-     * @Endpoint(request="common.v1/ScalarNull", response="Locale[]")
-     * @Security(capability="", allowCrossOrigin=true)
+     * @Endpoint\Endpoint(request="common.v1/ScalarNull", response="Locale[]")
+     * @Endpoint\Security(capability="")
+     * @Endpoint\CrossOrigin(allow="all")
      */
     public function search()
     {
