@@ -36,8 +36,6 @@ class CurrencySeed
 
         foreach ($currencies as $currency)
         {
-            p($currency->getSymbol());
-
             $event->addSeedEntry('AgitLocaleDataBundle:Currency', [
                 'id' => $currency->getCode(),
                 'name' => $currency->getName($defaultLocale),
