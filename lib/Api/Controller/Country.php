@@ -15,7 +15,7 @@ use Agit\ApiBundle\Annotation\Endpoint;
 
 
 /**
- * @Controller(namespace="localedata.v1")
+ * @Controller(namespace="common.v1")
  * @Depends({"@agit.localedata.provider"})
  */
 class Country extends AbstractLocaledataController

@@ -14,7 +14,7 @@ use Agit\ApiBundle\Annotation\Property;
 use Agit\ApiBundle\Api\Object\AbstractEntityObject;
 
 /**
- * @Object\Object(namespace="localedata.v1")
+ * @Object\Object(namespace="common.v1")
  *
  * A currency.
  */

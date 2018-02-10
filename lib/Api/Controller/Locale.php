@@ -17,7 +17,7 @@ use Agit\IntlBundle\Service\LocaleService;
 use Doctrine\ORM\EntityManager;
 
 /**
- * @Controller(namespace="localedata.v1")
+ * @Controller(namespace="common.v1")
  * @Depends({"@agit.intl.locale", "@doctrine.orm.entity_manager"})
  */
 class Locale extends AbstractController
