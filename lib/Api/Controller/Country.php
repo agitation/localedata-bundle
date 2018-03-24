@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /*
  * @package    agitation/localedata-bundle
  * @link       http://github.com/agitation/localedata-bundle
@@ -12,7 +13,6 @@ namespace Agit\LocaleDataBundle\Api\Controller;
 use Agit\ApiBundle\Annotation\Controller\Controller;
 use Agit\ApiBundle\Annotation\Depends;
 use Agit\ApiBundle\Annotation\Endpoint;
-
 
 /**
  * @Controller(namespace="common.v1")

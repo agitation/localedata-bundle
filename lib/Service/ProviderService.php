@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /*
  * @package    agitation/localedata-bundle
  * @link       http://github.com/agitation/localedata-bundle
