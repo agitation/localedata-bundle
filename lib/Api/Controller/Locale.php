@@ -34,7 +34,7 @@ class Locale extends AbstractController
     }
 
     /**
-     * @Endpoint\Endpoint(request="common.v1/ScalarNull", response="Locale[]")
+     * @Endpoint\Endpoint(request="null", response="Locale[]")
      * @Endpoint\Security(capability="")
      * @Endpoint\CrossOrigin(allow="all")
      */

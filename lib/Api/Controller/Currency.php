@@ -21,7 +21,7 @@ use Agit\ApiBundle\Annotation\Endpoint;
 class Currency extends AbstractLocaledataController
 {
     /**
-     * @Endpoint\Endpoint(request="common.v1/ScalarNull", response="Currency[]")
+     * @Endpoint\Endpoint(request="null", response="Currency[]")
      * @Endpoint\Security(capability="")
      * @Endpoint\CrossOrigin(allow="all")
      */

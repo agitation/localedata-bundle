@@ -21,7 +21,7 @@ use Agit\ApiBundle\Annotation\Endpoint;
 class Country extends AbstractLocaledataController
 {
     /**
-     * @Endpoint\Endpoint(request="common.v1/ScalarNull", response="Country[]")
+     * @Endpoint\Endpoint(request="null", response="Country[]")
      * @Endpoint\Security(capability="")
      * @Endpoint\CrossOrigin(allow="all")
      */
