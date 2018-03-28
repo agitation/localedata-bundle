@@ -4,13 +4,6 @@ services:
         class: Agit\LocaleDataBundle\Service\ProviderService
         arguments: [ "@agit.localedata.currency", "@agit.localedata.country", "@agit.localedata.language", "@agit.localedata.timezone" ]
 
-    # optional Twig extension for key-value-lists of localedata
-    agit.localedata.twig:
-        class: Agit\LocaleDataBundle\Service\LocaleDataExtension
-        tags:
-            - { name: twig.extension }
-        arguments:  [ "@agit.localedata.provider", "@agit.intl.locale" ]
-
     #
     # repository services, to access single localedata repositories, if using
     # agit.localedata.provider is not desired
