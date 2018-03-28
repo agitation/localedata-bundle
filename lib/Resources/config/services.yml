@@ -65,24 +65,6 @@ services:
         arguments: [ "@agit.intl.locale", "@agit.cldr.adapter.timezone" ]
         tags: [{ name: kernel.event_listener, event: agit.seed, method: registerSeed }]
 
-
-    # settings (only loaded if setting-bundle is installed)
-
-    agit.order.setting.currency:
-        class: Agit\LocaleDataBundle\Setting\CurrencySetting
-        arguments: [ "@agit.localedata.currency" ]
-        tags: [{ name: agit.setting }]
-
-    agit.order.setting.country:
-        class: Agit\LocaleDataBundle\Setting\CountrySetting
-        arguments: [ "@agit.localedata.country" ]
-        tags: [{ name: agit.setting }]
-
-    agit.order.setting.timezone:
-        class: Agit\LocaleDataBundle\Setting\TimezoneSetting
-        arguments: [ "@agit.localedata.timezone" ]
-        tags: [{ name: agit.setting }]
-
     # registration listener for translation catalogs
 
     agit.localedata.catalog.register:
@@ -95,3 +77,10 @@ services:
             - "@agit.cldr.adapter.language"
             - "@agit.cldr.adapter.timezone"
         tags: [{ name: kernel.event_listener, event: agit.intl.global.translations, method: onRegistration }]
+
+
+    # aliases
+    Agit\LocaleDataBundle\Entity\CurrencyRepository: "@agit.localedata.currency"
+    Agit\LocaleDataBundle\Entity\CountryRepository: "@agit.localedata.country"
+    Agit\LocaleDataBundle\Entity\TimezoneRepository: "@agit.localedata.timezone"
+    Agit\LocaleDataBundle\Entity\LanguageRepository: "@agit.localedata.language"
